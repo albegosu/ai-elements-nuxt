@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Changed
+- Docs and README: npm published install path, v0.5.0 on docs site, GitHub install as optional
+
 ## 0.5.0 — 2026-06-04
 
 ### Added

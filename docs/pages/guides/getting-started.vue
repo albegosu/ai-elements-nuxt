@@ -19,6 +19,16 @@ definePageMeta({ layout: 'default' })
         <div class="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">
           <pre class="overflow-x-auto bg-zinc-950 p-4 text-[13px] text-zinc-100"><code>pnpm add ai-elements-nuxt ai @ai-sdk/vue</code></pre>
         </div>
+        <p class="mt-2 text-xs text-zinc-500">
+          Available on
+          <a
+            href="https://www.npmjs.com/package/ai-elements-nuxt"
+            class="text-blue-600 dark:text-blue-400"
+            target="_blank"
+            rel="noopener"
+          >npm</a>
+          as <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">ai-elements-nuxt</code>.
+        </p>
       </div>
 
       <div>
@@ -51,6 +61,20 @@ OPENAI_API_KEY=sk-...</code></pre>
         <p class="mt-2 text-xs text-zinc-500">
           Nuxt reads <code>.env</code> automatically — <code>process.env.OPENAI_API_KEY</code> is available in server routes.
           See the <a href="https://ai-sdk.dev/providers/ai-sdk-providers/openai" class="text-blue-600 dark:text-blue-400" target="_blank" rel="noopener">AI SDK provider docs</a> for each provider's env variable name.
+        </p>
+      </div>
+
+      <div>
+        <p class="mb-2 font-medium text-zinc-700 dark:text-zinc-300">Install from GitHub (optional)</p>
+        <p class="mb-2 text-xs text-zinc-500">
+          Use the latest commit from the repository instead of the npm release:
+        </p>
+        <div class="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">
+          <pre class="overflow-x-auto bg-zinc-950 p-4 text-[13px] text-zinc-100"><code>pnpm add github:albegosu/ai-elements-nuxt</code></pre>
+        </div>
+        <p class="mt-2 text-xs text-zinc-500">
+          With strict pnpm build settings, allow lifecycle scripts in <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">pnpm-workspace.yaml</code>:
+          <code class="block mt-1 rounded bg-zinc-100 px-2 py-1 dark:bg-zinc-800">allowBuilds: { ai-elements-nuxt: true }</code>
         </p>
       </div>
 

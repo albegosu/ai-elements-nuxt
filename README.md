@@ -1,12 +1,12 @@
 # ai-elements-nuxt
 
 [![CI](https://github.com/albegosu/ai-elements-nuxt/actions/workflows/ci.yml/badge.svg)](https://github.com/albegosu/ai-elements-nuxt/actions/workflows/ci.yml)
-[![license](https://img.shields.io/npm/l/ai-elements-nuxt.svg)](LICENSE)
+[![license](https://img.shields.io/github/license/albegosu/ai-elements-nuxt?color=brightgreen)](LICENSE)
 [![version](https://img.shields.io/npm/v/ai-elements-nuxt.svg)](https://www.npmjs.com/package/ai-elements-nuxt)
 
 **Nuxt/Vue complement to [Vercel AI Elements](https://github.com/vercel/ai-elements)** — headless AI UI components for the [AI SDK](https://ai-sdk.dev) ecosystem.
 
-[Documentation](https://albegosu.github.io/ai-elements-nuxt/) · [Contributing](.github/CONTRIBUTING.md) · [Code of Conduct](.github/CODE_OF_CONDUCT.md) · [Security](.github/SECURITY.md) · [Changelog](CHANGELOG.md)
+[Documentation](https://albegosu.github.io/ai-elements-nuxt/) · [npm](https://www.npmjs.com/package/ai-elements-nuxt) · [Contributing](.github/CONTRIBUTING.md) · [Code of Conduct](.github/CODE_OF_CONDUCT.md) · [Security](.github/SECURITY.md) · [Changelog](CHANGELOG.md)
 
 > Not a replacement for AI Elements. This project extends the same UI patterns to Nuxt 3 and Vue 3 so you can build AI-native apps with your own design system.
 
@@ -63,7 +63,7 @@ export default defineNuxtConfig({
 
 ### Install from GitHub
 
-If the package is not yet on npm:
+To use the latest commit from the repository instead of the npm release:
 
 ```bash
 pnpm add github:albegosu/ai-elements-nuxt

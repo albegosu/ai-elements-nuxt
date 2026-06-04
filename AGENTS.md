@@ -23,13 +23,17 @@ The library does **not** ship a full design system. Style with your CSS/Tailwind
 
 ## Install
 
-### From npm (when published)
+### From npm
+
+Published as [`ai-elements-nuxt`](https://www.npmjs.com/package/ai-elements-nuxt):
 
 ```bash
 pnpm add ai-elements-nuxt ai @ai-sdk/vue
 ```
 
 ### From GitHub
+
+For the latest commit from the repository (not the npm release):
 
 ```bash
 pnpm add github:albegosu/ai-elements-nuxt

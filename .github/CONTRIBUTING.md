@@ -1,6 +1,6 @@
 # Contributing to ai-elements-nuxt
 
-Thank you for your interest in contributing. This project is a Nuxt module complementing [Vercel AI Elements](https://github.com/vercel/ai-elements) — headless AI UI for the [AI SDK](https://ai-sdk.dev).
+Thank you for your interest in contributing. This project is a Nuxt module complementing [Vercel AI Elements](https://github.com/vercel/ai-elements) — headless AI UI for the [AI SDK](https://ai-sdk.dev). The package is published on [npm as `ai-elements-nuxt`](https://www.npmjs.com/package/ai-elements-nuxt).
 
 ## Prerequisites
 
