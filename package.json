@@ -1,0 +1,92 @@
+{
+  "name": "ai-elements-nuxt",
+  "version": "0.4.0",
+  "description": "Nuxt/Vue complement to Vercel AI Elements — headless AI UI components for the AI SDK ecosystem",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.mts",
+      "import": "./dist/module.mjs"
+    },
+    "./server": {
+      "types": "./dist/runtime/server/index.d.ts",
+      "import": "./dist/runtime/server/index.js"
+    }
+  },
+  "main": "./dist/module.mjs",
+  "types": "./dist/types.d.mts",
+  "files": [
+    "dist",
+    "src/runtime"
+  ],
+  "scripts": {
+    "prepack": "nuxt-module-build build && node scripts/verify-dist.mjs",
+    "prepublishOnly": "pnpm run build && node scripts/verify-dist.mjs",
+    "dev": "TMPDIR=/tmp nuxi dev docs",
+    "dev:docs": "TMPDIR=/tmp nuxi dev docs",
+    "dev:playground": "TMPDIR=/tmp nuxi dev playground",
+    "dev:build": "nuxi build docs",
+    "build:docs": "nuxi build docs",
+    "generate:docs": "nuxi generate docs",
+    "dev:prepare": "nuxt-module-build build --stub && nuxi prepare playground && nuxi prepare docs",
+    "build": "nuxt-module-build build",
+    "typecheck": "vue-tsc --noEmit",
+    "lint": "eslint src/module.ts src/runtime/composables src/runtime/utils src/runtime/server src/runtime/components test",
+    "verify:dist": "node scripts/verify-dist.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "peerDependencies": {
+    "@ai-sdk/vue": "^3.0.0",
+    "ai": "^6.0.0",
+    "nuxt": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@ai-sdk/vue": {
+      "optional": true
+    },
+    "ai": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@nuxt/kit": "^3.15.0",
+    "marked": "^15.0.0"
+  },
+  "devDependencies": {
+    "@ai-sdk/vue": "^3.0.0",
+    "@nuxt/eslint-config": "^0.7.0",
+    "@nuxt/module-builder": "^1.0.2",
+    "@nuxt/test-utils": "^3.15.0",
+    "@types/node": "^22.0.0",
+    "@vitejs/plugin-vue": "^5.2.0",
+    "@vue/test-utils": "^2.4.0",
+    "ai": "^6.0.0",
+    "eslint": "^9.0.0",
+    "h3": "^1.13.0",
+    "happy-dom": "^15.0.0",
+    "nuxt": "^3.15.0",
+    "typescript": "^5.3.0",
+    "vitest": "^2.1.0",
+    "vitest-fail-on-console": "^0.10.1",
+    "vue": "^3.5.0",
+    "vue-tsc": "^2.0.0",
+    "zod": "^3.24.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/albegosu/ai-elements-nuxt"
+  },
+  "keywords": [
+    "nuxt",
+    "nuxt-module",
+    "vue",
+    "ai",
+    "ai-elements",
+    "headless",
+    "chatbot",
+    "streaming",
+    "vercel-ai-sdk"
+  ]
+}

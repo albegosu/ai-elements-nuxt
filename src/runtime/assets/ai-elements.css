@@ -1,0 +1,502 @@
+/* Optional base styles for ai-elements-nuxt — enable via aiElements.defaultStyles */
+
+/* ── Chatbot ─────────────────────────────────────────────── */
+
+[data-ai-message] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  max-width: 100%;
+}
+
+[data-ai-message][data-role="user"] {
+  align-self: flex-end;
+  background: color-mix(in srgb, currentColor 6%, transparent);
+}
+
+[data-ai-message][data-role="assistant"] {
+  align-self: flex-start;
+}
+
+[data-ai-prompt-input] {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-end;
+  padding: 0.5rem;
+  border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, currentColor 2%, transparent);
+}
+
+[data-ai-prompt-input] textarea,
+[data-ai-prompt-input] input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font: inherit;
+  resize: none;
+  outline: none;
+}
+
+[data-ai-prompt-input] button {
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+  background: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+[data-ai-conversation-item][data-active] {
+  font-weight: 600;
+}
+
+[data-ai-shimmer-line] {
+  height: 0.75rem;
+  border-radius: 0.375rem;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, currentColor 6%, transparent),
+    color-mix(in srgb, currentColor 14%, transparent),
+    color-mix(in srgb, currentColor 6%, transparent)
+  );
+  background-size: 200% 100%;
+  animation: ai-shimmer 1.5s ease-in-out infinite;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes ai-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+[data-ai-cursor] {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  background: currentColor;
+  animation: ai-cursor-blink 1s step-end infinite;
+}
+
+@keyframes ai-cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Attachments */
+[data-ai-attachments][data-layout="grid"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+[data-ai-attachment] img {
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+  border-radius: 0.75rem;
+}
+
+[data-ai-attachments][data-layout="inline"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+/* Chain of thought */
+[data-ai-chain-of-thought] {
+  font-size: 0.875rem;
+}
+
+[data-ai-cot-steps] {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+[data-ai-cot-step] {
+  position: relative;
+  padding-left: 1rem;
+  padding-bottom: 0.75rem;
+  border-left: 2px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+
+[data-ai-cot-step]:last-child {
+  border-left-color: transparent;
+  padding-bottom: 0;
+}
+
+[data-ai-cot-indicator] {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, currentColor 30%, transparent);
+  margin-right: 0.5rem;
+}
+
+[data-ai-cot-step][data-status="active"] [data-ai-cot-indicator],
+[data-ai-cot-step][data-status="complete"] [data-ai-cot-indicator] {
+  background: color-mix(in srgb, #3b82f6 80%, currentColor);
+}
+
+[data-ai-cot-search-results] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+[data-ai-cot-search-link],
+[data-ai-cot-search-results] a {
+  font-size: 0.75rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.375rem;
+  background: color-mix(in srgb, currentColor 8%, transparent);
+  text-decoration: none;
+  color: inherit;
+}
+
+[data-ai-cot-images] img,
+[data-ai-cot-image] {
+  max-width: 8rem;
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Reasoning */
+[data-ai-reasoning] button {
+  font-size: 0.75rem;
+  color: color-mix(in srgb, currentColor 50%, transparent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Tools */
+[data-ai-tool] {
+  font-size: 0.8125rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid color-mix(in srgb, currentColor 10%, transparent);
+  background: color-mix(in srgb, currentColor 3%, transparent);
+}
+
+[data-ai-tool-status][data-status="approval-requested"] {
+  font-weight: 600;
+}
+
+/* Agent */
+[data-ai-agent-step] {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+}
+
+[data-ai-agent-indicator] {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 0.375rem;
+  background: color-mix(in srgb, currentColor 25%, transparent);
+}
+
+[data-ai-agent-step][data-status="running"] [data-ai-agent-indicator],
+[data-ai-agent-step][data-status="completed"] [data-ai-agent-indicator] {
+  background: color-mix(in srgb, #3b82f6 70%, currentColor);
+}
+
+/* Suggestions */
+[data-ai-suggestions] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+[data-ai-suggestion] button,
+[data-ai-suggestions] button {
+  font-size: 0.8125rem;
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Sources */
+[data-ai-sources] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+}
+
+[data-ai-source] a {
+  color: color-mix(in srgb, #3b82f6 90%, currentColor);
+  text-decoration: none;
+}
+
+[data-ai-source] a:hover {
+  text-decoration: underline;
+}
+
+/* ── Code ────────────────────────────────────────────────── */
+
+[data-ai-code-block] {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8125rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+
+[data-ai-code-header] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 10%, transparent);
+  background: color-mix(in srgb, currentColor 4%, transparent);
+}
+
+[data-ai-code-pre] {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+[data-ai-code-line][data-highlighted] {
+  background: color-mix(in srgb, #eab308 15%, transparent);
+  display: block;
+  margin: 0 -1rem;
+  padding: 0 1rem;
+}
+
+[data-ai-terminal] {
+  font-family: ui-monospace, monospace;
+  font-size: 0.8125rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+
+[data-ai-terminal-header] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 10%, transparent);
+  background: color-mix(in srgb, currentColor 4%, transparent);
+}
+
+[data-ai-terminal-dot][data-color="red"] {
+  background: #ef4444;
+}
+
+[data-ai-terminal-dot][data-color="yellow"] {
+  background: #eab308;
+}
+
+[data-ai-terminal-dot][data-color="green"] {
+  background: #22c55e;
+}
+
+[data-ai-terminal-dot] {
+  display: inline-block;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+}
+
+[data-ai-terminal-body] {
+  padding: 0.5rem 0;
+}
+
+[data-ai-terminal-line][data-type="command"] {
+  color: color-mix(in srgb, currentColor 90%, transparent);
+}
+
+[data-ai-terminal-line][data-type="output"] {
+  color: color-mix(in srgb, currentColor 45%, transparent);
+}
+
+[data-ai-artifact-tabs] {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 10%, transparent);
+}
+
+[data-ai-artifact-tab] {
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: color-mix(in srgb, currentColor 50%, transparent);
+}
+
+[data-ai-artifact-tab][data-active] {
+  color: inherit;
+  font-weight: 500;
+  border-bottom: 2px solid color-mix(in srgb, #3b82f6 80%, currentColor);
+  margin-bottom: -1px;
+}
+
+[data-ai-vue-preview-body] {
+  border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+[data-ai-markdown-code] {
+  font-family: ui-monospace, monospace;
+  font-size: 0.875rem;
+  overflow-x: auto;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  background: color-mix(in srgb, currentColor 4%, transparent);
+}
+
+[data-ai-markdown-table] {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  margin: 0.75rem 0;
+}
+
+[data-ai-markdown-table] th,
+[data-ai-markdown-table] td {
+  border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+[data-ai-markdown-table] th {
+  background: color-mix(in srgb, currentColor 6%, transparent);
+  font-weight: 600;
+}
+
+[data-ai-markdown-list] {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+[data-ai-markdown-list] li {
+  margin: 0.25rem 0;
+}
+
+[data-ai-markdown-list] input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+[data-ai-markdown-quote] {
+  border-left: 3px solid color-mix(in srgb, currentColor 20%, transparent);
+  padding-left: 1rem;
+  margin: 0.75rem 0;
+  color: color-mix(in srgb, currentColor 70%, transparent);
+}
+
+del,
+s {
+  text-decoration: line-through;
+  opacity: 0.85;
+}
+
+/* ── Workflow ────────────────────────────────────────────── */
+
+[data-ai-node] {
+  border-radius: 0.5rem;
+  border: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+  background: color-mix(in srgb, currentColor 2%, transparent);
+  box-shadow: 0 1px 2px color-mix(in srgb, currentColor 8%, transparent);
+}
+
+[data-ai-node][data-status="running"] {
+  border-color: color-mix(in srgb, #3b82f6 50%, currentColor);
+  box-shadow: 0 0 0 3px color-mix(in srgb, #3b82f6 15%, transparent);
+}
+
+[data-ai-node][data-status="completed"] {
+  border-color: color-mix(in srgb, #22c55e 40%, currentColor);
+}
+
+[data-ai-node-port] {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, currentColor 30%, transparent);
+  background: color-mix(in srgb, currentColor 8%, transparent);
+  padding: 0;
+  cursor: crosshair;
+}
+
+[data-ai-edge][data-selected] [data-ai-edge-path] {
+  stroke-width: 3;
+}
+
+[data-ai-connection][data-invalid] path {
+  stroke: color-mix(in srgb, #ef4444 70%, currentColor);
+}
+
+[data-ai-controls] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  background: color-mix(in srgb, currentColor 4%, transparent);
+}
+
+[data-ai-controls] button {
+  min-width: 2rem;
+  min-height: 2rem;
+  border: none;
+  border-radius: 0.375rem;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+[data-ai-panel][data-collapsed] [data-ai-panel-body] {
+  display: none;
+}
+
+/* ── Utilities ───────────────────────────────────────────── */
+
+[data-ai-image] img {
+  max-width: 100%;
+  border-radius: 0.5rem;
+}
+
+[data-ai-image-lightbox] {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  cursor: zoom-out;
+  background: color-mix(in srgb, #000 80%, transparent);
+}
+
+[data-ai-image-lightbox-img] {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 0.5rem;
+}
