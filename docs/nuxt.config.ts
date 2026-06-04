@@ -12,7 +12,8 @@ export default defineNuxtConfig({
     classSuffix: '',
   },
   app: {
-    baseURL: '/',
+    // GitHub Pages project site: https://<user>.github.io/<repo>/
+    baseURL: process.env.NUXT_APP_BASE_URL || '/',
     head: {
       link: [
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },

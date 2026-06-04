@@ -45,6 +45,8 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Generate static docs
+        env:
+          NUXT_APP_BASE_URL: /${{ github.event.repository.name }}/
         run: pnpm run generate:docs
 
       - name: Upload artifact
