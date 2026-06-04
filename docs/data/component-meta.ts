@@ -132,8 +132,12 @@ const meta: Record<string, ComponentMeta> = {
       { name: 'modelValue', type: 'string', description: 'Selected model id (v-model)' },
       { name: 'groupByProvider', type: 'boolean', default: 'true' },
     ],
-    slots: ['trigger', 'model', 'group'],
-    code: `<AiModelSelector v-model="model" :models="models" />`,
+    slots: ['trigger', 'selected', 'search', 'option', 'group-header', 'empty'],
+    code: `<AiModelSelector v-model="modelId" :models="models">
+  <template #option="{ model, selected, select }">
+    <button type="button" @click="select()">{{ model.name }}</button>
+  </template>
+</AiModelSelector>`,
   },
   'chatbot/inline-citation': {
     props: [

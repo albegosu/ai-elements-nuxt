@@ -4,8 +4,11 @@ definePageMeta({ layout: 'default' })
 const items = [
   {
     name: 'useAiChat(options?)',
-    desc: 'With api: wraps @ai-sdk/vue Chat. Without api: local-only messages. Returns aiMessages, input, handleSubmit, isStreaming, tool helpers.',
-    snippet: `const chat = useAiChat({ api: '/api/chat' })`,
+    desc: 'With api: wraps @ai-sdk/vue Chat + DefaultChatTransport. Supports body, headers, credentials (plain or () => ({ ... })) for dynamic requests. Without api: local-only messages.',
+    snippet: `const chat = useAiChat({
+  api: '/api/chat',
+  body: () => ({ conversationId: id.value, model: model.value }),
+})`,
   },
   {
     name: 'useAiChatLocal(options?)',
@@ -53,6 +56,14 @@ const items = [
     />
 
     <section class="space-y-10 text-sm text-zinc-600 dark:text-zinc-400">
+      <p class="leading-relaxed">
+        Utilities
+        <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">toAiMessageProps</code>
+        and
+        <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">mapMessageParts</code>
+        are auto-imported. For RAG and custom transports see
+        <NuxtLink to="/guides/custom-transport" class="text-blue-600 dark:text-blue-400">Custom Transport &amp; RAG</NuxtLink>.
+      </p>
       <article v-for="item in items" :key="item.name">
         <h2 class="mb-1 font-mono text-base font-semibold text-zinc-900 dark:text-zinc-50">
           {{ item.name }}

@@ -14,8 +14,17 @@ definePageMeta({ layout: 'default' })
         1. Install
       </h2>
       <div class="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">
-        <pre class="overflow-x-auto bg-zinc-950 p-4 text-[13px] text-zinc-100"><code>pnpm add ai-elements-nuxt ai @ai-sdk/vue</code></pre>
+        <pre class="overflow-x-auto bg-zinc-950 p-4 text-[13px] text-zinc-100"><code>pnpm add ai-elements-nuxt ai @ai-sdk/vue
+
+# Or from GitHub if not on npm yet:
+# pnpm add github:albegosu/ai-elements-nuxt</code></pre>
       </div>
+      <p class="mt-2">
+        Types for TypeScript:
+        <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">import type { AiMessageProps } from 'ai-elements-nuxt/types'</code>.
+        Agents: see
+        <a href="https://github.com/albegosu/ai-elements-nuxt/blob/main/AGENTS.md" class="text-blue-600 dark:text-blue-400" target="_blank" rel="noopener">AGENTS.md</a>.
+      </p>
 
       <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
         2. Register the module

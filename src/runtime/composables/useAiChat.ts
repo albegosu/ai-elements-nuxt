@@ -9,9 +9,18 @@ import { toAiMessageProps } from '../utils/mapMessageParts'
 import type { AiMessageProps, AiSuggestion } from '../types'
 import { useAiChatLocal, type UseAiChatLocalReturn } from './useAiChatLocal'
 
+/** Value, promise, or getter — matches AI SDK `DefaultChatTransport` resolvables. */
+type AiChatResolvable<T> = T | Promise<T> | (() => T | Promise<T>)
+
 export interface UseAiChatOptions extends Omit<ChatInit<UIMessage>, 'transport'> {
   /** API route for chat (e.g. `/api/chat`). When omitted, uses local-only state. */
   api?: string
+  /** Extra JSON sent with each chat request (object or `() => ({ ... })` for dynamic fields). */
+  body?: AiChatResolvable<object>
+  /** HTTP headers sent with each chat request. */
+  headers?: AiChatResolvable<Record<string, string> | Headers>
+  /** Fetch credentials mode for the chat API. */
+  credentials?: AiChatResolvable<RequestCredentials>
   suggestions?: AiSuggestion[]
   /** Initial messages for local-only mode (no `api`) */
   initialMessages?: AiMessageProps[]
@@ -64,14 +73,21 @@ export function useAiChat(
     })
   }
 
-  const { api, suggestions: initialSuggestions, ...chatInit } = options
+  const {
+    api,
+    suggestions: initialSuggestions,
+    body,
+    headers,
+    credentials,
+    ...chatInit
+  } = options
 
   let chat: Chat<UIMessage>
   const initError = ref<Error | undefined>(undefined)
 
   try {
     chat = new Chat({
-      transport: new DefaultChatTransport({ api }),
+      transport: new DefaultChatTransport({ api, body, headers, credentials }),
       ...chatInit,
     })
   } catch (err) {

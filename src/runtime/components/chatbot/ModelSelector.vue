@@ -49,10 +49,25 @@ function toggle() {
   isOpen.value = !isOpen.value
   if (!isOpen.value) search.value = ''
 }
+
+const selectorRef = ref<HTMLElement | null>(null)
+
+function handleClickOutside(event: MouseEvent) {
+  if (!isOpen.value) return
+  const el = selectorRef.value
+  if (el && !el.contains(event.target as Node)) {
+    isOpen.value = false
+    search.value = ''
+  }
+}
+
+onMounted(() => document.addEventListener('click', handleClickOutside))
+onUnmounted(() => document.removeEventListener('click', handleClickOutside))
 </script>
 
 <template>
   <div
+    ref="selectorRef"
     data-ai-model-selector
     :data-open="isOpen || undefined"
   >
@@ -106,7 +121,12 @@ function toggle() {
             :aria-selected="model.id === modelValue"
             @click="select(model)"
           >
-            <slot name="option" :model="model" :selected="model.id === modelValue">
+            <slot
+              name="option"
+              :model="model"
+              :selected="model.id === modelValue"
+              :select="() => select(model)"
+            >
               <span>{{ model.name }}</span>
               <span v-if="model.description" data-ai-model-description>{{ model.description }}</span>
             </slot>

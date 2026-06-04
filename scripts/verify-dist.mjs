@@ -58,6 +58,12 @@ if (!existsSync(join(root, 'dist/module.mjs'))) {
   process.exit(1)
 }
 
+const typesExportPath = join(root, 'dist/runtime/types/index.d.ts')
+if (!existsSync(typesExportPath)) {
+  console.error('Missing dist/runtime/types/index.d.ts — run pnpm run build')
+  process.exit(1)
+}
+
 if (missingComponents.length || missingComposables.length || missingServer.length) {
   console.error('dist/ is out of sync with src/runtime:')
   for (const f of missingComponents) console.error(`  missing component: ${f}`)

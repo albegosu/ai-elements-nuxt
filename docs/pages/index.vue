@@ -34,6 +34,14 @@ const categoryIcons: Record<string, string> = {
         Headless Vue components for AI-native apps. Conversations, tools, code blocks, voice, and workflows.
         Style them with Tailwind or your own design system via
         <code class="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-sm dark:bg-zinc-800">data-ai-*</code> hooks.
+        Coding agents: use
+        <a
+          href="https://github.com/albegosu/ai-elements-nuxt/blob/main/AGENTS.md"
+          class="text-blue-600 underline dark:text-blue-400"
+          target="_blank"
+          rel="noopener noreferrer"
+        >AGENTS.md</a>
+        as the implementation guide.
       </p>
 
       <div class="mt-8 flex flex-wrap gap-3 text-sm">

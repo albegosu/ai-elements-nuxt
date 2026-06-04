@@ -49,4 +49,23 @@ describe('useAiChat', () => {
     chat.handleSubmit({ preventDefault: () => {} })
     expect(chat.messages.value).toHaveLength(1)
   })
+
+  it('passes body, headers, and credentials to DefaultChatTransport', async () => {
+    const { DefaultChatTransport } = await import('ai')
+    const { useAiChat } = await import('../../src/runtime/composables/useAiChat')
+    const body = () => ({ conversationId: 'c1', model: 'gpt-4o' })
+    const headers = { 'X-Custom': 'test' }
+    useAiChat({
+      api: '/api/chat',
+      body,
+      headers,
+      credentials: 'include',
+    })
+    expect(DefaultChatTransport).toHaveBeenCalledWith({
+      api: '/api/chat',
+      body,
+      headers,
+      credentials: 'include',
+    })
+  })
 })

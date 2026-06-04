@@ -12,6 +12,10 @@
     "./server": {
       "types": "./dist/runtime/server/index.d.ts",
       "import": "./dist/runtime/server/index.js"
+    },
+    "./types": {
+      "types": "./dist/runtime/types/index.d.ts",
+      "import": "./dist/runtime/types/index.js"
     }
   },
   "main": "./dist/module.mjs",

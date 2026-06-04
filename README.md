@@ -26,6 +26,28 @@ export default defineNuxtConfig({
 })
 ```
 
+### Install from GitHub
+
+If the package is not yet on npm:
+
+```bash
+pnpm add github:albegosu/ai-elements-nuxt
+```
+
+With pnpm strict build settings, allow the module to run its `prepack` build:
+
+```yaml
+# pnpm-workspace.yaml (consumer monorepo root)
+allowBuilds:
+  ai-elements-nuxt: true
+```
+
+Types in consumer apps:
+
+```ts
+import type { AiMessageProps, AiSource } from 'ai-elements-nuxt/types'
+```
+
 ## Quick start (streaming chat)
 
 **1. Server route** (`server/api/chat.post.ts`):
@@ -136,7 +158,7 @@ All components are auto-imported with the `Ai` prefix.
 
 | Category | Components |
 |----------|------------|
-| **Chatbot** | Message, PromptInput, Conversation, Reasoning, ChainOfThought, Sources, Tool, ToolApproval, Suggestion, Attachments, Shimmer, StreamingCursor, Plan, Task, Checkpoint, Confirmation, Context, Queue, InlineCitation, ModelSelector, ErrorBoundary |
+| **Chatbot** | Message, PromptInput, Conversation (thread list / sidebar), Reasoning, ChainOfThought, Sources, Tool, ToolApproval, Suggestion, Attachments, Shimmer, StreamingCursor, Plan, Task, Checkpoint, Confirmation, Context, Queue, InlineCitation, ModelSelector, ErrorBoundary |
 | **Code** | CodeBlock, Terminal, FileTree, StackTrace, Agent, Artifact, Commit, SchemaDisplay, PackageInfo, EnvVars, TestResults, Snippet, WebPreview, Sandbox, VuePreview |
 | **Voice** | SpeechInput, Transcription, AudioPlayer, MicSelector, VoiceSelector, Persona |
 | **Workflow** | Canvas, Node, Edge, Connection, Controls, Panel, Toolbar |
@@ -146,7 +168,7 @@ All components are auto-imported with the `Ai` prefix.
 
 | Composable | Description |
 |------------|-------------|
-| `useAiChat` | Wraps `@ai-sdk/vue` `Chat` when `api` is set; local state otherwise |
+| `useAiChat` | Wraps `@ai-sdk/vue` `Chat` when `api` is set; supports `body` / `headers` / `credentials`; local state without `api` |
 | `useAiChatLocal` | Local message state without AI SDK |
 | `useAiChatPersisted` | `useAiChat` with localStorage/sessionStorage persistence |
 | `useAiAgent` | Agent steps, plan, tasks, and confirmation flow on top of chat |
@@ -184,7 +206,7 @@ pnpm dev
 ```
 
 Opens the docs site at `http://localhost:3000` (or the [hosted docs](https://albegosu.github.io/ai-elements-nuxt/)) with:
-- **Guides**: getting started, building a chat, building an agent, styling, composables
+- **Guides**: getting started, building a chat, custom transport & RAG, building an agent, styling, composables
 - Component reference with Preview/Code tabs for all 52 components
 - Playgrounds: chat, streaming, agent, code, voice & workflow
 

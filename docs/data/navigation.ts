@@ -25,7 +25,7 @@ export const categories: NavCategory[] = [
       { slug: 'checkpoint', name: 'Checkpoint', component: 'AiCheckpoint', description: 'Pipeline checkpoint status indicators.' },
       { slug: 'confirmation', name: 'Confirmation', component: 'AiConfirmation', description: 'Destructive or sensitive action confirmation dialogs.' },
       { slug: 'context', name: 'Context', component: 'AiContext', description: 'Context window items with token counts.' },
-      { slug: 'conversation', name: 'Conversation', component: 'AiConversation', description: 'Thread list with active state and archive support.' },
+      { slug: 'conversation', name: 'Conversation', component: 'AiConversation', description: 'Thread list / sidebar — conversation threads, not the message scroll area.' },
       { slug: 'error-boundary', name: 'Error Boundary', component: 'AiErrorBoundary', description: 'Error display with optional retry.' },
       { slug: 'inline-citation', name: 'Inline Citation', component: 'AiInlineCitation', description: 'Inline citation badges linked to sources.' },
       { slug: 'message', name: 'Message', component: 'AiMessage', description: 'Headless message container with slots for content, reasoning, tools, and sources.' },

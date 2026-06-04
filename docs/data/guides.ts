@@ -16,6 +16,11 @@ export const guides: NavGuide[] = [
     description: 'Server routes, useAiChat, persistence, and UX patterns',
   },
   {
+    slug: 'custom-transport',
+    title: 'Custom Transport & RAG',
+    description: 'Dynamic body, manual Chat setup, and RAG message metadata',
+  },
+  {
     slug: 'building-an-agent',
     title: 'Building an Agent',
     description: 'Tools, approval gates, and multi-step agents',

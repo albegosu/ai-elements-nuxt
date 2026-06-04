@@ -37,6 +37,7 @@ export default createChatHandler({
         </h2>
         <ul class="list-inside list-disc space-y-1">
           <li><code>api: '/api/chat'</code> — connects to AI SDK <code>Chat</code> + transport</li>
+          <li><code>body</code> / <code>headers</code> — dynamic request fields (see <NuxtLink to="/guides/custom-transport" class="underline">Custom Transport &amp; RAG</NuxtLink>)</li>
           <li><code>aiMessages</code> — mapped props for <code>AiMessage</code></li>
           <li><code>addToolApprovalResponse</code> / <code>addToolOutput</code> — tool lifecycle</li>
           <li>Omit <code>api</code> for local-only demos via <code>useAiChatLocal</code></li>
