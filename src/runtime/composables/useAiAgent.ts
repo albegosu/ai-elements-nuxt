@@ -1,4 +1,4 @@
-import { ref, computed, watch, onScopeDispose } from 'vue'
+import { ref, computed, watch, watchEffect, onScopeDispose } from 'vue'
 import { lastAssistantMessageIsCompleteWithApprovalResponses } from 'ai'
 import type {
   AiAgentStep,
@@ -180,6 +180,22 @@ export function useAiAgent(options?: UseAiAgentOptions) {
     plan.value = []
     tasks.value = []
     pendingConfirmation.value = null
+  }
+
+  if (import.meta.dev) {
+    watchEffect((onCleanup) => {
+      if (!pendingConfirmation.value) return
+      const id = pendingConfirmation.value.id
+      const timer = setTimeout(() => {
+        if (pendingConfirmation.value?.id === id) {
+          console.warn(
+            `[ai-elements] Tool approval "${id}" has been pending for 10s. `
+            + `Did you forget to call agent.approve("${id}") or agent.deny("${id}")?`,
+          )
+        }
+      }, 10_000)
+      onCleanup(() => clearTimeout(timer))
+    })
   }
 
   onScopeDispose(() => {

@@ -197,7 +197,17 @@ export function useAiChat(
     stop,
     setSuggestions,
     regenerate: (opts?: { messageId?: string }) => chat.regenerate(opts),
-    clearError: () => chat.clearError(),
+    clearError: () => {
+      const msgs = chat.messages
+      if (
+        chat.status === 'error'
+        && msgs.length > 0
+        && msgs[msgs.length - 1].role === 'assistant'
+      ) {
+        ;(chat as unknown as { setMessages?: (m: UIMessage[]) => void }).setMessages?.(msgs.slice(0, -1))
+      }
+      chat.clearError()
+    },
     addToolApprovalResponse,
     addToolOutput,
     resumeStream,

@@ -32,6 +32,20 @@ export function useAiTools(
   tools: MaybeRef<AiToolDefinition[]>,
   agent: UseAiAgentReturn,
 ): UseAiToolsReturn {
+  if (!agent) {
+    if (import.meta.dev) {
+      throw new Error('[ai-elements] useAiTools: agent is required. Pass the return value of useAiAgent().')
+    }
+    return {
+      toolMap: computed(() => new Map()),
+      activeTools: computed(() => []),
+      pendingApprovals: computed(() => []),
+      getToolMeta: () => undefined,
+      approveTool: () => {},
+      denyTool: () => {},
+    }
+  }
+
   const toolMap = computed(() => {
     const map = new Map<string, AiToolDefinition>()
     for (const t of unref(tools)) {
