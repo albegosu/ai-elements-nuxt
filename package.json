@@ -74,6 +74,10 @@
     "vue-tsc": "^2.0.0",
     "zod": "^3.24.0"
   },
+  "homepage": "https://albegosu.github.io/ai-elements-nuxt/",
+  "bugs": {
+    "url": "https://github.com/albegosu/ai-elements-nuxt/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/albegosu/ai-elements-nuxt"

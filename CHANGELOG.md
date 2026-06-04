@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Added
+- Open-source policy docs, issue/PR templates, README community section
+
 ## 0.4.0
 
 ### Added

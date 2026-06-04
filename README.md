@@ -1,6 +1,12 @@
 # ai-elements-nuxt
 
+[![CI](https://github.com/albegosu/ai-elements-nuxt/actions/workflows/ci.yml/badge.svg)](https://github.com/albegosu/ai-elements-nuxt/actions/workflows/ci.yml)
+[![license](https://img.shields.io/npm/l/ai-elements-nuxt.svg)](LICENSE)
+[![version](https://img.shields.io/npm/v/ai-elements-nuxt.svg)](https://www.npmjs.com/package/ai-elements-nuxt)
+
 **Nuxt/Vue complement to [Vercel AI Elements](https://github.com/vercel/ai-elements)** — headless AI UI components for the [AI SDK](https://ai-sdk.dev) ecosystem.
+
+[Documentation](https://albegosu.github.io/ai-elements-nuxt/) · [Contributing](.github/CONTRIBUTING.md) · [Code of Conduct](.github/CODE_OF_CONDUCT.md) · [Security](.github/SECURITY.md) · [Changelog](CHANGELOG.md)
 
 > Not a replacement for AI Elements. This project extends the same UI patterns to Nuxt 3 and Vue 3 so you can build AI-native apps with your own design system.
 
@@ -160,13 +166,24 @@ import {
 } from 'ai-elements-nuxt/server'
 ```
 
+## Development
+
+```bash
+git clone https://github.com/albegosu/ai-elements-nuxt.git
+cd ai-elements-nuxt
+pnpm install
+pnpm dev
+```
+
+See [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md) for the full contributor guide (lint, test, docs conventions).
+
 ## Documentation & playground
 
 ```bash
 pnpm dev
 ```
 
-Opens the docs site at `http://localhost:3000` with:
+Opens the docs site at `http://localhost:3000` (or the [hosted docs](https://albegosu.github.io/ai-elements-nuxt/)) with:
 - **Guides**: getting started, building a chat, building an agent, styling, composables
 - Component reference with Preview/Code tabs for all 52 components
 - Playgrounds: chat, streaming, agent, code, voice & workflow
@@ -181,6 +198,10 @@ Opens the docs site at `http://localhost:3000` with:
 ## Credits
 
 Inspired by and designed to complement [vercel/ai-elements](https://github.com/vercel/ai-elements) and the [AI SDK](https://ai-sdk.dev).
+
+## Contributing
+
+Contributions are welcome. Please read [CONTRIBUTING.md](.github/CONTRIBUTING.md) and our [Code of Conduct](.github/CODE_OF_CONDUCT.md) before opening a pull request.
 
 ## License
 

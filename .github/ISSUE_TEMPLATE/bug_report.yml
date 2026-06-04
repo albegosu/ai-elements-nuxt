@@ -1,0 +1,58 @@
+name: Bug report
+description: Report something that is broken or does not work as documented
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Please search [existing issues](https://github.com/albegosu/ai-elements-nuxt/issues) first.
+        For security vulnerabilities, use [private security advisories](https://github.com/albegosu/ai-elements-nuxt/security/advisories/new) — not a public issue.
+
+  - type: input
+    id: version
+    attributes:
+      label: ai-elements-nuxt version
+      placeholder: e.g. 0.4.0
+    validations:
+      required: true
+
+  - type: input
+    id: nuxt_version
+    attributes:
+      label: Nuxt version
+      placeholder: e.g. 3.15.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the bug and what you expected instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Minimal steps, code snippet, or link to a repro repository.
+      placeholder: |
+        1. Install ...
+        2. Configure ...
+        3. See error ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Node version, browser (if relevant), AI SDK / provider versions.
+      placeholder: |
+        - OS: macOS 15
+        - Node: 22
+        - Browser: Chrome 131
+    validations:
+      required: false

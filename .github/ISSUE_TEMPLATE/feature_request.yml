@@ -1,0 +1,45 @@
+name: Feature request
+description: Suggest an idea or improvement
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the problem you are solving and how this fits ai-elements-nuxt.
+        If the feature exists in [vercel/ai-elements](https://github.com/vercel/ai-elements), note whether you are aiming for parity.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What problem does this solve? Who benefits?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: How would you like this to work? API shape, component behavior, etc.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ai_elements_parity
+    attributes:
+      label: Related to Vercel AI Elements?
+      options:
+        - "Yes — parity with upstream AI Elements"
+        - "No — Nuxt/Vue-specific"
+        - "Unknown / not sure"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other approaches you considered, or workarounds today.
+    validations:
+      required: false

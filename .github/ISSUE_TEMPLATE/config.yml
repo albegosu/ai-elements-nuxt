@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation
+    url: https://albegosu.github.io/ai-elements-nuxt/
+    about: Guides, component reference, and playgrounds
+  - name: Contributing guide
+    url: https://github.com/albegosu/ai-elements-nuxt/blob/main/.github/CONTRIBUTING.md
+    about: How to set up the project and open a pull request
