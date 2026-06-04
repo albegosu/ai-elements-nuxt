@@ -42,8 +42,12 @@ const items = [
   },
   {
     name: 'useAiMarkdown(content, options?)',
-    desc: 'Markdown to sanitized HTML (marked + GFM). Override parse or use exported simpleParse.',
-    snippet: `const { html } = useAiMarkdown(() => markdownSource)`,
+    desc: 'Markdown to sanitized HTML (GFM via marked, sanitized). Pass { parse: simpleParse } for a lightweight fallback that skips tables — useful during streaming when marked\'s buffering causes layout shifts. simpleParse is auto-imported in Nuxt.',
+    snippet: `// Default (GFM + tables via marked):
+const { html } = useAiMarkdown(() => markdownSource)
+
+// Lightweight fallback during streaming (no tables, no marked):
+const { html } = useAiMarkdown(() => markdownSource, { parse: simpleParse })`,
   },
 ]
 </script>

@@ -146,6 +146,9 @@ export function useAiAgent(options?: UseAiAgentOptions) {
     if (chat.chat) {
       chat.addToolApprovalResponse({ id, approved: true })
     }
+    else if (import.meta.dev) {
+      console.warn('[ai-elements] approve() called but no api endpoint is configured — tool approvals are no-ops in local mode. Pass api: \'/api/chat\' to useAiAgent.')
+    }
     upsertStep({
       id: `approve-${id}`,
       type: 'result',
@@ -160,6 +163,9 @@ export function useAiAgent(options?: UseAiAgentOptions) {
     }
     if (chat.chat) {
       chat.addToolApprovalResponse({ id, approved: false, reason })
+    }
+    else if (import.meta.dev) {
+      console.warn('[ai-elements] deny() called but no api endpoint is configured — tool approvals are no-ops in local mode. Pass api: \'/api/chat\' to useAiAgent.')
     }
     upsertStep({
       id: `deny-${id}`,

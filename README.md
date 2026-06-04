@@ -12,9 +12,36 @@
 
 ## Install
 
+**1. Core** (always required):
+
 ```bash
 pnpm add ai-elements-nuxt ai @ai-sdk/vue
 ```
+
+**2. Choose a model provider** (at least one required for production):
+
+```bash
+pnpm add @ai-sdk/openai        # OpenAI / GPT-4o
+# pnpm add @ai-sdk/anthropic   # Anthropic / Claude
+# pnpm add @ai-sdk/google      # Google / Gemini
+# pnpm add @ai-sdk/mistral     # Mistral
+```
+
+Full provider list → [ai-sdk.dev/providers](https://ai-sdk.dev/providers/ai-sdk-providers)
+
+**3. Agents only** — add Zod for tool parameter schemas:
+
+```bash
+pnpm add zod
+```
+
+**Set your API key** in `.env` (Nuxt reads it automatically):
+
+```bash
+OPENAI_API_KEY=sk-...
+```
+
+**Register the module**:
 
 ```ts
 // nuxt.config.ts
@@ -25,6 +52,14 @@ export default defineNuxtConfig({
   },
 })
 ```
+
+### What do you need?
+
+| Goal | Key components | Composable | Server handler |
+|------|---------------|------------|----------------|
+| Streaming chat | `AiMessage`, `AiPromptInput` | `useAiChat` | `createChatHandler` |
+| Agent with tools | + `AiAgent`, `AiTool`, `AiToolApproval` | `useAiAgent`, `useAiTools` | `createAgentHandler` |
+| Persisted chat | same as chat | `useAiChatPersisted` | same as chat |
 
 ### Install from GitHub
 
@@ -53,13 +88,14 @@ import type { AiMessageProps, AiSource } from 'ai-elements-nuxt/types'
 **1. Server route** (`server/api/chat.post.ts`):
 
 ```ts
+// Start with mock (no API key needed):
 import { createMockChatHandler } from 'ai-elements-nuxt/server'
-// Or with a real model:
+export default createMockChatHandler()
+
+// Swap for production:
 // import { createChatHandler } from 'ai-elements-nuxt/server'
 // import { openai } from '@ai-sdk/openai'
 // export default createChatHandler({ model: openai('gpt-4o') })
-
-export default createMockChatHandler()
 ```
 
 **2. Page**:
@@ -115,18 +151,26 @@ export default createAgentHandler({
 ```vue
 <script setup lang="ts">
 const agent = useAiAgent({ api: '/api/chat' })
-useAiTools([{ name: 'getWeather' }, { name: 'deleteFile', requireConfirmation: true }], agent)
-const { aiMessages, steps, pendingConfirmation, approve, deny, handleSubmit, input } = agent
+// useAiTools wires per-tool metadata; pendingApprovals is already AiToolCall[] — no reshaping needed
+const tools = useAiTools([
+  { name: 'getWeather' },
+  { name: 'deleteFile', requireConfirmation: true },
+], agent)
+const { aiMessages, steps, handleSubmit, input } = agent
 </script>
 
 <template>
+  <!-- AiAgent (also AiAgentSteps) renders the steps[] from useAiAgent -->
   <AiAgent :steps="steps" title="Agent run" />
+
+  <!-- pendingApprovals[0] is already AiToolCall-shaped — pass directly -->
   <AiToolApproval
-    v-if="pendingConfirmation"
-    :tool-call="{ id: pendingConfirmation.id, name: pendingConfirmation.title, status: 'approval-requested', approvalId: pendingConfirmation.id }"
-    @approve="approve(pendingConfirmation.id)"
-    @deny="deny(pendingConfirmation.id)"
+    v-if="tools.pendingApprovals.value[0]"
+    :tool-call="tools.pendingApprovals.value[0]"
+    @approve="tools.approveTool"
+    @deny="tools.denyTool"
   />
+
   <AiMessage v-for="(msg, i) in aiMessages" :key="i" v-bind="msg" />
   <form @submit="handleSubmit">
     <AiPromptInput v-model="input" />
@@ -150,7 +194,11 @@ const { html } = useAiMarkdown(() => markdownSource)
 </template>
 ```
 
-GFM (tables, task lists, strikethrough) is enabled by default via `marked`. Use exported `simpleParse` for a lightweight fallback.
+GFM (tables, task lists, strikethrough) is enabled by default via `marked`. Use auto-imported `simpleParse` for a lightweight fallback (no tables — useful during streaming to avoid layout shifts):
+
+```ts
+const { html } = useAiMarkdown(() => markdownSource, { parse: simpleParse })
+```
 
 ## Components (52)
 
@@ -159,7 +207,7 @@ All components are auto-imported with the `Ai` prefix.
 | Category | Components |
 |----------|------------|
 | **Chatbot** | Message, PromptInput, Conversation (thread list / sidebar), Reasoning, ChainOfThought, Sources, Tool, ToolApproval, Suggestion, Attachments, Shimmer, StreamingCursor, Plan, Task, Checkpoint, Confirmation, Context, Queue, InlineCitation, ModelSelector, ErrorBoundary |
-| **Code** | CodeBlock, Terminal, FileTree, StackTrace, Agent, Artifact, Commit, SchemaDisplay, PackageInfo, EnvVars, TestResults, Snippet, WebPreview, Sandbox, VuePreview |
+| **Code** | CodeBlock, Terminal, FileTree, StackTrace, Agent (also `AiAgentSteps`), Artifact, Commit, SchemaDisplay, PackageInfo, EnvVars, TestResults, Snippet, WebPreview, Sandbox, VuePreview |
 | **Voice** | SpeechInput, Transcription, AudioPlayer, MicSelector, VoiceSelector, Persona |
 | **Workflow** | Canvas, Node, Edge, Connection, Controls, Panel, Toolbar |
 | **Utilities** | Image, OpenInChat, Markdown |
@@ -172,10 +220,10 @@ All components are auto-imported with the `Ai` prefix.
 | `useAiChatLocal` | Local message state without AI SDK |
 | `useAiChatPersisted` | `useAiChat` with localStorage/sessionStorage persistence |
 | `useAiAgent` | Agent steps, plan, tasks, and confirmation flow on top of chat |
-| `useAiTools` | Declarative per-tool UI metadata wired to `useAiAgent` |
+| `useAiTools` | Declarative per-tool UI metadata wired to `useAiAgent`; exposes `pendingApprovals` (typed `AiToolCall[]`) for `AiToolApproval` |
 | `useAiWorkflow` | Workflow graph nodes/edges state |
 | `useAiCompletion` | Wraps `@ai-sdk/vue` `useCompletion` |
-| `useAiMarkdown` | Markdown string → sanitized HTML (GFM via `marked`) |
+| `useAiMarkdown` | Markdown string → sanitized HTML (GFM via `marked`); pass `{ parse: simpleParse }` for lightweight fallback |
 | `mapMessageParts` / `toAiMessageProps` | Map AI SDK `UIMessage.parts` → `AiMessage` props |
 
 ## Server utilities

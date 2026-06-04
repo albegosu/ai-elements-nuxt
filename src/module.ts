@@ -1,4 +1,4 @@
-import { defineNuxtModule, createResolver, addComponentsDir, addImportsDir } from '@nuxt/kit'
+import { defineNuxtModule, createResolver, addComponentsDir, addImportsDir, addComponent } from '@nuxt/kit'
 
 export interface ModuleOptions {
   /** Load optional base styles for `[data-ai-*]` attributes */
@@ -25,6 +25,11 @@ export default defineNuxtModule<ModuleOptions>({
         pathPrefix: false,
       })
     }
+
+    addComponent({
+      name: 'AiAgentSteps',
+      filePath: resolve('./runtime/components/code/Agent.vue'),
+    })
 
     addImportsDir(resolve('./runtime/composables'))
     addImportsDir(resolve('./runtime/utils'))

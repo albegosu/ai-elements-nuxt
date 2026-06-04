@@ -67,6 +67,42 @@ export default createChatHandler({
           for assistant HTML (GFM via <code>marked</code>).
         </p>
       </div>
+
+      <div>
+        <h2 class="mb-3 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+          Error states
+        </h2>
+        <p class="mb-3">
+          <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">useAiChat</code> returns <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">error</code> and <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">clearError</code>.
+          When <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">isStreaming</code> is false and <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">error</code> is set, the last generation failed — show a retry UI.
+        </p>
+        <div class="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">
+          <pre class="overflow-x-auto bg-zinc-950 p-4 text-[13px] text-zinc-100"><code>&lt;script setup lang="ts"&gt;
+const { aiMessages, input, handleSubmit, isStreaming, error, clearError } = useAiChat({
+  api: '/api/chat',
+})
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;AiMessage v-for="(msg, i) in aiMessages" :key="i" v-bind="msg" /&gt;
+
+  &lt;!-- Stream or tool failure --&gt;
+  &lt;AiErrorBoundary
+    v-if="error &amp;&amp; !isStreaming"
+    :error="error"
+    @retry="clearError"
+  /&gt;
+
+  &lt;form @submit="handleSubmit"&gt;
+    &lt;AiPromptInput v-model="input" :loading="isStreaming" :disabled="!!error" /&gt;
+  &lt;/form&gt;
+&lt;/template&gt;</code></pre>
+        </div>
+        <p class="mt-3 text-xs text-zinc-500">
+          <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">clearError()</code> resets the error and re-enables the input.
+          For agents, tool failures surface through the step's <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">status: 'failed'</code> — handle them in the <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">AiAgent</code> step timeline.
+        </p>
+      </div>
     </section>
   </div>
 </template>
