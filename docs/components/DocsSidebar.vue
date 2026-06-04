@@ -17,7 +17,7 @@ const linkActiveClass = 'bg-zinc-900/8 font-medium text-zinc-900 dark:bg-white/1
 </script>
 
 <template>
-  <aside class="flex h-screen w-64 shrink-0 flex-col border-r border-zinc-200/70 bg-white/65 backdrop-blur-xl backdrop-saturate-150 dark:border-zinc-800/60 dark:bg-zinc-950/55">
+  <aside class="hidden h-screen w-64 shrink-0 flex-col border-r border-zinc-200/70 bg-white/65 backdrop-blur-xl backdrop-saturate-150 md:flex dark:border-zinc-800/60 dark:bg-zinc-950/55">
     <div class="flex h-14 shrink-0 flex-col justify-center border-b border-zinc-200/80 px-4 dark:border-zinc-800/80">
       <NuxtLink
         to="/"

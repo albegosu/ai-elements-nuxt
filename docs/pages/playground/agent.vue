@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'default' })
 
-const agent = useAiAgent({ api: '/api/chat' })
+const agent = useAiAgent()
 const toolDefs = [
   { name: 'getWeather', description: 'Look up weather', icon: '🌤' },
   { name: 'searchDocs', description: 'Search documentation', icon: '🔍' },
@@ -9,15 +9,53 @@ const toolDefs = [
 const { pendingApprovals } = useAiTools(toolDefs, agent)
 
 const {
+  messages,
+  addMessage,
   aiMessages,
   steps,
   pendingConfirmation,
   approve,
   deny,
-  handleSubmit,
   input,
-  isStreaming,
 } = agent
+
+const isStreaming = ref(false)
+
+const AGENT_RESPONSES = [
+  'I searched the documentation and found 3 relevant articles. Based on those results, here is a summary of the recommended approach for your use case.',
+  'I looked up the weather and ran a quick search. Everything looks good — I can walk you through the next steps whenever you\'re ready.',
+]
+let _responseIdx = 0
+
+async function handleSubmit(event?: { preventDefault?: () => void }) {
+  event?.preventDefault?.()
+  const text = input.value.trim()
+  if (!text || isStreaming.value) return
+  addMessage({ role: 'user', content: text, status: 'complete' })
+  input.value = ''
+  isStreaming.value = true
+
+  steps.value.push({ id: `thought-${Date.now()}`, type: 'thought', content: 'Analyzing request…', status: 'running' })
+  await new Promise(r => setTimeout(r, 600))
+  steps.value[steps.value.length - 1]!.status = 'completed'
+
+  steps.value.push({ id: `action-${Date.now()}`, type: 'action', content: `searchDocs("${text.slice(0, 28)}…")`, tool: 'searchDocs', status: 'running' })
+  await new Promise(r => setTimeout(r, 700))
+  steps.value[steps.value.length - 1]!.status = 'completed'
+
+  const response = AGENT_RESPONSES[_responseIdx % AGENT_RESPONSES.length]!
+  _responseIdx++
+  const msgIndex = messages.value.length
+  addMessage({ role: 'assistant', content: '', status: 'streaming' })
+
+  const chunkSize = 5
+  for (let i = chunkSize; i <= response.length + chunkSize; i += chunkSize) {
+    messages.value[msgIndex] = { role: 'assistant', content: response.slice(0, Math.min(i, response.length)), status: 'streaming' }
+    await new Promise(r => setTimeout(r, 40))
+  }
+  messages.value[msgIndex] = { role: 'assistant', content: response, status: 'complete' }
+  isStreaming.value = false
+}
 
 const demoToolCall = computed(() => {
   if (pendingConfirmation.value) {
@@ -29,11 +67,9 @@ const demoToolCall = computed(() => {
       args: { path: '/tmp/example.txt' },
     }
   }
-  const fromMsg = aiMessages.value
+  return aiMessages.value
     .flatMap(m => m.toolCalls ?? [])
-    .find(tc => tc.status === 'approval-requested')
-  if (fromMsg) return fromMsg
-  return null
+    .find(tc => tc.status === 'approval-requested') ?? null
 })
 
 function simulateApproval() {
@@ -99,9 +135,28 @@ function simulateApproval() {
         </template>
       </AiMessage>
 
-      <form @submit="handleSubmit">
-        <AiPromptInput v-model="input" :loading="isStreaming" />
-      </form>
+      <AiPromptInput v-model="input" :loading="isStreaming" @submit="handleSubmit">
+        <template #input="{ value, placeholder: ph, handleInput, handleKeydown }">
+          <textarea
+            :value="value"
+            :placeholder="ph"
+            rows="2"
+            class="flex-1 resize-none rounded-xl border border-zinc-200 px-4 py-3 text-sm focus:border-zinc-400 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50"
+            @input="handleInput"
+            @keydown="handleKeydown"
+          />
+        </template>
+        <template #actions="{ canSubmit, submit }">
+          <button
+            type="button"
+            :disabled="!canSubmit"
+            class="rounded-xl bg-zinc-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-zinc-800 disabled:opacity-40 dark:bg-zinc-100 dark:text-zinc-900"
+            @click="submit"
+          >
+            Send
+          </button>
+        </template>
+      </AiPromptInput>
     </div>
 
     <p

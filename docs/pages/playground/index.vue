@@ -3,6 +3,13 @@ definePageMeta({ layout: 'default' })
 
 const input = ref('')
 const selectedModel = ref('claude-sonnet-4-6')
+const activeThreadId = ref('t2')
+
+const threads = ref([
+  { id: 't1', title: 'Nuxt setup guide', lastMessage: 'How do I add streaming?', updatedAt: '2h ago', messageCount: 6 },
+  { id: 't2', title: 'What is RAG?', lastMessage: 'RAG combines retrieval with generation…', updatedAt: '12m ago', messageCount: 3 },
+  { id: 't3', title: 'Tool approval flow', lastMessage: 'requireConfirmation: true', updatedAt: 'Yesterday', messageCount: 9 },
+])
 
 const messages = ref([
   {
@@ -46,6 +53,10 @@ function handleSubmit(value: string) {
 function handleSuggestion(suggestion: { value: string }) {
   handleSubmit(suggestion.value)
 }
+
+function selectThread(thread: { id: string }) {
+  activeThreadId.value = thread.id
+}
 </script>
 
 <template>
@@ -55,39 +66,71 @@ function handleSuggestion(suggestion: { value: string }) {
       description="Interactive demo showing multiple AI Elements components working together in a realistic chat interface."
     />
 
-    <div class="grid grid-cols-[240px_1fr] gap-6">
-      <!-- Sidebar -->
-      <div class="space-y-6">
-        <div>
-          <p class="mb-2 text-xs font-medium text-zinc-500">Model</p>
+    <div class="grid grid-cols-[200px_1fr] gap-0 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800">
+      <!-- Conversation sidebar -->
+      <div class="flex flex-col border-r border-zinc-200 dark:border-zinc-800">
+        <AiConversation
+          :threads="threads"
+          :active-id="activeThreadId"
+          @select="selectThread"
+          @create="threads.unshift({ id: `t${Date.now()}`, title: 'New conversation', lastMessage: '', updatedAt: 'now', messageCount: 0 })"
+        >
+          <template #header="{ create }">
+            <div class="flex items-center justify-between border-b border-zinc-200 px-3 py-2.5 dark:border-zinc-800">
+              <span class="text-xs font-semibold text-zinc-500 dark:text-zinc-400">Chats</span>
+              <button
+                type="button"
+                class="flex h-5 w-5 items-center justify-center rounded text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-800"
+                @click="create"
+              >
+                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+              </button>
+            </div>
+          </template>
+          <template #thread="{ thread, active, select }">
+            <button
+              type="button"
+              class="w-full px-3 py-2 text-left transition"
+              :class="active ? 'bg-zinc-100 dark:bg-zinc-800' : 'hover:bg-zinc-50 dark:hover:bg-zinc-900'"
+              @click="select()"
+            >
+              <p class="truncate text-xs font-medium" :class="active ? 'text-zinc-900 dark:text-zinc-50' : 'text-zinc-600 dark:text-zinc-400'">{{ thread.title }}</p>
+              <p v-if="thread.lastMessage" class="mt-0.5 truncate text-xs text-zinc-400 dark:text-zinc-600">{{ thread.lastMessage }}</p>
+              <p class="mt-0.5 text-[11px] text-zinc-400 dark:text-zinc-600">{{ thread.updatedAt }}</p>
+            </button>
+          </template>
+        </AiConversation>
+
+        <!-- Model selector at the bottom of sidebar -->
+        <div class="mt-auto border-t border-zinc-200 p-3 dark:border-zinc-800">
+          <p class="mb-1.5 text-[11px] font-medium text-zinc-400">Model</p>
           <AiModelSelector v-model="selectedModel" :models="models">
             <template #trigger="{ selected, toggle }">
               <button
                 type="button"
-                class="flex w-full items-center justify-between rounded-lg border border-zinc-200 px-3 py-2 text-left text-sm transition hover:border-zinc-300 dark:border-zinc-700"
+                class="flex w-full items-center justify-between rounded-lg border border-zinc-200 px-2 py-1.5 text-left transition hover:border-zinc-300 dark:border-zinc-700"
                 @click="toggle"
               >
-                <span class="text-zinc-900 dark:text-zinc-50">{{ selected?.name ?? 'Select...' }}</span>
-                <svg class="h-4 w-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <span class="truncate text-xs text-zinc-700 dark:text-zinc-300">{{ selected?.name ?? 'Select…' }}</span>
+                <svg class="ml-1 h-3 w-3 shrink-0 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                 </svg>
               </button>
             </template>
             <template #default="{ groupedModels, select, selectedId }">
-              <div class="mt-1 overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-lg dark:border-zinc-700 dark:bg-zinc-900">
+              <div class="absolute bottom-full mb-1 w-48 overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-lg dark:border-zinc-700 dark:bg-zinc-900">
                 <template v-for="(models2, provider) in groupedModels" :key="provider">
                   <div class="px-3 py-1.5 text-xs font-medium text-zinc-400">{{ provider }}</div>
                   <button
                     v-for="m in models2"
                     :key="m.id"
                     type="button"
-                    class="flex w-full items-center gap-2 px-3 py-2 text-left text-sm hover:bg-zinc-50 dark:hover:bg-zinc-800"
+                    class="flex w-full items-center gap-2 px-3 py-1.5 text-left text-xs hover:bg-zinc-50 dark:hover:bg-zinc-800"
                     :class="{ 'bg-zinc-50 font-medium dark:bg-zinc-800': m.id === selectedId }"
                     @click="select(m)"
-                  >
-                    {{ m.name }}
-                    <span class="text-xs text-zinc-400">{{ m.description }}</span>
-                  </button>
+                  >{{ m.name }}</button>
                 </template>
               </div>
             </template>
@@ -96,8 +139,8 @@ function handleSuggestion(suggestion: { value: string }) {
       </div>
 
       <!-- Main -->
-      <div>
-        <div class="flex flex-col gap-4 pb-6">
+      <div class="flex flex-col p-5">
+        <div class="flex flex-col gap-4 pb-4">
           <AiMessage v-for="(msg, i) in messages" :key="i" v-bind="msg">
             <template #avatar="{ role }">
               <div
