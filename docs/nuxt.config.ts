@@ -1,3 +1,5 @@
+const baseURL = process.env.NUXT_APP_BASE_URL || '/'
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-06-04',
   modules: ['../src/module', '@nuxtjs/tailwindcss', '@nuxtjs/color-mode'],
@@ -13,9 +15,10 @@ export default defineNuxtConfig({
   },
   app: {
     // GitHub Pages project site: https://<user>.github.io/<repo>/
-    baseURL: process.env.NUXT_APP_BASE_URL || '/',
+    baseURL,
     head: {
       link: [
+        { rel: 'icon', href: `${baseURL.replace(/\/?$/, '/')}favicon.svg`, type: 'image/svg+xml' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         {
