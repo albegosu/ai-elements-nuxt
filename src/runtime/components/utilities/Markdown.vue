@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useAiMarkdown } from '../../composables/useAiMarkdown'
 
 const props = withDefaults(defineProps<{

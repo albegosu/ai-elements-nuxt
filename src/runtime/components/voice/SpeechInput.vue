@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 const props = withDefaults(defineProps<{
   language?: string
   continuous?: boolean

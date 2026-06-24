@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 const props = defineProps<{
   segments: { id: string; text: string; startTime: number; endTime: number; speaker?: string; confidence?: number }[]
   currentTime?: number

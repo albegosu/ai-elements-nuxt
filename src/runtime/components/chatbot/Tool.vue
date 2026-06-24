@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import type { AiToolCall, AiToolUIPartState } from '../../types'
 import {
   isAiToolApprovalRequested,

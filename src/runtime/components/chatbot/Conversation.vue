@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import type { AiConversationThread } from '../../types'
 
 const props = withDefaults(defineProps<{
@@ -17,8 +18,9 @@ const emit = defineEmits<{
 }>()
 
 const visibleThreads = computed(() => {
-  if (props.showArchived) return props.threads
-  return props.threads.filter(t => !t.archived)
+  const threads = props.threads ?? []
+  if (props.showArchived) return threads
+  return threads.filter(t => !t.archived)
 })
 </script>
 

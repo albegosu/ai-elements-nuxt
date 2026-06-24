@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import type { AiConfirmationData } from '../../types'
 import { useUniqueId } from '../../utils/useUniqueId'
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed, ref, watch } from 'vue'
 import type { AiArtifactData } from '../../types'
 import { sanitizeRenderedHtml } from '../../utils/sanitizeHtml'
 

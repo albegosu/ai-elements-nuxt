@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed, onErrorCaptured, ref } from 'vue'
 const props = withDefaults(defineProps<{
   error?: Error | string | null
   retryable?: boolean

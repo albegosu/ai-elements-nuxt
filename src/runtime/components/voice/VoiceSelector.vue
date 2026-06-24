@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 const props = defineProps<{
   voices: { id: string; name: string; language?: string; gender?: string; preview?: string }[]
   modelValue?: string

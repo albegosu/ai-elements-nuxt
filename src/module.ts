@@ -36,6 +36,8 @@ export default defineNuxtModule<ModuleOptions>({
 
     nuxt.options.alias['#ai-elements'] = resolve('./runtime')
 
+    nuxt.options.build.transpile.push('ai-elements-nuxt')
+
     if (options.defaultStyles) {
       nuxt.options.css.push(resolve('./runtime/assets/ai-elements.css'))
     }

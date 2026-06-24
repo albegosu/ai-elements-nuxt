@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue'
 const props = withDefaults(defineProps<{
   /** Vue SFC source or HTML template string */
   code?: string

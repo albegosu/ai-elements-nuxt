@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import type { AiModelOption } from '../../types'
 
 const props = withDefaults(defineProps<{
