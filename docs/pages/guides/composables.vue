@@ -41,6 +41,14 @@ const items = [
     snippet: `const { completion, complete } = useAiCompletion({ api: '/api/completion' })`,
   },
   {
+    name: 'useAiRealtime(options)',
+    desc: 'Vue composable wrapping AI SDK v7 AbstractRealtimeSession. Manages connection lifecycle, audio capture/playback, and message state with Vue reactivity. Auto-cleanup on scope dispose.',
+    snippet: `const { status, messages, isCapturing, isPlaying, connect, disconnect, toggleCapture } = useAiRealtime({
+  model: realtimeModel,
+  token: sessionToken,
+})`,
+  },
+  {
     name: 'useAiMarkdown(content, options?)',
     desc: 'Markdown to sanitized HTML (GFM via marked, sanitized). Pass { parse: simpleParse } for a lightweight fallback that skips tables — useful during streaming when marked\'s buffering causes layout shifts. simpleParse is auto-imported in Nuxt.',
     snippet: `// Default (GFM + tables via marked):

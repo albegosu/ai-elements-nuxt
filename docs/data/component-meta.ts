@@ -488,6 +488,99 @@ const meta: Record<string, ComponentMeta> = {
     slots: ['caption'],
     code: `<AiImage src="/diagram.png" alt="Architecture" :zoomable="true" />`,
   },
+  'chatbot/approval-policy': {
+    props: [
+      { name: 'policies', type: 'AiApprovalPolicies', required: true, description: 'Map of tool names to approval policies' },
+      { name: 'pending', type: '{ toolName: string; args: unknown } | null', description: 'Currently pending approval request' },
+    ],
+    slots: ['default', 'policy', 'pending', 'approve-button', 'deny-button'],
+    code: `<AiApprovalPolicy
+  :policies="{ search: 'auto-approve', deleteFile: 'user-approval' }"
+  :pending="pendingApproval"
+  @approve="onApprove"
+  @deny="onDeny"
+/>`,
+  },
+  'code/agent-timeline': {
+    props: [
+      { name: 'entries', type: 'AiTimelineEntry[]', required: true, description: 'Timeline entries to display' },
+      { name: 'title', type: 'string', description: 'Timeline header title' },
+      { name: 'showDuration', type: 'boolean', default: 'true', description: 'Show duration on entries' },
+      { name: 'collapsed', type: 'boolean', default: 'false', description: 'Collapse the timeline entries' },
+    ],
+    slots: ['default', 'header', 'title', 'summary', 'entry', 'connector', 'entry-header', 'entry-body', 'children', 'child'],
+    code: `<AiAgentTimeline :entries="entries" title="Agent Run" :show-duration="true" />`,
+  },
+  'utilities/file-upload': {
+    props: [
+      { name: 'accept', type: 'string', description: 'Accepted file types (e.g. ".pdf,image/*")' },
+      { name: 'multiple', type: 'boolean', default: 'true' },
+      { name: 'maxSize', type: 'number', description: 'Max file size in bytes' },
+      { name: 'maxFiles', type: 'number', default: '10' },
+      { name: 'disabled', type: 'boolean', default: 'false' },
+    ],
+    slots: ['default', 'dropzone', 'dropzone-content', 'file-list', 'file', 'file-progress', 'file-actions'],
+    code: `<AiFileUpload accept=".pdf,.txt,image/*" :max-size="5 * 1024 * 1024" @upload="onUpload" />`,
+  },
+  'voice/realtime-chat': {
+    props: [
+      { name: 'status', type: "'disconnected' | 'connecting' | 'connected' | 'error'", default: "'disconnected'", description: 'Connection status' },
+      { name: 'messages', type: 'AiRealtimeMessage[]', description: 'Conversation messages' },
+      { name: 'isCapturing', type: 'boolean', default: 'false', description: 'Whether mic is active' },
+      { name: 'isPlaying', type: 'boolean', default: 'false', description: 'Whether audio is playing' },
+    ],
+    slots: ['default', 'header', 'status', 'controls', 'messages', 'message', 'input'],
+    code: `<AiRealtimeChat
+  :status="status"
+  :messages="messages"
+  :is-capturing="isCapturing"
+  @connect="connect"
+  @disconnect="disconnect"
+  @toggle-capture="toggleCapture"
+/>`,
+  },
+  'code/sandbox-preview': {
+    props: [
+      { name: 'state', type: 'AiSandboxState', required: true, description: 'Sandbox execution state' },
+      { name: 'showCommand', type: 'boolean', default: 'true', description: 'Show the command header' },
+      { name: 'showArtifacts', type: 'boolean', default: 'true', description: 'Show file artifacts section' },
+      { name: 'maxLines', type: 'number', description: 'Max visible output lines (scrolls from bottom)' },
+    ],
+    slots: ['default', 'header', 'command', 'actions', 'output', 'line', 'status', 'artifacts', 'artifact'],
+    code: `<AiSandboxPreview :state="sandboxState" @run="run" @stop="stop" />`,
+  },
+  'utilities/video-player': {
+    props: [
+      { name: 'video', type: 'AiVideoData', description: 'Video data with url, dimensions, duration' },
+      { name: 'loading', type: 'boolean', default: 'false', description: 'Show loading state' },
+      { name: 'error', type: 'string', description: 'Error message to display' },
+      { name: 'autoplay', type: 'boolean', default: 'false' },
+      { name: 'controls', type: 'boolean', default: 'true' },
+      { name: 'loop', type: 'boolean', default: 'false' },
+      { name: 'muted', type: 'boolean', default: 'false' },
+    ],
+    slots: ['default', 'loading', 'error', 'empty', 'info'],
+    code: `<AiVideoPlayer :video="{ url: '/video.mp4', duration: 30 }" :controls="true" />`,
+  },
+  'utilities/mcp-app': {
+    props: [
+      { name: 'app', type: 'AiMcpAppData', required: true, description: 'MCP app data with content and status' },
+      { name: 'sandbox', type: 'boolean', default: 'true', description: 'Enable iframe sandbox restrictions' },
+      { name: 'height', type: 'string', default: "'400px'", description: 'Height of the iframe' },
+    ],
+    slots: ['default', 'header', 'loading', 'error', 'content'],
+    code: `<AiMcpApp :app="{ id: '1', name: 'Widget', status: 'ready', content: html, contentType: 'html' }" />`,
+  },
+  'utilities/runtime-context': {
+    props: [
+      { name: 'entries', type: 'AiRuntimeContextEntry[]', required: true, description: 'Context entries to display' },
+      { name: 'title', type: 'string', default: "'Runtime Context'" },
+      { name: 'collapsed', type: 'boolean', default: 'false' },
+      { name: 'filterType', type: "'runtime' | 'tool' | 'approval'", description: 'Filter entries by type' },
+    ],
+    slots: ['default', 'header', 'group-header', 'entry'],
+    code: `<AiRuntimeContext :entries="contextEntries" title="Debug Context" />`,
+  },
   'utilities/open-in-chat': {
     props: [
       { name: 'content', type: 'string', required: true },

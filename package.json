@@ -1,6 +1,6 @@
 {
   "name": "ai-elements-nuxt",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Nuxt/Vue complement to Vercel AI Elements — headless AI UI components for the AI SDK ecosystem",
   "author": "Alberto González <albegosu@gmail.com>",
   "license": "MIT",

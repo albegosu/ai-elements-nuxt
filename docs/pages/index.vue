@@ -20,7 +20,7 @@ const categoryIcons: Record<string, string> = {
     <div class="pb-10">
       <div class="flex items-center gap-3">
         <span class="rounded-full bg-zinc-900 px-3 py-1 text-xs font-medium text-white dark:bg-zinc-100 dark:text-zinc-900">
-          v0.5.0
+          v1.2.0
         </span>
         <span class="rounded-full border border-zinc-200 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:text-zinc-400">
           {{ totalComponents }} components
