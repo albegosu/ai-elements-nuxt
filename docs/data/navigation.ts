@@ -41,6 +41,7 @@ export const categories: NavCategory[] = [
       { slug: 'task', name: 'Task', component: 'AiTask', description: 'Task progress with optional subtasks.' },
       { slug: 'tool', name: 'Tool', component: 'AiTool', description: 'Tool invocation display with lifecycle states.' },
       { slug: 'tool-approval', name: 'Tool Approval', component: 'AiToolApproval', description: 'Human-in-the-loop tool approval UI.' },
+      { slug: 'approval-policy', name: 'Approval Policy', component: 'AiApprovalPolicy', description: 'Declarative tool approval policies with auto-approve, auto-deny, and user-approval modes.' },
     ],
   },
   {
@@ -49,6 +50,7 @@ export const categories: NavCategory[] = [
     description: 'Code blocks, terminals, agents, artifacts, and dev tooling UI.',
     components: [
       { slug: 'agent', name: 'Agent', component: 'AiAgent', description: 'Agent thought/action/observation step timeline.' },
+      { slug: 'agent-timeline', name: 'Agent Timeline', component: 'AiAgentTimeline', description: 'Rich timeline visualization with duration, connectors, and nested children.' },
       { slug: 'artifact', name: 'Artifact', component: 'AiArtifact', description: 'Tabbed artifact viewer for code, docs, and HTML.' },
       { slug: 'code-block', name: 'Code Block', component: 'AiCodeBlock', description: 'Syntax-highlighted code with copy and line numbers.' },
       { slug: 'commit', name: 'Commit', component: 'AiCommit', description: 'Git commit summary with file changes.' },
@@ -56,6 +58,7 @@ export const categories: NavCategory[] = [
       { slug: 'file-tree', name: 'File Tree', component: 'AiFileTree', description: 'Expandable file tree navigation.' },
       { slug: 'package-info', name: 'Package Info', component: 'AiPackageInfo', description: 'npm package metadata display.' },
       { slug: 'sandbox', name: 'Sandbox', component: 'AiSandbox', description: 'Runnable code sandbox preview.' },
+      { slug: 'sandbox-preview', name: 'Sandbox Preview', component: 'AiSandboxPreview', description: 'Sandbox stdout/stderr streaming with exit code and file artifacts.' },
       { slug: 'schema-display', name: 'Schema Display', component: 'AiSchemaDisplay', description: 'JSON schema field tree.' },
       { slug: 'snippet', name: 'Snippet', component: 'AiSnippet', description: 'Compact copyable code snippet.' },
       { slug: 'stack-trace', name: 'Stack Trace', component: 'AiStackTrace', description: 'Error stack trace with frame list.' },
@@ -76,6 +79,7 @@ export const categories: NavCategory[] = [
       { slug: 'speech-input', name: 'Speech Input', component: 'AiSpeechInput', description: 'Speech-to-text input control.' },
       { slug: 'transcription', name: 'Transcription', component: 'AiTranscription', description: 'Timestamped transcript segments.' },
       { slug: 'voice-selector', name: 'Voice Selector', component: 'AiVoiceSelector', description: 'TTS voice selection list.' },
+      { slug: 'realtime-chat', name: 'Realtime Chat', component: 'AiRealtimeChat', description: 'Voice + text realtime conversation with capture, playback, and connection controls.' },
     ],
   },
   {
@@ -100,6 +104,10 @@ export const categories: NavCategory[] = [
       { slug: 'image', name: 'Image', component: 'AiImage', description: 'Image with optional lightbox zoom.' },
       { slug: 'markdown', name: 'Markdown', component: 'AiMarkdown', description: 'Sanitized markdown to HTML renderer.' },
       { slug: 'open-in-chat', name: 'Open In Chat', component: 'AiOpenInChat', description: 'Action to open content in chat.' },
+      { slug: 'file-upload', name: 'File Upload', component: 'AiFileUpload', description: 'Drag-and-drop file upload with validation, progress, and file list.' },
+      { slug: 'video-player', name: 'Video Player', component: 'AiVideoPlayer', description: 'AI-generated video playback with loading states and duration display.' },
+      { slug: 'mcp-app', name: 'MCP App', component: 'AiMcpApp', description: 'Sandboxed MCP application rendering via iframe with HTML, text, and JSON content.' },
+      { slug: 'runtime-context', name: 'Runtime Context', component: 'AiRuntimeContext', description: 'Dev tool for inspecting runtime, tool, and approval context entries.' },
     ],
   },
 ]

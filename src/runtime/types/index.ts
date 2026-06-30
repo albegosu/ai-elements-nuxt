@@ -1,3 +1,5 @@
+export type { AiRealtimeStatus, AiRealtimeMessage, AiRealtimeOptions, AiApprovalPolicyType, AiApprovalPolicies, AiTimelineEntry, AiFileUploadItem } from './realtime'
+
 /** Props for {@link AiMessage} — maps from AI SDK `UIMessage` via `toAiMessageProps`. */
 export interface AiMessageProps {
   role: 'user' | 'assistant' | 'system' | 'tool'
