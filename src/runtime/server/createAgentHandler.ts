@@ -3,7 +3,9 @@ import type { H3Event } from 'h3'
 import {
   streamText,
   convertToModelMessages,
-  stepCountIs,
+  isStepCount,
+  createUIMessageStreamResponse,
+  toUIMessageStream,
   tool,
   type FlexibleSchema,
   type LanguageModel,
@@ -22,9 +24,12 @@ export interface AgentToolDefinition {
 
 export interface CreateAgentHandlerOptions {
   model: LanguageModel
+  /** System prompt / instructions for the model. */
+  instructions?: string
+  /** @deprecated Use `instructions` instead. */
   system?: string
   tools: Record<string, AgentToolDefinition>
-  /** Multi-step agent loop limit (maps to `stopWhen: stepCountIs(n)`) */
+  /** Multi-step agent loop limit (maps to `stopWhen: isStepCount(n)`) */
   maxSteps?: number
   sendReasoning?: boolean
   sendSources?: boolean
@@ -92,15 +97,18 @@ export function createAgentHandler(options: CreateAgentHandlerOptions) {
 
     const result = streamText({
       model: options.model,
-      system: options.system,
+      instructions: options.instructions ?? options.system,
       messages: await convertToModelMessages(messages),
       tools: sdkTools,
-      stopWhen: stepCountIs(maxSteps),
+      stopWhen: isStepCount(maxSteps),
     })
 
-    return result.toUIMessageStreamResponse({
-      sendReasoning: options.sendReasoning ?? true,
-      sendSources: options.sendSources ?? true,
+    return createUIMessageStreamResponse({
+      stream: toUIMessageStream({
+        stream: result.stream,
+        sendReasoning: options.sendReasoning ?? true,
+        sendSources: options.sendSources ?? true,
+      }),
     })
   }
 }

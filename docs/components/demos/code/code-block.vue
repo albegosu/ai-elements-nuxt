@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
 
   const result = streamText({
     model: openai('gpt-4o'),
-    system: 'You are a helpful assistant.',
+    instructions: 'You are a helpful assistant.',
     messages,
     maxTokens: 2048,
     temperature: 0.7,

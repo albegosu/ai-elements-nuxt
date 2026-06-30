@@ -1,14 +1,14 @@
 <script setup lang="ts">
 const pkg = {
   name: 'ai-elements-nuxt',
-  version: '0.3.0',
+  version: '1.0.0',
   description: 'Headless AI UI components for Nuxt — chat, streaming, tool calls, and more.',
   license: 'MIT',
   homepage: 'https://github.com/albegosu/ai-elements-nuxt',
   downloads: 24500,
   dependencies: {
-    'ai': '^6.0.0',
-    '@ai-sdk/vue': '^3.0.0',
+    'ai': '^7.0.0',
+    '@ai-sdk/vue': '^4.0.0',
     '@nuxt/kit': '^3.15.0',
   },
 }

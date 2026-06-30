@@ -26,7 +26,7 @@ import { openai } from '@ai-sdk/openai'
 
 export default createChatHandler({
   model: openai('gpt-4o'),
-  system: 'You are a helpful assistant.',
+  instructions: 'You are a helpful assistant.',
 })</code></pre>
         </div>
       </div>

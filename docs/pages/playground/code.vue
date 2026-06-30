@@ -7,7 +7,7 @@ import { openai } from '@ai-sdk/openai'
 const result = await streamText({
   model: openai('gpt-4o'),
   prompt: 'What is RAG?',
-  system: 'You are a helpful assistant.',
+  instructions: 'You are a helpful assistant.',
 })`
 
 const terminalLines = [
@@ -78,7 +78,7 @@ import { openai } from '@ai-sdk/openai'
 
 export default createChatHandler({
   model: openai('gpt-4o'),
-  system: 'You are a helpful assistant.',
+  instructions: 'You are a helpful assistant.',
 })`,
   },
   {

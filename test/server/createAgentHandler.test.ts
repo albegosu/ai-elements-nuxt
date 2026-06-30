@@ -7,11 +7,11 @@ vi.mock('ai', async (importOriginal) => {
   return {
     ...actual,
     streamText: vi.fn(() => ({
-      toUIMessageStreamResponse: vi.fn(() => new Response('stream')),
+      stream: new ReadableStream(),
     })),
     convertToModelMessages: vi.fn(async (messages: unknown[]) => messages),
     tool: vi.fn((def: unknown) => def),
-    stepCountIs: vi.fn((n: number) => ({ type: 'stepCount', n })),
+    isStepCount: vi.fn((n: number) => ({ type: 'stepCount', n })),
   }
 })
 
@@ -27,7 +27,7 @@ describe('createAgentHandler', () => {
   })
 
   it('calls streamText with tools and stopWhen', async () => {
-    const { streamText, tool, stepCountIs } = await import('ai')
+    const { streamText, tool, isStepCount } = await import('ai')
     const model = { provider: 'test', modelId: 'test' } as never
     const handler = createAgentHandler({
       model,
@@ -49,7 +49,7 @@ describe('createAgentHandler', () => {
         needsApproval: false,
       }),
     )
-    expect(stepCountIs).toHaveBeenCalledWith(5)
+    expect(isStepCount).toHaveBeenCalledWith(5)
     expect(streamText).toHaveBeenCalledWith(
       expect.objectContaining({
         model,
@@ -80,7 +80,7 @@ describe('createAgentHandler', () => {
   })
 
   it('defaults maxSteps to 10', async () => {
-    const { stepCountIs } = await import('ai')
+    const { isStepCount } = await import('ai')
     const model = { provider: 'test', modelId: 'test' } as never
     const handler = createAgentHandler({
       model,
@@ -93,6 +93,6 @@ describe('createAgentHandler', () => {
       },
     })
     await handler({} as Parameters<typeof handler>[0])
-    expect(stepCountIs).toHaveBeenCalledWith(10)
+    expect(isStepCount).toHaveBeenCalledWith(10)
   })
 })

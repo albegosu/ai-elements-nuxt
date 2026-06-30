@@ -1,6 +1,6 @@
 {
   "name": "ai-elements-nuxt",
-  "version": "0.5.1",
+  "version": "1.0.0",
   "description": "Nuxt/Vue complement to Vercel AI Elements — headless AI UI components for the AI SDK ecosystem",
   "author": "Alberto González <albegosu@gmail.com>",
   "license": "MIT",
@@ -43,8 +43,8 @@
     "test:watch": "vitest"
   },
   "peerDependencies": {
-    "@ai-sdk/vue": "^3.0.0",
-    "ai": "^6.0.0",
+    "@ai-sdk/vue": "^4.0.0",
+    "ai": "^7.0.0",
     "nuxt": "^3.0.0"
   },
   "peerDependenciesMeta": {
@@ -60,14 +60,14 @@
     "marked": "^15.0.0"
   },
   "devDependencies": {
-    "@ai-sdk/vue": "^3.0.0",
+    "@ai-sdk/vue": "^4.0.6",
     "@nuxt/eslint-config": "^0.7.0",
     "@nuxt/module-builder": "^1.0.2",
     "@nuxt/test-utils": "^3.15.0",
     "@types/node": "^22.0.0",
     "@vitejs/plugin-vue": "^5.2.0",
     "@vue/test-utils": "^2.4.0",
-    "ai": "^6.0.0",
+    "ai": "^7.0.6",
     "eslint": "^9.0.0",
     "h3": "^1.13.0",
     "happy-dom": "^15.0.0",

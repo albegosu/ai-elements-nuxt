@@ -5,12 +5,16 @@ import {
   convertToModelMessages,
   createUIMessageStream,
   createUIMessageStreamResponse,
+  toUIMessageStream,
   type LanguageModel,
   type UIMessage,
 } from 'ai'
 
 export interface CreateChatHandlerOptions {
   model: LanguageModel
+  /** System prompt / instructions for the model. */
+  instructions?: string
+  /** @deprecated Use `instructions` instead. */
   system?: string
   sendReasoning?: boolean
   sendSources?: boolean
@@ -44,13 +48,16 @@ export function createChatHandler(options: CreateChatHandlerOptions) {
 
     const result = streamText({
       model: options.model,
-      system: options.system,
+      instructions: options.instructions ?? options.system,
       messages: await convertToModelMessages(messages),
     })
 
-    return result.toUIMessageStreamResponse({
-      sendReasoning: options.sendReasoning ?? true,
-      sendSources: options.sendSources ?? true,
+    return createUIMessageStreamResponse({
+      stream: toUIMessageStream({
+        stream: result.stream,
+        sendReasoning: options.sendReasoning ?? true,
+        sendSources: options.sendSources ?? true,
+      }),
     })
   }
 }

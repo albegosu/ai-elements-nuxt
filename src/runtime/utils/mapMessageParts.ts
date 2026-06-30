@@ -1,13 +1,14 @@
 import type { AiAttachment, AiMessageProps, AiSource, AiToolCall, AiToolUIPartState } from '../types'
 import { isAiToolInProgress } from '../types'
 
-/** Minimal shape compatible with @ai-sdk/vue UIMessage and ai v6 UIMessage */
+/** Minimal shape compatible with AI SDK v7 UIMessage (parts-only) and v6 legacy fields. */
 export interface SdkMessageLike {
   id?: string
   role: 'user' | 'assistant' | 'system' | 'tool' | 'data'
   content?: string
   reasoning?: string
   parts?: Array<Record<string, unknown>>
+  /** @deprecated v6 legacy — v7 uses parts with type 'tool-invocation' */
   toolInvocations?: Array<{
     toolCallId: string
     toolName: string
@@ -15,6 +16,7 @@ export interface SdkMessageLike {
     result?: unknown
     state: 'partial-call' | 'call' | 'result'
   }>
+  /** @deprecated v6 legacy — v7 uses parts with type 'file' */
   experimental_attachments?: Array<{
     name?: string
     contentType?: string
