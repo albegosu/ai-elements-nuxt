@@ -87,7 +87,7 @@ export const categories: NavCategory[] = [
     label: 'Workflow',
     description: 'Canvas-based workflow diagrams with nodes and edges.',
     components: [
-      { slug: 'canvas', name: 'Canvas', component: 'AiCanvas', description: 'Pannable, zoomable workflow canvas.' },
+      { slug: 'canvas', name: 'Canvas', component: 'AiCanvas', description: 'Pannable, zoomable workflow canvas with grid, snap-to-grid, and fit-view.' },
       { slug: 'connection', name: 'Connection', component: 'AiConnection', description: 'SVG connection path between points.' },
       { slug: 'controls', name: 'Controls', component: 'AiControls', description: 'Zoom and pan controls overlay.' },
       { slug: 'edge', name: 'Edge', component: 'AiEdge', description: 'Workflow edge with label and animation.' },

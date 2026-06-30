@@ -60,6 +60,10 @@ async function _simulateStream() {
       description="Simulated streaming using useAiChatLocal — no API key or server required."
     />
 
+    <h2 class="mb-4 scroll-mt-24 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+      Streaming demo
+    </h2>
+
     <div class="mx-auto max-w-xl">
       <div class="mb-6 flex min-h-[200px] flex-col gap-4">
         <AiMessage

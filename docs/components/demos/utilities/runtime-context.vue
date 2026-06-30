@@ -12,5 +12,7 @@ const entries: AiRuntimeContextEntry[] = [
 </script>
 
 <template>
-  <AiRuntimeContext :entries="entries" title="Debug Context" />
+  <div class="w-full max-w-lg">
+    <AiRuntimeContext :entries="entries" title="Debug Context" />
+  </div>
 </template>

@@ -66,7 +66,7 @@ function toggleCapture() {
       :toggle-capture="toggleCapture"
     >
       <slot name="header" :status="status" :is-connected="isConnected">
-        <div data-ai-realtime-header>
+        <div data-ai-realtime-header class="flex items-center justify-between gap-3">
           <slot name="title">
             <span data-ai-realtime-title>{{ title ?? 'Voice Chat' }}</span>
           </slot>

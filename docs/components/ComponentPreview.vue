@@ -43,7 +43,7 @@ const activeTab = ref<'preview' | 'code'>('preview')
       v-show="activeTab === 'preview'"
       class="overflow-hidden p-8"
     >
-      <div class="flex items-center justify-center">
+      <div class="flex w-full items-start justify-center">
         <slot />
       </div>
     </div>

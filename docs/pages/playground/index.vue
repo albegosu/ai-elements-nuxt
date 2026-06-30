@@ -66,6 +66,10 @@ function selectThread(thread: { id: string }) {
       description="Interactive demo showing multiple AI Elements components working together in a realistic chat interface."
     />
 
+    <h2 class="mb-4 scroll-mt-24 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+      Full chat interface
+    </h2>
+
     <div class="grid grid-cols-[200px_1fr] gap-0 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800">
       <!-- Conversation sidebar -->
       <div class="flex flex-col border-r border-zinc-200 dark:border-zinc-800">

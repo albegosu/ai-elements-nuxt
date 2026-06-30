@@ -143,7 +143,7 @@ const stackFrames = [
     <div class="space-y-8">
       <!-- CodeBlock -->
       <section>
-        <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">CodeBlock</p>
+        <h2 class="mb-3 scroll-mt-24 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">CodeBlock</h2>
         <div class="overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800">
           <AiCodeBlock :code="codeExample" language="typescript" filename="server/api/chat.post.ts" :highlight-lines="[4, 5, 6]" />
         </div>
@@ -152,7 +152,7 @@ const stackFrames = [
       <!-- Terminal + FileTree -->
       <div class="grid gap-5 sm:grid-cols-2">
         <section>
-          <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Terminal</p>
+          <h2 class="mb-3 scroll-mt-24 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Terminal</h2>
           <div class="overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800">
             <AiTerminal :lines="terminalLines" title="zsh">
               <template #line="{ line }">
@@ -166,7 +166,7 @@ const stackFrames = [
         </section>
 
         <section>
-          <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">File Tree</p>
+          <h2 class="mb-3 scroll-mt-24 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">File Tree</h2>
           <div class="rounded-xl border border-zinc-200 bg-zinc-950 px-2 py-3 font-mono text-sm dark:border-zinc-800">
             <AiFileTree :nodes="fileTreeNodes">
               <template #icon="{ node }">
@@ -187,7 +187,7 @@ const stackFrames = [
 
       <!-- Artifact -->
       <section>
-        <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Artifact</p>
+        <h2 class="mb-3 scroll-mt-24 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Artifact</h2>
         <div class="overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800">
           <AiArtifact :artifacts="artifacts" />
         </div>
@@ -196,12 +196,12 @@ const stackFrames = [
       <!-- Snippet + Commit -->
       <div class="grid gap-5 sm:grid-cols-2">
         <section>
-          <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Snippet</p>
+          <h2 class="mb-3 scroll-mt-24 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Snippet</h2>
           <AiSnippet :code="snippetCode" language="typescript" label="types import" />
         </section>
 
         <section>
-          <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Commit</p>
+          <h2 class="mb-3 scroll-mt-24 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Commit</h2>
           <div class="overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800">
             <AiCommit :commit="commit" :expanded="true" />
           </div>
@@ -211,14 +211,14 @@ const stackFrames = [
       <!-- EnvVars + TestResults -->
       <div class="grid gap-5 sm:grid-cols-2">
         <section>
-          <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Env Vars</p>
+          <h2 class="mb-3 scroll-mt-24 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Env Vars</h2>
           <div class="overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800">
             <AiEnvVars :variables="envVars" />
           </div>
         </section>
 
         <section>
-          <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Test Results</p>
+          <h2 class="mb-3 scroll-mt-24 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Test Results</h2>
           <div class="overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800">
             <AiTestResults :tests="tests" />
           </div>
@@ -227,7 +227,7 @@ const stackFrames = [
 
       <!-- StackTrace -->
       <section>
-        <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Stack Trace</p>
+        <h2 class="mb-3 scroll-mt-24 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Stack Trace</h2>
         <div class="overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800">
           <AiStackTrace
             error="Cannot read properties of undefined (reading 'id')"
@@ -239,7 +239,7 @@ const stackFrames = [
 
       <!-- Agent -->
       <section>
-        <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Agent</p>
+        <h2 class="mb-3 scroll-mt-24 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Agent</h2>
         <div class="overflow-hidden rounded-xl border border-zinc-200 p-4 dark:border-zinc-800">
           <AiAgent :steps="agentSteps" title="RAG Agent" />
         </div>

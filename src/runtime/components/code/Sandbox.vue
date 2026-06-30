@@ -18,6 +18,7 @@ const emit = defineEmits<{
 
 const isRunning = ref(false)
 const error = ref<string | null>(null)
+const frameVersion = ref(0)
 
 const iframeHtml = computed(() => {
   if (props.template) {
@@ -25,13 +26,17 @@ const iframeHtml = computed(() => {
   }
   if (props.language === 'html') return props.code
   if (props.language === 'javascript' || props.language === 'js') {
-    return `<!DOCTYPE html><html><body><pre id="out"></pre><script>
+    return `<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+html,body{margin:0;padding:0;height:100%}
+body{background:#09090b;color:#a1a1aa;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;padding:12px 16px}
+#out{margin:0;white-space:pre-wrap;word-break:break-word}
+</style></head><body><pre id="out"></pre><script>
 try {
   const __log = [];
   const origLog = console.log;
   console.log = (...a) => { __log.push(a.map(String).join(' ')); origLog(...a); };
   ${props.code}
-  document.getElementById('out').textContent = __log.join('\\n');
+  document.getElementById('out').textContent = __log.join('\\n') || '(no output)';
 } catch(e) { document.getElementById('out').textContent = 'Error: ' + e.message; }
 </` + `script></body></html>`
   }
@@ -42,6 +47,7 @@ function run() {
   isRunning.value = true
   error.value = null
   try {
+    frameVersion.value++
     emit('run', props.code)
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : String(e)
@@ -80,9 +86,10 @@ onMounted(() => {
         <pre data-ai-sandbox-code><code>{{ code }}</code></pre>
       </slot>
 
-      <slot name="output" :iframe-html="iframeHtml" :error="error">
+      <slot name="output" :iframe-html="iframeHtml" :error="error" :frame-version="frameVersion">
         <div data-ai-sandbox-output>
           <iframe
+            :key="frameVersion"
             :srcdoc="iframeHtml"
             sandbox="allow-scripts"
             data-ai-sandbox-frame

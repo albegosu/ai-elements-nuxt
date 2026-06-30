@@ -34,7 +34,7 @@ const nodes = [
     <div class="space-y-10">
       <!-- Voice section -->
       <section>
-        <h2 class="mb-4 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Voice</h2>
+        <h2 class="mb-4 scroll-mt-24 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Voice</h2>
 
         <div class="grid gap-4 sm:grid-cols-2">
           <!-- Audio Player -->
@@ -128,7 +128,7 @@ const nodes = [
 
       <!-- Workflow section -->
       <section>
-        <h2 class="mb-4 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Workflow</h2>
+        <h2 class="mb-4 scroll-mt-24 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Workflow</h2>
         <div class="overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800">
           <div class="flex items-center justify-between border-b border-zinc-200 px-4 py-3 dark:border-zinc-800">
             <span class="text-xs font-medium text-zinc-600 dark:text-zinc-400">RAG Pipeline</span>

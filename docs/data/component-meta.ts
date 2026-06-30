@@ -281,11 +281,25 @@ const meta: Record<string, ComponentMeta> = {
   'code/sandbox': {
     props: [
       { name: 'code', type: 'string', required: true },
-      { name: 'language', type: 'string', default: "'html'" },
-      { name: 'autoRun', type: 'boolean', default: 'false' },
+      { name: 'language', type: 'string', default: "'html'", description: 'html, javascript, or js' },
+      { name: 'template', type: 'string', description: 'Custom iframe HTML; use {{code}} as placeholder' },
+      { name: 'title', type: 'string', description: 'Accessible label and header title' },
+      { name: 'autoRun', type: 'boolean', default: 'false', description: 'Emit run on mount (refreshes JS iframe)' },
     ],
-    slots: ['preview', 'code', 'toolbar'],
-    code: `<AiSandbox :code="html" language="html" :auto-run="true" />`,
+    slots: ['default', 'header', 'title', 'editor', 'output'],
+    code: `<AiSandbox
+  :code="snippet"
+  language="javascript"
+  title="Model picker"
+  :auto-run="true"
+>
+  <template #header="{ title, run, isRunning }">
+  </template>
+  <template #editor="{ code, language }">
+  </template>
+  <template #output="{ iframeHtml, frameVersion, error }">
+  </template>
+</AiSandbox>`,
   },
   'code/vue-preview': {
     props: [
@@ -356,16 +370,16 @@ const meta: Record<string, ComponentMeta> = {
   },
   'workflow/canvas': {
     props: [
-      { name: 'width', type: 'string', default: "'100%'" },
-      { name: 'height', type: 'string', default: "'500px'" },
-      { name: 'zoom', type: 'number', default: '1' },
-      { name: 'panX', type: 'number', default: '0' },
-      { name: 'panY', type: 'number', default: '0' },
-      { name: 'minZoom', type: 'number', default: '0.1' },
-      { name: 'maxZoom', type: 'number', default: '3' },
-      { name: 'gridSize', type: 'number', default: '20' },
-      { name: 'showGrid', type: 'boolean', default: 'true' },
-      { name: 'snapToGrid', type: 'boolean', default: 'false' },
+      { name: 'width', type: 'string', default: "'100%'", description: 'Canvas container width' },
+      { name: 'height', type: 'string', default: "'500px'", description: 'Canvas container height' },
+      { name: 'zoom', type: 'number', default: '1', description: 'Controlled zoom level (sync with @zoom)' },
+      { name: 'panX', type: 'number', default: '0', description: 'Horizontal pan offset in px' },
+      { name: 'panY', type: 'number', default: '0', description: 'Vertical pan offset in px' },
+      { name: 'minZoom', type: 'number', default: '0.1', description: 'Minimum zoom (wheel / pinch)' },
+      { name: 'maxZoom', type: 'number', default: '3', description: 'Maximum zoom (wheel / pinch)' },
+      { name: 'gridSize', type: 'number', default: '20', description: 'Dot grid spacing in px' },
+      { name: 'showGrid', type: 'boolean', default: 'true', description: 'Show background dot grid' },
+      { name: 'snapToGrid', type: 'boolean', default: 'false', description: 'Snap click / drag coords to grid' },
     ],
     slots: ['default', 'background', 'minimap'],
     events: [
@@ -374,9 +388,61 @@ const meta: Record<string, ComponentMeta> = {
       { name: 'click', payload: 'x: number, y: number' },
       { name: 'select', payload: 'ids: string[]' },
     ],
-    code: `<AiCanvas height="400px" :zoom="zoom" @zoom="zoom = $event">
-  <AiNode id="n1" label="Retrieve" :x="80" :y="80" />
-</AiCanvas>`,
+    code: `<script setup lang="ts">
+const canvasRef = ref()
+const zoom = ref(1)
+
+const nodes = reactive([
+  { id: 'n1', label: 'Query', x: 40, y: 80, status: 'completed' },
+  { id: 'n2', label: 'Retrieve', x: 220, y: 80, status: 'running' },
+])
+</script>
+
+<template>
+  <div class="relative">
+    <AiCanvas
+      ref="canvasRef"
+      height="400px"
+      snap-to-grid
+      :zoom="zoom"
+      @zoom="zoom = $event"
+    >
+      <template #default="{ zoom: canvasZoom, panX, panY }">
+        <svg class="pointer-events-none absolute inset-0">
+          <AiEdge
+            id="e1"
+            :source-x="152"
+            :source-y="104"
+            :target-x="220"
+            :target-y="104"
+            animated
+          />
+        </svg>
+
+        <AiNode
+          v-for="node in nodes"
+          :key="node.id"
+          v-bind="node"
+          :zoom="canvasZoom"
+          :pan-x="panX"
+          :pan-y="panY"
+          @move="(id, x, y) => { const n = nodes.find(n => n.id === id); if (n) { n.x = x; n.y = y } }"
+        />
+      </template>
+    </AiCanvas>
+
+    <AiControls
+      :zoom="zoom"
+      class="absolute bottom-3 right-3"
+      @zoom-in="canvasRef?.zoomIn()"
+      @zoom-out="canvasRef?.zoomOut()"
+      @reset="canvasRef?.resetView()"
+      @fit-view="canvasRef?.fitView(nodes.map(n => ({ x: n.x, y: n.y })))"
+    />
+  </div>
+</template>
+
+<!-- Exposed: zoomIn, zoomOut, resetView, fitView(positions), clientToCanvas(x, y) -->`,
   },
   'workflow/node': {
     props: [
@@ -490,15 +556,19 @@ const meta: Record<string, ComponentMeta> = {
   },
   'chatbot/approval-policy': {
     props: [
-      { name: 'policies', type: 'AiApprovalPolicies', required: true, description: 'Map of tool names to approval policies' },
-      { name: 'pending', type: '{ toolName: string; args: unknown } | null', description: 'Currently pending approval request' },
+      { name: 'tools', type: 'AiApprovalPolicies', required: true, description: 'Map of tool names to approval policies (auto-approve, auto-deny, user-approval)' },
+      { name: 'toolCalls', type: 'AiToolCall[]', default: '[]', description: 'Tool calls to evaluate against the policy map' },
     ],
-    slots: ['default', 'policy', 'pending', 'approve-button', 'deny-button'],
+    slots: ['default', 'approval', 'tool-name', 'policy-badge', 'args', 'actions', 'empty'],
     code: `<AiApprovalPolicy
-  :policies="{ search: 'auto-approve', deleteFile: 'user-approval' }"
-  :pending="pendingApproval"
-  @approve="onApprove"
-  @deny="onDeny"
+  :tools="{
+    search: 'auto-approve',
+    deleteFile: 'user-approval',
+    formatDisk: 'auto-deny',
+  }"
+  :tool-calls="toolCalls"
+  @approve="handleApprove"
+  @deny="handleDeny"
 />`,
   },
   'code/agent-timeline': {
@@ -509,7 +579,23 @@ const meta: Record<string, ComponentMeta> = {
       { name: 'collapsed', type: 'boolean', default: 'false', description: 'Collapse the timeline entries' },
     ],
     slots: ['default', 'header', 'title', 'summary', 'entry', 'connector', 'entry-header', 'entry-body', 'children', 'child'],
-    code: `<AiAgentTimeline :entries="entries" title="Agent Run" :show-duration="true" />`,
+    code: `const entries: AiTimelineEntry[] = [
+  { id: '1', type: 'thought', content: 'Planning retrieval…', status: 'completed', duration: 120 },
+  {
+    id: '2',
+    type: 'action',
+    content: 'Searching knowledge base',
+    tool: 'search',
+    status: 'completed',
+    duration: 850,
+    children: [
+      { id: '2a', type: 'observation', content: 'Retrieved 12 chunks', status: 'completed' },
+    ],
+  },
+  { id: '3', type: 'action', content: 'Generating response', tool: 'generate', status: 'running' },
+]
+
+<AiAgentTimeline :entries="entries" title="Agent Run" :show-duration="true" />`,
   },
   'utilities/file-upload': {
     props: [
@@ -536,7 +622,8 @@ const meta: Record<string, ComponentMeta> = {
   :is-capturing="isCapturing"
   @connect="connect"
   @disconnect="disconnect"
-  @toggle-capture="toggleCapture"
+  @start-capture="isCapturing = true"
+  @stop-capture="isCapturing = false"
 />`,
   },
   'code/sandbox-preview': {
@@ -547,7 +634,22 @@ const meta: Record<string, ComponentMeta> = {
       { name: 'maxLines', type: 'number', description: 'Max visible output lines (scrolls from bottom)' },
     ],
     slots: ['default', 'header', 'command', 'actions', 'output', 'line', 'status', 'artifacts', 'artifact'],
-    code: `<AiSandboxPreview :state="sandboxState" @run="run" @stop="stop" />`,
+    code: `<AiSandboxPreview :state="sandboxState" @run="run" @stop="stop">
+  <template #header="{ state }">
+    <div class="sandbox-header">
+      <code>{{ state.command }}</code>
+      <span :data-status="state.status">{{ state.status }}</span>
+    </div>
+  </template>
+  <template #line="{ line }">
+    <span :data-stream="line.stream">{{ line.content }}</span>
+  </template>
+  <template #artifact="{ artifact, formatSize }">
+    <button type="button" @click="download(artifact)">
+      {{ artifact.name }} · {{ formatSize(artifact.size!) }}
+    </button>
+  </template>
+</AiSandboxPreview>`,
   },
   'utilities/video-player': {
     props: [

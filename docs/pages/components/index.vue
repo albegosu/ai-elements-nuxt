@@ -16,7 +16,7 @@ definePageMeta({ layout: 'default' })
       :key="category.id"
       class="mb-10"
     >
-      <h2 class="mb-1 text-xl font-semibold text-zinc-900 dark:text-zinc-50">
+      <h2 class="mb-1 scroll-mt-24 text-xl font-semibold text-zinc-900 dark:text-zinc-50">
         {{ category.label }}
       </h2>
       <p class="mb-4 text-sm text-zinc-600 dark:text-zinc-400">

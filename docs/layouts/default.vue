@@ -1,14 +1,41 @@
 <script setup lang="ts">
 const route = useRoute()
-const { clearToc } = useDocsToc()
+const { clearToc, setToc, buildTocFromHeadings, pageSourceFromPath } = useDocsToc()
+
+function refreshPageToc(path: string) {
+  if (!import.meta.client) return
+
+  const source = pageSourceFromPath(path)
+  if (!source) {
+    clearToc()
+    return
+  }
+
+  nextTick(() => {
+    nextTick(() => {
+      const toc = buildTocFromHeadings()
+      if (toc.length) {
+        setToc(toc, source)
+      } else {
+        clearToc()
+      }
+    })
+  })
+}
 
 watch(
   () => route.path,
   (path) => {
-    if (!/^\/components\/[^/]+\/[^/]+$/.test(path)) {
-      clearToc()
+    if (COMPONENT_DOC_PATH.test(path)) return
+
+    if (AUTO_TOC_PATH.test(path)) {
+      refreshPageToc(path)
+      return
     }
+
+    clearToc()
   },
+  { immediate: true },
 )
 </script>
 

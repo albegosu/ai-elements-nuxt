@@ -98,6 +98,10 @@ function simulateApproval() {
       </button>
     </div>
 
+    <h2 class="mb-4 mt-10 scroll-mt-24 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+      Agent run
+    </h2>
+
     <AiAgent
       v-if="steps.length"
       :steps="steps"
@@ -112,6 +116,10 @@ function simulateApproval() {
       @approve="approve(demoToolCall!.approvalId ?? demoToolCall!.id)"
       @deny="deny(demoToolCall!.approvalId ?? demoToolCall!.id)"
     />
+
+    <h2 class="mb-4 scroll-mt-24 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+      Chat
+    </h2>
 
     <div class="mx-auto max-w-xl space-y-4">
       <AiMessage
