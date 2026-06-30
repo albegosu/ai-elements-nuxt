@@ -16,8 +16,8 @@ definePageMeta({ layout: 'default' })
         </h2>
         <p class="mb-3">
           Server utility wrapping <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">streamText</code>
-          with tools, <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">stopWhen: stepCountIs(n)</code>,
-          and optional <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">needsApproval</code> per tool.
+          with tools, <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">stopWhen: isStepCount(n)</code>,
+          and optional <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">requireConfirmation</code> per tool.
           Tool parameters use <a href="https://zod.dev" class="text-blue-600 dark:text-blue-400" target="_blank" rel="noopener">Zod</a> schemas — install with <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">pnpm add zod</code>.
         </p>
         <div class="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">

@@ -6,7 +6,7 @@ vi.mock('ai', async (importOriginal) => {
   return {
     ...actual,
     streamText: vi.fn(() => ({
-      toUIMessageStreamResponse: vi.fn(() => new Response('stream')),
+      stream: new ReadableStream(),
     })),
     convertToModelMessages: vi.fn(async (messages: unknown[]) => messages),
     createUIMessageStream: vi.fn((opts: { execute: (args: { writer: { write: (chunk: unknown) => void } }) => Promise<void> }) => {
