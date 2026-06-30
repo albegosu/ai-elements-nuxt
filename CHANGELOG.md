@@ -1,9 +1,37 @@
 # Changelog
 
-## Unreleased
+## 1.2.0
+
+### Added
+- `AiSandboxPreview` component — sandbox stdout/stderr streaming with run/stop controls, exit code, and file artifacts
+- `AiVideoPlayer` component — AI-generated video playback with loading/error/empty states and duration display
+- `AiMcpApp` component — sandboxed MCP application rendering via iframe (HTML, JSON, text)
+- `AiRuntimeContext` component — dev tool for inspecting runtime, tool, and approval context entries
+- New types: `AiSandboxLine`, `AiSandboxState`, `AiSandboxArtifact`, `AiVideoData`, `AiMcpAppData`, `AiRuntimeContextEntry`
+- Demo files and component-meta entries for all v1.1.0 and v1.2.0 components
+- Updated docs: README (60 components), composables guide (`useAiRealtime`), CHANGELOG, version badge
+
+## 1.1.0
+
+### Added
+- `useAiRealtime` composable — Vue wrapper for AI SDK v7 `AbstractRealtimeSession` with audio capture/playback
+- `AiRealtimeChat` component — voice + text realtime conversation with capture, playback, and connection controls
+- `AiApprovalPolicy` component — declarative tool approval policies (auto-approve, auto-deny, user-approval)
+- `AiAgentTimeline` component — rich timeline visualization with duration, connectors, and nested children
+- `AiFileUpload` component — drag-and-drop file upload with validation, progress, and file list
+- New types: `AiRealtimeStatus`, `AiRealtimeMessage`, `AiApprovalPolicies`, `AiTimelineEntry`, `AiFileUploadItem`
+
+## 1.0.0
 
 ### Changed
-- Docs and README: npm published install path, v0.5.0 on docs site, GitHub install as optional
+- **Breaking**: peer dependencies updated to `ai@^7.0.0`, `@ai-sdk/vue@^4.0.0` (AI SDK v7)
+- Server handlers migrated: `system` → `instructions`, `stepCountIs` → `isStepCount`, `result.toUIMessageStreamResponse()` → `createUIMessageStreamResponse()` + `toUIMessageStream()`
+- Docs and README updated for v7 APIs
+
+## 0.5.1
+
+### Fixed
+- Add explicit Vue imports to runtime components
 
 ## 0.5.0 — 2026-06-04
 

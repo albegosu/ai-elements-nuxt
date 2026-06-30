@@ -60,6 +60,7 @@ export default defineNuxtConfig({
 | Streaming chat | `AiMessage`, `AiPromptInput` | `useAiChat` | `createChatHandler` |
 | Agent with tools | + `AiAgent`, `AiTool`, `AiToolApproval` | `useAiAgent`, `useAiTools` | `createAgentHandler` |
 | Persisted chat | same as chat | `useAiChatPersisted` | same as chat |
+| Realtime voice | `AiRealtimeChat` | `useAiRealtime` | — |
 
 ### Install from GitHub
 
@@ -200,17 +201,17 @@ GFM (tables, task lists, strikethrough) is enabled by default via `marked`. Use 
 const { html } = useAiMarkdown(() => markdownSource, { parse: simpleParse })
 ```
 
-## Components (52)
+## Components (60)
 
 All components are auto-imported with the `Ai` prefix.
 
 | Category | Components |
 |----------|------------|
-| **Chatbot** | Message, PromptInput, Conversation (thread list / sidebar), Reasoning, ChainOfThought, Sources, Tool, ToolApproval, Suggestion, Attachments, Shimmer, StreamingCursor, Plan, Task, Checkpoint, Confirmation, Context, Queue, InlineCitation, ModelSelector, ErrorBoundary |
-| **Code** | CodeBlock, Terminal, FileTree, StackTrace, Agent (also `AiAgentSteps`), Artifact, Commit, SchemaDisplay, PackageInfo, EnvVars, TestResults, Snippet, WebPreview, Sandbox, VuePreview |
-| **Voice** | SpeechInput, Transcription, AudioPlayer, MicSelector, VoiceSelector, Persona |
+| **Chatbot** | Message, PromptInput, Conversation (thread list / sidebar), Reasoning, ChainOfThought, Sources, Tool, ToolApproval, ApprovalPolicy, Suggestion, Attachments, Shimmer, StreamingCursor, Plan, Task, Checkpoint, Confirmation, Context, Queue, InlineCitation, ModelSelector, ErrorBoundary |
+| **Code** | CodeBlock, Terminal, FileTree, StackTrace, Agent (also `AiAgentSteps`), AgentTimeline, Artifact, Commit, SchemaDisplay, PackageInfo, EnvVars, TestResults, Snippet, WebPreview, Sandbox, SandboxPreview, VuePreview |
+| **Voice** | SpeechInput, Transcription, AudioPlayer, MicSelector, VoiceSelector, Persona, RealtimeChat |
 | **Workflow** | Canvas, Node, Edge, Connection, Controls, Panel, Toolbar |
-| **Utilities** | Image, OpenInChat, Markdown |
+| **Utilities** | Image, OpenInChat, Markdown, FileUpload, VideoPlayer, McpApp, RuntimeContext |
 
 ## Composables
 
@@ -221,6 +222,7 @@ All components are auto-imported with the `Ai` prefix.
 | `useAiChatPersisted` | `useAiChat` with localStorage/sessionStorage persistence |
 | `useAiAgent` | Agent steps, plan, tasks, and confirmation flow on top of chat |
 | `useAiTools` | Declarative per-tool UI metadata wired to `useAiAgent`; exposes `pendingApprovals` (typed `AiToolCall[]`) for `AiToolApproval` |
+| `useAiRealtime` | Vue composable wrapping AI SDK v7 `AbstractRealtimeSession` — connection, audio capture/playback, messages |
 | `useAiWorkflow` | Workflow graph nodes/edges state |
 | `useAiCompletion` | Wraps `@ai-sdk/vue` `useCompletion` |
 | `useAiMarkdown` | Markdown string → sanitized HTML (GFM via `marked`); pass `{ parse: simpleParse }` for lightweight fallback |
@@ -255,7 +257,7 @@ pnpm dev
 
 Opens the docs site at `http://localhost:3000` (or the [hosted docs](https://albegosu.github.io/ai-elements-nuxt/)) with:
 - **Guides**: getting started, building a chat, custom transport & RAG, building an agent, styling, composables
-- Component reference with Preview/Code tabs for all 52 components
+- Component reference with Preview/Code tabs for all 60 components
 - Playgrounds: chat, streaming, agent, code, voice & workflow
 
 ## Philosophy

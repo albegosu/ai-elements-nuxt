@@ -105,6 +105,9 @@ const { aiMessages, steps, handleSubmit, input } = agent</code></pre>
         </h2>
         <ul class="list-inside list-disc space-y-1">
           <li><code>AiTool</code> — per-tool lifecycle states (streaming args → result)</li>
+          <li><code>AiApprovalPolicy</code> — declarative tool approval policies (auto-approve, auto-deny, user-approval)</li>
+          <li><code>AiAgentTimeline</code> — rich timeline with duration, connectors, and nested children</li>
+          <li><code>AiSandboxPreview</code> — sandbox stdout/stderr with artifacts (v7 sandbox sessions)</li>
           <li><code>AiPlan</code> / <code>AiTask</code> — manual plan/task state via <code>agent.setPlan</code> / <code>agent.setTasks</code></li>
         </ul>
       </div>
