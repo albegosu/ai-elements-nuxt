@@ -58,6 +58,7 @@ export const categories: NavCategory[] = [
       { slug: 'file-tree', name: 'File Tree', component: 'AiFileTree', description: 'Expandable file tree navigation.' },
       { slug: 'package-info', name: 'Package Info', component: 'AiPackageInfo', description: 'npm package metadata display.' },
       { slug: 'sandbox', name: 'Sandbox', component: 'AiSandbox', description: 'Runnable code sandbox preview.' },
+      { slug: 'sandbox-preview', name: 'Sandbox Preview', component: 'AiSandboxPreview', description: 'Sandbox stdout/stderr streaming with exit code and file artifacts.' },
       { slug: 'schema-display', name: 'Schema Display', component: 'AiSchemaDisplay', description: 'JSON schema field tree.' },
       { slug: 'snippet', name: 'Snippet', component: 'AiSnippet', description: 'Compact copyable code snippet.' },
       { slug: 'stack-trace', name: 'Stack Trace', component: 'AiStackTrace', description: 'Error stack trace with frame list.' },
@@ -104,6 +105,9 @@ export const categories: NavCategory[] = [
       { slug: 'markdown', name: 'Markdown', component: 'AiMarkdown', description: 'Sanitized markdown to HTML renderer.' },
       { slug: 'open-in-chat', name: 'Open In Chat', component: 'AiOpenInChat', description: 'Action to open content in chat.' },
       { slug: 'file-upload', name: 'File Upload', component: 'AiFileUpload', description: 'Drag-and-drop file upload with validation, progress, and file list.' },
+      { slug: 'video-player', name: 'Video Player', component: 'AiVideoPlayer', description: 'AI-generated video playback with loading states and duration display.' },
+      { slug: 'mcp-app', name: 'MCP App', component: 'AiMcpApp', description: 'Sandboxed MCP application rendering via iframe with HTML, text, and JSON content.' },
+      { slug: 'runtime-context', name: 'Runtime Context', component: 'AiRuntimeContext', description: 'Dev tool for inspecting runtime, tool, and approval context entries.' },
     ],
   },
 ]

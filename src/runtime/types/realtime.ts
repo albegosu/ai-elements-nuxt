@@ -48,3 +48,60 @@ export interface AiFileUploadItem {
   error?: string
   url?: string
 }
+
+/** Sandbox process output line. */
+export interface AiSandboxLine {
+  id: string
+  stream: 'stdout' | 'stderr'
+  content: string
+  timestamp?: number
+}
+
+/** Sandbox execution state for AiSandboxPreview. */
+export interface AiSandboxState {
+  status: 'idle' | 'running' | 'completed' | 'error'
+  command?: string
+  lines: AiSandboxLine[]
+  exitCode?: number
+  artifacts?: AiSandboxArtifact[]
+  error?: string
+}
+
+/** File artifact produced by a sandbox execution. */
+export interface AiSandboxArtifact {
+  id: string
+  name: string
+  path: string
+  mimeType?: string
+  size?: number
+  url?: string
+}
+
+/** Video generation result for AiVideoPlayer. */
+export interface AiVideoData {
+  url: string
+  mimeType?: string
+  duration?: number
+  width?: number
+  height?: number
+  poster?: string
+}
+
+/** MCP app rendering state. */
+export interface AiMcpAppData {
+  id: string
+  name: string
+  status: 'loading' | 'ready' | 'error'
+  content?: string
+  contentType?: 'html' | 'text' | 'json' | 'custom'
+  error?: string
+  metadata?: Record<string, unknown>
+}
+
+/** Runtime context entry for AiRuntimeContext. */
+export interface AiRuntimeContextEntry {
+  key: string
+  value: unknown
+  type: 'runtime' | 'tool' | 'approval'
+  scope?: string
+}
