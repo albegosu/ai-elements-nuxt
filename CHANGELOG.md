@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.4.0
+
+### Added
+- `AiBranch` component — headless navigation across alternative message versions (regenerations / branches) with `v-model:index`
+- `AiSpeechButton` component + `useSpeechRecognition` composable — speech-to-text button for dictating into the prompt (Web Speech API)
+- `AiSourceDocuments` component — source-document chips attached to the prompt, with remove actions (`AiSourceDocument` type)
+
+### Changed
+- `AiReasoning` — new `getThinkingMessage` prop, thinking-duration tracking ("Thought for Ns"), and `autoClose` on stream end; `duration` exposed to trigger slots
+- `AiPromptInput` — new `submitShortcut` prop (`'enter'` | `'mod+enter'`)
+- `AiSpeechInput` refactored onto the shared `useSpeechRecognition` composable (behavior unchanged)
+- 66 components / 11 composables total
+
 ## 1.3.0
 
 ### Added

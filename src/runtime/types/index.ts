@@ -10,6 +10,16 @@ export interface AiScreenshotCapture {
   file: File
 }
 
+/** A source document attachable to {@link AiPromptInput} via {@link AiSourceDocuments}. */
+export interface AiSourceDocument {
+  id: string
+  title: string
+  type?: 'file' | 'url' | 'text' | 'pdf' | 'doc'
+  url?: string
+  size?: number
+  content?: string
+}
+
 /** Props for {@link AiMessage} — maps from AI SDK `UIMessage` via `toAiMessageProps`. */
 export interface AiMessageProps {
   role: 'user' | 'assistant' | 'system' | 'tool'

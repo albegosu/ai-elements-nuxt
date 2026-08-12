@@ -42,9 +42,10 @@ const meta: Record<string, ComponentMeta> = {
       { name: 'loading', type: 'boolean', default: 'false', description: 'Shows stop button when true' },
       { name: 'rows', type: 'number', default: '1' },
       { name: 'autoResize', type: 'boolean', default: 'true' },
+      { name: 'submitShortcut', type: "'enter' | 'mod+enter'", default: "'enter'", description: "'enter' submits (Shift+Enter newline); 'mod+enter' submits on ⌘/Ctrl+Enter (Enter newline)" },
     ],
     slots: ['prefix', 'attachments-area', 'input', 'actions', 'send-icon', 'stop-icon', 'suffix'],
-    code: `<AiPromptInput v-model="input" @submit="send">
+    code: `<AiPromptInput v-model="input" submit-shortcut="mod+enter" @submit="send">
   <template #actions="{ submit, canSubmit }">
     <button :disabled="!canSubmit" @click="submit">Send</button>
   </template>
@@ -64,9 +65,16 @@ const meta: Record<string, ComponentMeta> = {
       { name: 'content', type: 'string' },
       { name: 'collapsed', type: 'boolean', default: 'true' },
       { name: 'streaming', type: 'boolean', default: 'false' },
+      { name: 'autoClose', type: 'boolean', default: 'true', description: 'Collapse automatically once streaming ends' },
+      { name: 'getThinkingMessage', type: '(o: { streaming: boolean, duration: number }) => string', description: 'Customize the trigger label' },
     ],
-    slots: ['trigger', 'content'],
-    code: `<AiReasoning content="Thinking..." :streaming="true" />`,
+    slots: ['trigger', 'trigger-label', 'content'],
+    code: `<AiReasoning
+  content="Thinking..."
+  :streaming="isStreaming"
+  :get-thinking-message="({ streaming, duration }) =>
+    streaming ? 'Reasoning…' : \`Thought for \${duration}s\`"
+/>`,
   },
   'chatbot/shimmer': {
     props: [
@@ -613,6 +621,54 @@ const nodes = reactive([
     <button :disabled="disabled" @click="download">Download</button>
   </template>
 </AiDownloadConversation>`,
+  },
+  'chatbot/branch': {
+    props: [
+      { name: 'branches', type: 'T[]', required: true, description: 'Alternative versions of a message (regenerations / branches)' },
+      { name: 'index', type: 'number', default: '0', description: 'Active branch index (v-model:index)' },
+    ],
+    slots: ['default'],
+    events: [
+      { name: 'update:index', payload: 'number' },
+      { name: 'change', payload: 'number, branch' },
+    ],
+    code: `<AiBranch :branches="responses" v-model:index="active">
+  <template #default="{ current, index, count, next, previous }">
+    <AiMessage role="assistant" :content="current" />
+    <div>{{ index + 1 }} / {{ count }}</div>
+  </template>
+</AiBranch>`,
+  },
+  'chatbot/speech-button': {
+    props: [
+      { name: 'language', type: 'string', default: "'en-US'" },
+      { name: 'continuous', type: 'boolean', default: 'false' },
+      { name: 'interimResults', type: 'boolean', default: 'true' },
+      { name: 'disabled', type: 'boolean', default: 'false' },
+    ],
+    slots: ['default', 'icon'],
+    events: [
+      { name: 'result', payload: 'transcript: string, isFinal: boolean' },
+      { name: 'start' },
+      { name: 'stop' },
+      { name: 'error', payload: 'string' },
+    ],
+    code: `<AiPromptInput v-model="input">
+  <template #actions>
+    <AiSpeechButton @result="(t) => input += t" />
+  </template>
+</AiPromptInput>`,
+  },
+  'chatbot/source-documents': {
+    props: [
+      { name: 'documents', type: 'AiSourceDocument[]', required: true },
+      { name: 'removable', type: 'boolean', default: 'true' },
+    ],
+    slots: ['default', 'document'],
+    events: [
+      { name: 'remove', payload: 'AiSourceDocument' },
+    ],
+    code: `<AiSourceDocuments :documents="docs" @remove="removeDoc" />`,
   },
   'code/agent-timeline': {
     props: [

@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { toRef } from 'vue'
+import { useSpeechRecognition } from '../../composables/useSpeechRecognition'
+
 const props = withDefaults(defineProps<{
   language?: string
   continuous?: boolean
@@ -17,96 +19,23 @@ const emit = defineEmits<{
   (e: 'error', error: string): void
 }>()
 
-const isListening = ref(false)
-const transcript = ref('')
-const interimTranscript = ref('')
-const isSupported = ref(false)
-let recognition: SpeechRecognition | null = null
-
-function applyRecognitionSettings() {
-  if (!recognition) return
-  recognition.lang = props.language
-  recognition.continuous = props.continuous
-  recognition.interimResults = props.interimResults
-}
-
-onMounted(() => {
-  const SpeechRecognitionCtor =
-    typeof window !== 'undefined'
-      ? window.SpeechRecognition ?? window.webkitSpeechRecognition
-      : undefined
-  isSupported.value = !!SpeechRecognitionCtor
-
-  if (SpeechRecognitionCtor) {
-    recognition = new SpeechRecognitionCtor()
-    applyRecognitionSettings()
-
-    recognition.onresult = (event: SpeechRecognitionEvent) => {
-      let interim = ''
-      let final = ''
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        const t = event.results[i][0].transcript
-        if (event.results[i].isFinal) {
-          final += t
-        } else {
-          interim += t
-        }
-      }
-      if (final) {
-        transcript.value += final
-        emit('result', final, true)
-      }
-      interimTranscript.value = interim
-      if (interim) emit('result', interim, false)
-    }
-
-    recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
-      emit('error', event.error)
-      isListening.value = false
-    }
-
-    recognition.onend = () => {
-      isListening.value = false
-      emit('stop')
-    }
-  }
+const {
+  isListening,
+  transcript,
+  interimTranscript,
+  isSupported,
+  start,
+  stop,
+  toggle,
+} = useSpeechRecognition({
+  lang: toRef(props, 'language'),
+  continuous: toRef(props, 'continuous'),
+  interimResults: toRef(props, 'interimResults'),
+  onResult: (t, isFinal) => emit('result', t, isFinal),
+  onStart: () => emit('start'),
+  onStop: () => emit('stop'),
+  onError: e => emit('error', e),
 })
-
-watch(
-  () => [props.language, props.continuous, props.interimResults] as const,
-  () => applyRecognitionSettings(),
-)
-
-onUnmounted(() => {
-  if (recognition && isListening.value) {
-    recognition.stop()
-  }
-  recognition = null
-})
-
-function start() {
-  if (!recognition || isListening.value) return
-  transcript.value = ''
-  interimTranscript.value = ''
-  try {
-    recognition.start()
-    isListening.value = true
-    emit('start')
-  } catch {
-    isListening.value = false
-  }
-}
-
-function stop() {
-  if (!recognition || !isListening.value) return
-  recognition.stop()
-  isListening.value = false
-}
-
-function toggle() {
-  if (isListening.value) stop()
-  else start()
-}
 
 defineExpose({ start, stop, toggle })
 </script>
@@ -129,9 +58,9 @@ defineExpose({ start, stop, toggle })
       <slot name="button" :is-listening="isListening" :toggle="toggle" :is-supported="isSupported">
         <button
           type="button"
-          @click="toggle"
           :disabled="!isSupported"
           :aria-label="isListening ? 'Stop listening' : 'Start listening'"
+          @click="toggle"
         >
           {{ isListening ? '⏹ Stop' : '🎤 Speak' }}
         </button>
