@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.0
+
+### Added
+- `AiJsxPreview` component — renders AI-generated markup live during streaming, auto-closing incomplete tags with a flicker-free fallback to the last valid render (Vue equivalent of Vercel's `JSXPreview`)
+- `AiScreenshotButton` component + `useScreenshotCapture` composable — capture a screenshot via `getDisplayMedia` to attach to the prompt (equivalent of `PromptInputActionAddScreenshot`)
+- `AiDownloadConversation` component + `messagesToMarkdown` / `downloadTextFile` utils — export a conversation to a Markdown file
+- New utils: `closeUnclosedTags`, `sanitizeMarkup` (streaming-safe markup sanitizer)
+- New type: `AiScreenshotCapture`, `AiMessageLike`
+- Demos, docs pages, and component-meta entries for the three new components (63 components total)
+
 ## 1.2.0
 
 ### Added

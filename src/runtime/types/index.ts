@@ -1,5 +1,15 @@
 export type { AiRealtimeStatus, AiRealtimeMessage, AiRealtimeOptions, AiApprovalPolicyType, AiApprovalPolicies, AiTimelineEntry, AiFileUploadItem } from './realtime'
 
+/** Result of a screen capture from {@link useScreenshotCapture} / {@link AiScreenshotButton}. */
+export interface AiScreenshotCapture {
+  /** `image/png` data URL for previews. */
+  dataUrl: string
+  /** Raw PNG blob. */
+  blob: Blob
+  /** Blob wrapped as a `File` for attaching to a prompt. */
+  file: File
+}
+
 /** Props for {@link AiMessage} — maps from AI SDK `UIMessage` via `toAiMessageProps`. */
 export interface AiMessageProps {
   role: 'user' | 'assistant' | 'system' | 'tool'

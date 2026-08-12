@@ -42,6 +42,8 @@ export const categories: NavCategory[] = [
       { slug: 'tool', name: 'Tool', component: 'AiTool', description: 'Tool invocation display with lifecycle states.' },
       { slug: 'tool-approval', name: 'Tool Approval', component: 'AiToolApproval', description: 'Human-in-the-loop tool approval UI.' },
       { slug: 'approval-policy', name: 'Approval Policy', component: 'AiApprovalPolicy', description: 'Declarative tool approval policies with auto-approve, auto-deny, and user-approval modes.' },
+      { slug: 'screenshot-button', name: 'Screenshot Button', component: 'AiScreenshotButton', description: 'Capture a screenshot via getDisplayMedia to attach to the prompt.' },
+      { slug: 'download-conversation', name: 'Download Conversation', component: 'AiDownloadConversation', description: 'Export a conversation to a Markdown file.' },
     ],
   },
   {
@@ -103,6 +105,7 @@ export const categories: NavCategory[] = [
     components: [
       { slug: 'image', name: 'Image', component: 'AiImage', description: 'Image with optional lightbox zoom.' },
       { slug: 'markdown', name: 'Markdown', component: 'AiMarkdown', description: 'Sanitized markdown to HTML renderer.' },
+      { slug: 'jsx-preview', name: 'JSX Preview', component: 'AiJsxPreview', description: 'Render AI-generated markup live during streaming, auto-closing incomplete tags.' },
       { slug: 'open-in-chat', name: 'Open In Chat', component: 'AiOpenInChat', description: 'Action to open content in chat.' },
       { slug: 'file-upload', name: 'File Upload', component: 'AiFileUpload', description: 'Drag-and-drop file upload with validation, progress, and file list.' },
       { slug: 'video-player', name: 'Video Player', component: 'AiVideoPlayer', description: 'AI-generated video playback with loading states and duration display.' },

@@ -6,6 +6,10 @@ export {
 } from '../types'
 export type { AiToolUIPartState, AiToolApproval } from '../types'
 
+export { messagesToMarkdown, downloadTextFile } from './exportMessages'
+export type { AiMessageLike } from './exportMessages'
+export { closeUnclosedTags, sanitizeMarkup, sanitizeRenderedHtml, sanitizeHref } from './sanitizeHtml'
+
 export function formatFileSize(bytes: number): string {
   if (bytes === 0) return '0 B'
   const k = 1024
