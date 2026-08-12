@@ -1,0 +1,2272 @@
+{
+  "package": "ai-elements-nuxt",
+  "version": "1.5.0",
+  "generatedAt": "2026-08-12",
+  "componentCount": 66,
+  "composableCount": 11,
+  "components": [
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiAttachments",
+      "slug": "attachments",
+      "title": "Attachments",
+      "description": "Display file and document attachments in grid, inline, or list layouts.",
+      "props": [
+        {
+          "name": "attachments",
+          "type": "AiAttachment[]",
+          "required": true
+        },
+        {
+          "name": "layout",
+          "type": "'grid' | 'inline' | 'list'",
+          "default": "'grid'"
+        },
+        {
+          "name": "removable",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "slots": [
+        "attachment",
+        "preview",
+        "default"
+      ],
+      "events": [],
+      "code": "<AiAttachments :attachments=\"files\" layout=\"grid\" />"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiChainOfThought",
+      "slug": "chain-of-thought",
+      "title": "Chain of Thought",
+      "description": "Discrete labeled steps for agent reasoning flows.",
+      "props": [
+        {
+          "name": "steps",
+          "type": "AiChainOfThoughtStep[]",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "string"
+        }
+      ],
+      "slots": [
+        "step",
+        "header"
+      ],
+      "events": [],
+      "code": "<AiChainOfThought :steps=\"steps\" title=\"Reasoning\" />"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiCheckpoint",
+      "slug": "checkpoint",
+      "title": "Checkpoint",
+      "description": "Pipeline checkpoint status indicators.",
+      "props": [
+        {
+          "name": "checkpoint",
+          "type": "AiCheckpointData",
+          "required": true
+        }
+      ],
+      "slots": [
+        "default",
+        "icon",
+        "title",
+        "description"
+      ],
+      "events": [],
+      "code": "<AiCheckpoint :checkpoint=\"checkpoint\" />"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiConfirmation",
+      "slug": "confirmation",
+      "title": "Confirmation",
+      "description": "Destructive or sensitive action confirmation dialogs.",
+      "props": [
+        {
+          "name": "confirmation",
+          "type": "AiConfirmationData",
+          "required": true
+        }
+      ],
+      "slots": [
+        "title",
+        "description",
+        "actions"
+      ],
+      "events": [],
+      "code": "<AiConfirmation :confirmation=\"data\" @confirm=\"onConfirm\" @deny=\"onDeny\" />"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiContext",
+      "slug": "context",
+      "title": "Context",
+      "description": "Context window items with token counts.",
+      "props": [
+        {
+          "name": "items",
+          "type": "AiContextItem[]",
+          "required": true
+        },
+        {
+          "name": "collapsed",
+          "type": "boolean",
+          "default": "true"
+        }
+      ],
+      "slots": [
+        "item",
+        "header",
+        "default"
+      ],
+      "events": [],
+      "code": "<AiContext :items=\"contextItems\" :collapsed=\"false\" />"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiConversation",
+      "slug": "conversation",
+      "title": "Conversation",
+      "description": "Thread list / sidebar — conversation threads, not the message scroll area.",
+      "props": [
+        {
+          "name": "threads",
+          "type": "AiConversationThread[]",
+          "required": true
+        },
+        {
+          "name": "activeId",
+          "type": "string",
+          "description": "Active thread id"
+        },
+        {
+          "name": "showArchived",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "slots": [
+        "header",
+        "thread",
+        "empty",
+        "footer"
+      ],
+      "events": [],
+      "code": "<AiConversation :threads=\"threads\" :active-id=\"activeId\" @select=\"onSelect\" />"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiErrorBoundary",
+      "slug": "error-boundary",
+      "title": "Error Boundary",
+      "description": "Error display with optional retry.",
+      "props": [
+        {
+          "name": "error",
+          "type": "Error | string | null"
+        },
+        {
+          "name": "retryable",
+          "type": "boolean",
+          "default": "true"
+        }
+      ],
+      "slots": [
+        "default",
+        "actions"
+      ],
+      "events": [],
+      "code": "<AiErrorBoundary :error=\"error\" @retry=\"retry\" />"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiInlineCitation",
+      "slug": "inline-citation",
+      "title": "Inline Citation",
+      "description": "Inline citation badges linked to sources.",
+      "props": [
+        {
+          "name": "citation",
+          "type": "AiCitation",
+          "required": true
+        },
+        {
+          "name": "interactive",
+          "type": "boolean",
+          "default": "true"
+        }
+      ],
+      "slots": [
+        "default"
+      ],
+      "events": [],
+      "code": "<AiInlineCitation :citation=\"citation\" @click=\"onClick\" />"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiMessage",
+      "slug": "message",
+      "title": "Message",
+      "description": "Headless message container with slots for content, reasoning, tools, and sources.",
+      "props": [
+        {
+          "name": "role",
+          "type": "'user' | 'assistant' | 'system' | 'tool'",
+          "required": true,
+          "description": "Message role"
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "description": "Plain text content"
+        },
+        {
+          "name": "htmlContent",
+          "type": "string",
+          "description": "Sanitized HTML content"
+        },
+        {
+          "name": "status",
+          "type": "'pending' | 'streaming' | 'complete' | 'error'",
+          "default": "'complete'",
+          "description": "Message status"
+        },
+        {
+          "name": "reasoning",
+          "type": "string",
+          "description": "Reasoning text for slot"
+        },
+        {
+          "name": "sources",
+          "type": "AiSource[]",
+          "description": "Citation sources"
+        },
+        {
+          "name": "toolCalls",
+          "type": "AiToolCall[]",
+          "description": "Tool invocations"
+        },
+        {
+          "name": "attachments",
+          "type": "AiAttachment[]",
+          "description": "File attachments"
+        }
+      ],
+      "slots": [
+        "avatar",
+        "reasoning",
+        "tool-calls",
+        "attachments",
+        "content",
+        "sources",
+        "metadata",
+        "actions"
+      ],
+      "events": [],
+      "code": "<AiMessage role=\"assistant\" content=\"Hello!\" status=\"complete\">\n  <template #content=\"{ content }\">\n    <p class=\"text-sm\">{{ content }}</p>\n  </template>\n</AiMessage>"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiModelSelector",
+      "slug": "model-selector",
+      "title": "Model Selector",
+      "description": "Model picker grouped by provider.",
+      "props": [
+        {
+          "name": "models",
+          "type": "AiModelOption[]",
+          "required": true
+        },
+        {
+          "name": "modelValue",
+          "type": "string",
+          "description": "Selected model id (v-model)"
+        },
+        {
+          "name": "groupByProvider",
+          "type": "boolean",
+          "default": "true"
+        }
+      ],
+      "slots": [
+        "trigger",
+        "selected",
+        "search",
+        "option",
+        "group-header",
+        "empty"
+      ],
+      "events": [],
+      "code": "<AiModelSelector v-model=\"modelId\" :models=\"models\">\n  <template #option=\"{ model, selected, select }\">\n    <button type=\"button\" @click=\"select()\">{{ model.name }}</button>\n  </template>\n</AiModelSelector>"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiPlan",
+      "slug": "plan",
+      "title": "Plan",
+      "description": "Nested step plan with status indicators.",
+      "props": [
+        {
+          "name": "steps",
+          "type": "AiPlanStep[]",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "string"
+        }
+      ],
+      "slots": [
+        "step",
+        "header"
+      ],
+      "events": [],
+      "code": "<AiPlan :steps=\"planSteps\" title=\"Agent plan\" />"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiPromptInput",
+      "slug": "prompt-input",
+      "title": "Prompt Input",
+      "description": "Textarea input with submit, stop, and slot customization.",
+      "props": [
+        {
+          "name": "modelValue",
+          "type": "string",
+          "default": "''",
+          "description": "Input value (v-model)"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "'Type a message...'",
+          "description": "Placeholder text"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": "false",
+          "description": "Shows stop button when true"
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "default": "1"
+        },
+        {
+          "name": "autoResize",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "submitShortcut",
+          "type": "'enter' | 'mod+enter'",
+          "default": "'enter'",
+          "description": "'enter' submits (Shift+Enter newline); 'mod+enter' submits on ⌘/Ctrl+Enter (Enter newline)"
+        }
+      ],
+      "slots": [
+        "prefix",
+        "attachments-area",
+        "input",
+        "actions",
+        "send-icon",
+        "stop-icon",
+        "suffix"
+      ],
+      "events": [],
+      "code": "<AiPromptInput v-model=\"input\" submit-shortcut=\"mod+enter\" @submit=\"send\">\n  <template #actions=\"{ submit, canSubmit }\">\n    <button :disabled=\"!canSubmit\" @click=\"submit\">Send</button>\n  </template>\n</AiPromptInput>"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiQueue",
+      "slug": "queue",
+      "title": "Queue",
+      "description": "Queued message list with processing status.",
+      "props": [
+        {
+          "name": "items",
+          "type": "AiQueueItem[]",
+          "required": true
+        }
+      ],
+      "slots": [
+        "item",
+        "default"
+      ],
+      "events": [],
+      "code": "<AiQueue :items=\"queueItems\" />"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiReasoning",
+      "slug": "reasoning",
+      "title": "Reasoning",
+      "description": "Collapsible reasoning / thinking block.",
+      "props": [
+        {
+          "name": "content",
+          "type": "string"
+        },
+        {
+          "name": "collapsed",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "streaming",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "autoClose",
+          "type": "boolean",
+          "default": "true",
+          "description": "Collapse automatically once streaming ends"
+        },
+        {
+          "name": "getThinkingMessage",
+          "type": "(o: { streaming: boolean, duration: number }) => string",
+          "description": "Customize the trigger label"
+        }
+      ],
+      "slots": [
+        "trigger",
+        "trigger-label",
+        "content"
+      ],
+      "events": [],
+      "code": "<AiReasoning\n  content=\"Thinking...\"\n  :streaming=\"isStreaming\"\n  :get-thinking-message=\"({ streaming, duration }) =>\n    streaming ? 'Reasoning…' : `Thought for ${duration}s`\"\n/>"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiShimmer",
+      "slug": "shimmer",
+      "title": "Shimmer",
+      "description": "Loading placeholder skeleton lines.",
+      "props": [
+        {
+          "name": "active",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "lines",
+          "type": "number",
+          "default": "3"
+        }
+      ],
+      "slots": [],
+      "events": [],
+      "code": "<AiShimmer :lines=\"3\" />"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiSources",
+      "slug": "sources",
+      "title": "Sources",
+      "description": "Source citation list for assistant messages.",
+      "props": [
+        {
+          "name": "sources",
+          "type": "AiSource[]",
+          "required": true
+        }
+      ],
+      "slots": [
+        "source",
+        "default"
+      ],
+      "events": [],
+      "code": "<AiSources :sources=\"sources\" />"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiStreamingCursor",
+      "slug": "streaming-cursor",
+      "title": "Streaming Cursor",
+      "description": "Blinking cursor for streaming text.",
+      "props": [
+        {
+          "name": "active",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "character",
+          "type": "string",
+          "default": "'|'"
+        }
+      ],
+      "slots": [],
+      "events": [],
+      "code": "<AiStreamingCursor :active=\"isStreaming\" />"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiSuggestion",
+      "slug": "suggestion",
+      "title": "Suggestion",
+      "description": "Follow-up suggestion chips.",
+      "props": [
+        {
+          "name": "suggestions",
+          "type": "AiSuggestion[]",
+          "required": true
+        }
+      ],
+      "slots": [
+        "suggestion",
+        "default"
+      ],
+      "events": [],
+      "code": "<AiSuggestion :suggestions=\"suggestions\" @select=\"onSelect\" />"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiTask",
+      "slug": "task",
+      "title": "Task",
+      "description": "Task progress with optional subtasks.",
+      "props": [
+        {
+          "name": "task",
+          "type": "AiTaskData",
+          "required": true
+        }
+      ],
+      "slots": [
+        "header",
+        "progress",
+        "subtask",
+        "default"
+      ],
+      "events": [],
+      "code": "<AiTask :task=\"task\" />"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiTool",
+      "slug": "tool",
+      "title": "Tool",
+      "description": "Tool invocation display with lifecycle states.",
+      "props": [
+        {
+          "name": "toolCall",
+          "type": "AiToolCall",
+          "required": true
+        }
+      ],
+      "slots": [
+        "header",
+        "args",
+        "result",
+        "status"
+      ],
+      "events": [],
+      "code": "<AiTool :tool-call=\"toolCall\" />"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiToolApproval",
+      "slug": "tool-approval",
+      "title": "Tool Approval",
+      "description": "Human-in-the-loop tool approval UI.",
+      "props": [
+        {
+          "name": "toolCall",
+          "type": "AiToolCall",
+          "required": true
+        },
+        {
+          "name": "editable",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "slots": [
+        "header",
+        "args",
+        "actions"
+      ],
+      "events": [],
+      "code": "<AiToolApproval :tool-call=\"toolCall\" @approve=\"onApprove\" @deny=\"onDeny\" />"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiApprovalPolicy",
+      "slug": "approval-policy",
+      "title": "Approval Policy",
+      "description": "Declarative tool approval policies with auto-approve, auto-deny, and user-approval modes.",
+      "props": [
+        {
+          "name": "tools",
+          "type": "AiApprovalPolicies",
+          "required": true,
+          "description": "Map of tool names to approval policies (auto-approve, auto-deny, user-approval)"
+        },
+        {
+          "name": "toolCalls",
+          "type": "AiToolCall[]",
+          "default": "[]",
+          "description": "Tool calls to evaluate against the policy map"
+        }
+      ],
+      "slots": [
+        "default",
+        "approval",
+        "tool-name",
+        "policy-badge",
+        "args",
+        "actions",
+        "empty"
+      ],
+      "events": [],
+      "code": "<AiApprovalPolicy\n  :tools=\"{\n    search: 'auto-approve',\n    deleteFile: 'user-approval',\n    formatDisk: 'auto-deny',\n  }\"\n  :tool-calls=\"toolCalls\"\n  @approve=\"handleApprove\"\n  @deny=\"handleDeny\"\n/>"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiScreenshotButton",
+      "slug": "screenshot-button",
+      "title": "Screenshot Button",
+      "description": "Capture a screenshot via getDisplayMedia to attach to the prompt.",
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "slots": [
+        "default",
+        "icon"
+      ],
+      "events": [
+        {
+          "name": "capture",
+          "payload": "AiScreenshotCapture"
+        },
+        {
+          "name": "error",
+          "payload": "Error"
+        }
+      ],
+      "code": "<AiScreenshotButton @capture=\"attachScreenshot\" @error=\"onError\">\n  <template #default=\"{ capture, capturing }\">\n    <button :disabled=\"capturing\" @click=\"capture\">📷</button>\n  </template>\n</AiScreenshotButton>"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiDownloadConversation",
+      "slug": "download-conversation",
+      "title": "Download Conversation",
+      "description": "Export a conversation to a Markdown file.",
+      "props": [
+        {
+          "name": "messages",
+          "type": "AiMessageLike[]",
+          "required": true,
+          "description": "Messages to serialize ({ role, content } or UIMessage parts)"
+        },
+        {
+          "name": "filename",
+          "type": "string",
+          "default": "'conversation.md'"
+        }
+      ],
+      "slots": [
+        "default",
+        "label"
+      ],
+      "events": [
+        {
+          "name": "download",
+          "payload": "string"
+        }
+      ],
+      "code": "<AiDownloadConversation :messages=\"messages\" filename=\"chat.md\">\n  <template #default=\"{ download, disabled }\">\n    <button :disabled=\"disabled\" @click=\"download\">Download</button>\n  </template>\n</AiDownloadConversation>"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiBranch",
+      "slug": "branch",
+      "title": "Branch",
+      "description": "Navigate alternative message versions (regenerations / branches).",
+      "props": [
+        {
+          "name": "branches",
+          "type": "T[]",
+          "required": true,
+          "description": "Alternative versions of a message (regenerations / branches)"
+        },
+        {
+          "name": "index",
+          "type": "number",
+          "default": "0",
+          "description": "Active branch index (v-model:index)"
+        }
+      ],
+      "slots": [
+        "default"
+      ],
+      "events": [
+        {
+          "name": "update:index",
+          "payload": "number"
+        },
+        {
+          "name": "change",
+          "payload": "number, branch"
+        }
+      ],
+      "code": "<AiBranch :branches=\"responses\" v-model:index=\"active\">\n  <template #default=\"{ current, index, count, next, previous }\">\n    <AiMessage role=\"assistant\" :content=\"current\" />\n    <div>{{ index + 1 }} / {{ count }}</div>\n  </template>\n</AiBranch>"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiSpeechButton",
+      "slug": "speech-button",
+      "title": "Speech Button",
+      "description": "Speech-to-text button for dictating into the prompt.",
+      "props": [
+        {
+          "name": "language",
+          "type": "string",
+          "default": "'en-US'"
+        },
+        {
+          "name": "continuous",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "interimResults",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "slots": [
+        "default",
+        "icon"
+      ],
+      "events": [
+        {
+          "name": "result",
+          "payload": "transcript: string, isFinal: boolean"
+        },
+        {
+          "name": "start"
+        },
+        {
+          "name": "stop"
+        },
+        {
+          "name": "error",
+          "payload": "string"
+        }
+      ],
+      "code": "<AiPromptInput v-model=\"input\">\n  <template #actions>\n    <AiSpeechButton @result=\"(t) => input += t\" />\n  </template>\n</AiPromptInput>"
+    },
+    {
+      "category": "chatbot",
+      "categoryLabel": "Chatbot",
+      "name": "AiSourceDocuments",
+      "slug": "source-documents",
+      "title": "Source Documents",
+      "description": "Source-document chips attached to the prompt, with remove actions.",
+      "props": [
+        {
+          "name": "documents",
+          "type": "AiSourceDocument[]",
+          "required": true
+        },
+        {
+          "name": "removable",
+          "type": "boolean",
+          "default": "true"
+        }
+      ],
+      "slots": [
+        "default",
+        "document"
+      ],
+      "events": [
+        {
+          "name": "remove",
+          "payload": "AiSourceDocument"
+        }
+      ],
+      "code": "<AiSourceDocuments :documents=\"docs\" @remove=\"removeDoc\" />"
+    },
+    {
+      "category": "code",
+      "categoryLabel": "Code",
+      "name": "AiAgent",
+      "slug": "agent",
+      "title": "Agent",
+      "description": "Agent thought/action/observation step timeline.",
+      "props": [
+        {
+          "name": "steps",
+          "type": "AiAgentStep[]",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "string"
+        }
+      ],
+      "slots": [
+        "step",
+        "header"
+      ],
+      "events": [],
+      "code": "<AiAgent :steps=\"agentSteps\" title=\"Agent run\" />"
+    },
+    {
+      "category": "code",
+      "categoryLabel": "Code",
+      "name": "AiAgentTimeline",
+      "slug": "agent-timeline",
+      "title": "Agent Timeline",
+      "description": "Rich timeline visualization with duration, connectors, and nested children.",
+      "props": [
+        {
+          "name": "entries",
+          "type": "AiTimelineEntry[]",
+          "required": true,
+          "description": "Timeline entries to display"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "description": "Timeline header title"
+        },
+        {
+          "name": "showDuration",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show duration on entries"
+        },
+        {
+          "name": "collapsed",
+          "type": "boolean",
+          "default": "false",
+          "description": "Collapse the timeline entries"
+        }
+      ],
+      "slots": [
+        "default",
+        "header",
+        "title",
+        "summary",
+        "entry",
+        "connector",
+        "entry-header",
+        "entry-body",
+        "children",
+        "child"
+      ],
+      "events": [],
+      "code": "const entries: AiTimelineEntry[] = [\n  { id: '1', type: 'thought', content: 'Planning retrieval…', status: 'completed', duration: 120 },\n  {\n    id: '2',\n    type: 'action',\n    content: 'Searching knowledge base',\n    tool: 'search',\n    status: 'completed',\n    duration: 850,\n    children: [\n      { id: '2a', type: 'observation', content: 'Retrieved 12 chunks', status: 'completed' },\n    ],\n  },\n  { id: '3', type: 'action', content: 'Generating response', tool: 'generate', status: 'running' },\n]\n\n<AiAgentTimeline :entries=\"entries\" title=\"Agent Run\" :show-duration=\"true\" />"
+    },
+    {
+      "category": "code",
+      "categoryLabel": "Code",
+      "name": "AiArtifact",
+      "slug": "artifact",
+      "title": "Artifact",
+      "description": "Tabbed artifact viewer for code, docs, and HTML.",
+      "props": [
+        {
+          "name": "artifacts",
+          "type": "AiArtifactData[]",
+          "required": true
+        }
+      ],
+      "slots": [
+        "tab",
+        "content",
+        "header"
+      ],
+      "events": [],
+      "code": "<AiArtifact :artifacts=\"artifacts\" />"
+    },
+    {
+      "category": "code",
+      "categoryLabel": "Code",
+      "name": "AiCodeBlock",
+      "slug": "code-block",
+      "title": "Code Block",
+      "description": "Syntax-highlighted code with copy and line numbers.",
+      "props": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "default": "'text'"
+        },
+        {
+          "name": "filename",
+          "type": "string"
+        },
+        {
+          "name": "showLineNumbers",
+          "type": "boolean",
+          "default": "true"
+        }
+      ],
+      "slots": [
+        "header",
+        "code",
+        "actions"
+      ],
+      "events": [],
+      "code": "<AiCodeBlock :code=\"source\" language=\"typescript\" filename=\"index.ts\" />"
+    },
+    {
+      "category": "code",
+      "categoryLabel": "Code",
+      "name": "AiCommit",
+      "slug": "commit",
+      "title": "Commit",
+      "description": "Git commit summary with file changes.",
+      "props": [
+        {
+          "name": "commit",
+          "type": "AiCommitData",
+          "required": true
+        },
+        {
+          "name": "expanded",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "slots": [
+        "header",
+        "file"
+      ],
+      "events": [],
+      "code": "<AiCommit :commit=\"commit\" />"
+    },
+    {
+      "category": "code",
+      "categoryLabel": "Code",
+      "name": "AiEnvVars",
+      "slug": "env-vars",
+      "title": "Env Vars",
+      "description": "Environment variables with reveal toggle.",
+      "props": [
+        {
+          "name": "variables",
+          "type": "AiEnvVar[]",
+          "required": true
+        }
+      ],
+      "slots": [
+        "var",
+        "default"
+      ],
+      "events": [],
+      "code": "<AiEnvVars :variables=\"envVars\" />"
+    },
+    {
+      "category": "code",
+      "categoryLabel": "Code",
+      "name": "AiFileTree",
+      "slug": "file-tree",
+      "title": "File Tree",
+      "description": "Expandable file tree navigation.",
+      "props": [
+        {
+          "name": "nodes",
+          "type": "AiFileNode[]",
+          "required": true
+        },
+        {
+          "name": "depth",
+          "type": "number"
+        }
+      ],
+      "slots": [
+        "node",
+        "icon"
+      ],
+      "events": [],
+      "code": "<AiFileTree :nodes=\"tree\" @select=\"onSelect\" />"
+    },
+    {
+      "category": "code",
+      "categoryLabel": "Code",
+      "name": "AiPackageInfo",
+      "slug": "package-info",
+      "title": "Package Info",
+      "description": "npm package metadata display.",
+      "props": [
+        {
+          "name": "package",
+          "type": "AiPackageData",
+          "required": true
+        }
+      ],
+      "slots": [
+        "header",
+        "dependency",
+        "default"
+      ],
+      "events": [],
+      "code": "<AiPackageInfo :package=\"pkg\" />"
+    },
+    {
+      "category": "code",
+      "categoryLabel": "Code",
+      "name": "AiSandbox",
+      "slug": "sandbox",
+      "title": "Sandbox",
+      "description": "Runnable code sandbox preview.",
+      "props": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "default": "'html'",
+          "description": "html, javascript, or js"
+        },
+        {
+          "name": "template",
+          "type": "string",
+          "description": "Custom iframe HTML; use {{code}} as placeholder"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "description": "Accessible label and header title"
+        },
+        {
+          "name": "autoRun",
+          "type": "boolean",
+          "default": "false",
+          "description": "Emit run on mount (refreshes JS iframe)"
+        }
+      ],
+      "slots": [
+        "default",
+        "header",
+        "title",
+        "editor",
+        "output"
+      ],
+      "events": [],
+      "code": "<AiSandbox\n  :code=\"snippet\"\n  language=\"javascript\"\n  title=\"Model picker\"\n  :auto-run=\"true\"\n>\n  <template #header=\"{ title, run, isRunning }\">\n  </template>\n  <template #editor=\"{ code, language }\">\n  </template>\n  <template #output=\"{ iframeHtml, frameVersion, error }\">\n  </template>\n</AiSandbox>"
+    },
+    {
+      "category": "code",
+      "categoryLabel": "Code",
+      "name": "AiSandboxPreview",
+      "slug": "sandbox-preview",
+      "title": "Sandbox Preview",
+      "description": "Sandbox stdout/stderr streaming with exit code and file artifacts.",
+      "props": [
+        {
+          "name": "state",
+          "type": "AiSandboxState",
+          "required": true,
+          "description": "Sandbox execution state"
+        },
+        {
+          "name": "showCommand",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show the command header"
+        },
+        {
+          "name": "showArtifacts",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show file artifacts section"
+        },
+        {
+          "name": "maxLines",
+          "type": "number",
+          "description": "Max visible output lines (scrolls from bottom)"
+        }
+      ],
+      "slots": [
+        "default",
+        "header",
+        "command",
+        "actions",
+        "output",
+        "line",
+        "status",
+        "artifacts",
+        "artifact"
+      ],
+      "events": [],
+      "code": "<AiSandboxPreview :state=\"sandboxState\" @run=\"run\" @stop=\"stop\">\n  <template #header=\"{ state }\">\n    <div class=\"sandbox-header\">\n      <code>{{ state.command }}</code>\n      <span :data-status=\"state.status\">{{ state.status }}</span>\n    </div>\n  </template>\n  <template #line=\"{ line }\">\n    <span :data-stream=\"line.stream\">{{ line.content }}</span>\n  </template>\n  <template #artifact=\"{ artifact, formatSize }\">\n    <button type=\"button\" @click=\"download(artifact)\">\n      {{ artifact.name }} · {{ formatSize(artifact.size!) }}\n    </button>\n  </template>\n</AiSandboxPreview>"
+    },
+    {
+      "category": "code",
+      "categoryLabel": "Code",
+      "name": "AiSchemaDisplay",
+      "slug": "schema-display",
+      "title": "Schema Display",
+      "description": "JSON schema field tree.",
+      "props": [
+        {
+          "name": "fields",
+          "type": "AiSchemaField[]",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "string"
+        }
+      ],
+      "slots": [
+        "field"
+      ],
+      "events": [],
+      "code": "<AiSchemaDisplay :fields=\"schema\" title=\"Request body\" />"
+    },
+    {
+      "category": "code",
+      "categoryLabel": "Code",
+      "name": "AiSnippet",
+      "slug": "snippet",
+      "title": "Snippet",
+      "description": "Compact copyable code snippet.",
+      "props": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "default": "'text'"
+        },
+        {
+          "name": "label",
+          "type": "string"
+        }
+      ],
+      "slots": [
+        "label",
+        "code",
+        "copy"
+      ],
+      "events": [],
+      "code": "<AiSnippet :code=\"cmd\" language=\"bash\" label=\"install\" />"
+    },
+    {
+      "category": "code",
+      "categoryLabel": "Code",
+      "name": "AiStackTrace",
+      "slug": "stack-trace",
+      "title": "Stack Trace",
+      "description": "Error stack trace with frame list.",
+      "props": [
+        {
+          "name": "error",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "frames",
+          "type": "AiStackFrame[]",
+          "required": true
+        },
+        {
+          "name": "collapsed",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "slots": [
+        "frame",
+        "header"
+      ],
+      "events": [],
+      "code": "<AiStackTrace error=\"TypeError\" :frames=\"frames\" />"
+    },
+    {
+      "category": "code",
+      "categoryLabel": "Code",
+      "name": "AiTerminal",
+      "slug": "terminal",
+      "title": "Terminal",
+      "description": "Terminal output with command lines.",
+      "props": [
+        {
+          "name": "lines",
+          "type": "AiTerminalLine[]",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "default": "'Terminal'"
+        }
+      ],
+      "slots": [
+        "line",
+        "header"
+      ],
+      "events": [],
+      "code": "<AiTerminal :lines=\"terminalLines\" title=\"bash\" />"
+    },
+    {
+      "category": "code",
+      "categoryLabel": "Code",
+      "name": "AiTestResults",
+      "slug": "test-results",
+      "title": "Test Results",
+      "description": "Test run results and summary.",
+      "props": [
+        {
+          "name": "tests",
+          "type": "AiTestResult[]",
+          "required": true
+        },
+        {
+          "name": "summary",
+          "type": "AiTestSummary"
+        }
+      ],
+      "slots": [
+        "test",
+        "summary"
+      ],
+      "events": [],
+      "code": "<AiTestResults :tests=\"results\" />"
+    },
+    {
+      "category": "code",
+      "categoryLabel": "Code",
+      "name": "AiVuePreview",
+      "slug": "vue-preview",
+      "title": "Vue Preview",
+      "description": "Vue component live preview.",
+      "props": [
+        {
+          "name": "code",
+          "type": "string"
+        },
+        {
+          "name": "html",
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "type": "string"
+        }
+      ],
+      "slots": [
+        "header",
+        "preview"
+      ],
+      "events": [],
+      "code": "<AiVuePreview :html=\"rendered\" title=\"Preview\" />"
+    },
+    {
+      "category": "code",
+      "categoryLabel": "Code",
+      "name": "AiWebPreview",
+      "slug": "web-preview",
+      "title": "Web Preview",
+      "description": "iframe or HTML web preview.",
+      "props": [
+        {
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "name": "html",
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "type": "string"
+        }
+      ],
+      "slots": [
+        "toolbar",
+        "frame"
+      ],
+      "events": [],
+      "code": "<AiWebPreview url=\"https://example.com\" title=\"Preview\" />"
+    },
+    {
+      "category": "voice",
+      "categoryLabel": "Voice",
+      "name": "AiAudioPlayer",
+      "slug": "audio-player",
+      "title": "Audio Player",
+      "description": "Audio playback controls.",
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "autoplay",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "slots": [
+        "default",
+        "play-button",
+        "progress",
+        "time"
+      ],
+      "events": [],
+      "code": "<AiAudioPlayer src=\"/audio.mp3\" title=\"Response\" />"
+    },
+    {
+      "category": "voice",
+      "categoryLabel": "Voice",
+      "name": "AiMicSelector",
+      "slug": "mic-selector",
+      "title": "Mic Selector",
+      "description": "Microphone device picker.",
+      "props": [
+        {
+          "name": "modelValue",
+          "type": "string"
+        }
+      ],
+      "slots": [
+        "default",
+        "error",
+        "loading"
+      ],
+      "events": [],
+      "code": "<AiMicSelector v-model=\"deviceId\" />"
+    },
+    {
+      "category": "voice",
+      "categoryLabel": "Voice",
+      "name": "AiPersona",
+      "slug": "persona",
+      "title": "Persona",
+      "description": "Voice persona card with avatar.",
+      "props": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "avatar",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "voice",
+          "type": "string"
+        },
+        {
+          "name": "active",
+          "type": "boolean"
+        }
+      ],
+      "slots": [
+        "default",
+        "avatar",
+        "name",
+        "description",
+        "voice-label"
+      ],
+      "events": [],
+      "code": "<AiPersona name=\"Assistant\" description=\"Helpful agent\" :active=\"true\" />"
+    },
+    {
+      "category": "voice",
+      "categoryLabel": "Voice",
+      "name": "AiSpeechInput",
+      "slug": "speech-input",
+      "title": "Speech Input",
+      "description": "Speech-to-text input control.",
+      "props": [
+        {
+          "name": "language",
+          "type": "string",
+          "default": "'en-US'"
+        },
+        {
+          "name": "continuous",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "slots": [
+        "button",
+        "transcript"
+      ],
+      "events": [],
+      "code": "<AiSpeechInput @result=\"onTranscript\" />"
+    },
+    {
+      "category": "voice",
+      "categoryLabel": "Voice",
+      "name": "AiTranscription",
+      "slug": "transcription",
+      "title": "Transcription",
+      "description": "Timestamped transcript segments.",
+      "props": [
+        {
+          "name": "segments",
+          "type": "TranscriptSegment[]",
+          "required": true
+        },
+        {
+          "name": "currentTime",
+          "type": "number"
+        }
+      ],
+      "slots": [
+        "default",
+        "segment",
+        "timestamp",
+        "speaker",
+        "text"
+      ],
+      "events": [],
+      "code": "<AiTranscription :segments=\"segments\" :current-time=\"time\" />"
+    },
+    {
+      "category": "voice",
+      "categoryLabel": "Voice",
+      "name": "AiVoiceSelector",
+      "slug": "voice-selector",
+      "title": "Voice Selector",
+      "description": "TTS voice selection list.",
+      "props": [
+        {
+          "name": "voices",
+          "type": "VoiceOption[]",
+          "required": true
+        },
+        {
+          "name": "modelValue",
+          "type": "string"
+        }
+      ],
+      "slots": [
+        "default",
+        "voice",
+        "voice-name",
+        "voice-meta",
+        "voice-preview"
+      ],
+      "events": [],
+      "code": "<AiVoiceSelector v-model=\"voice\" :voices=\"voices\" />"
+    },
+    {
+      "category": "voice",
+      "categoryLabel": "Voice",
+      "name": "AiRealtimeChat",
+      "slug": "realtime-chat",
+      "title": "Realtime Chat",
+      "description": "Voice + text realtime conversation with capture, playback, and connection controls.",
+      "props": [
+        {
+          "name": "status",
+          "type": "'disconnected' | 'connecting' | 'connected' | 'error'",
+          "default": "'disconnected'",
+          "description": "Connection status"
+        },
+        {
+          "name": "messages",
+          "type": "AiRealtimeMessage[]",
+          "description": "Conversation messages"
+        },
+        {
+          "name": "isCapturing",
+          "type": "boolean",
+          "default": "false",
+          "description": "Whether mic is active"
+        },
+        {
+          "name": "isPlaying",
+          "type": "boolean",
+          "default": "false",
+          "description": "Whether audio is playing"
+        }
+      ],
+      "slots": [
+        "default",
+        "header",
+        "status",
+        "controls",
+        "messages",
+        "message",
+        "input"
+      ],
+      "events": [],
+      "code": "<AiRealtimeChat\n  :status=\"status\"\n  :messages=\"messages\"\n  :is-capturing=\"isCapturing\"\n  @connect=\"connect\"\n  @disconnect=\"disconnect\"\n  @start-capture=\"isCapturing = true\"\n  @stop-capture=\"isCapturing = false\"\n/>"
+    },
+    {
+      "category": "workflow",
+      "categoryLabel": "Workflow",
+      "name": "AiCanvas",
+      "slug": "canvas",
+      "title": "Canvas",
+      "description": "Pannable, zoomable workflow canvas with grid, snap-to-grid, and fit-view.",
+      "props": [
+        {
+          "name": "width",
+          "type": "string",
+          "default": "'100%'",
+          "description": "Canvas container width"
+        },
+        {
+          "name": "height",
+          "type": "string",
+          "default": "'500px'",
+          "description": "Canvas container height"
+        },
+        {
+          "name": "zoom",
+          "type": "number",
+          "default": "1",
+          "description": "Controlled zoom level (sync with @zoom)"
+        },
+        {
+          "name": "panX",
+          "type": "number",
+          "default": "0",
+          "description": "Horizontal pan offset in px"
+        },
+        {
+          "name": "panY",
+          "type": "number",
+          "default": "0",
+          "description": "Vertical pan offset in px"
+        },
+        {
+          "name": "minZoom",
+          "type": "number",
+          "default": "0.1",
+          "description": "Minimum zoom (wheel / pinch)"
+        },
+        {
+          "name": "maxZoom",
+          "type": "number",
+          "default": "3",
+          "description": "Maximum zoom (wheel / pinch)"
+        },
+        {
+          "name": "gridSize",
+          "type": "number",
+          "default": "20",
+          "description": "Dot grid spacing in px"
+        },
+        {
+          "name": "showGrid",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show background dot grid"
+        },
+        {
+          "name": "snapToGrid",
+          "type": "boolean",
+          "default": "false",
+          "description": "Snap click / drag coords to grid"
+        }
+      ],
+      "slots": [
+        "default",
+        "background",
+        "minimap"
+      ],
+      "events": [
+        {
+          "name": "zoom",
+          "payload": "number"
+        },
+        {
+          "name": "pan",
+          "payload": "x: number, y: number"
+        },
+        {
+          "name": "click",
+          "payload": "x: number, y: number"
+        },
+        {
+          "name": "select",
+          "payload": "ids: string[]"
+        }
+      ],
+      "code": "<script setup lang=\"ts\">\nconst canvasRef = ref()\nconst zoom = ref(1)\n\nconst nodes = reactive([\n  { id: 'n1', label: 'Query', x: 40, y: 80, status: 'completed' },\n  { id: 'n2', label: 'Retrieve', x: 220, y: 80, status: 'running' },\n])\n</script>\n\n<template>\n  <div class=\"relative\">\n    <AiCanvas\n      ref=\"canvasRef\"\n      height=\"400px\"\n      snap-to-grid\n      :zoom=\"zoom\"\n      @zoom=\"zoom = $event\"\n    >\n      <template #default=\"{ zoom: canvasZoom, panX, panY }\">\n        <svg class=\"pointer-events-none absolute inset-0\">\n          <AiEdge\n            id=\"e1\"\n            :source-x=\"152\"\n            :source-y=\"104\"\n            :target-x=\"220\"\n            :target-y=\"104\"\n            animated\n          />\n        </svg>\n\n        <AiNode\n          v-for=\"node in nodes\"\n          :key=\"node.id\"\n          v-bind=\"node\"\n          :zoom=\"canvasZoom\"\n          :pan-x=\"panX\"\n          :pan-y=\"panY\"\n          @move=\"(id, x, y) => { const n = nodes.find(n => n.id === id); if (n) { n.x = x; n.y = y } }\"\n        />\n      </template>\n    </AiCanvas>\n\n    <AiControls\n      :zoom=\"zoom\"\n      class=\"absolute bottom-3 right-3\"\n      @zoom-in=\"canvasRef?.zoomIn()\"\n      @zoom-out=\"canvasRef?.zoomOut()\"\n      @reset=\"canvasRef?.resetView()\"\n      @fit-view=\"canvasRef?.fitView(nodes.map(n => ({ x: n.x, y: n.y })))\"\n    />\n  </div>\n</template>\n\n<!-- Exposed: zoomIn, zoomOut, resetView, fitView(positions), clientToCanvas(x, y) -->"
+    },
+    {
+      "category": "workflow",
+      "categoryLabel": "Workflow",
+      "name": "AiConnection",
+      "slug": "connection",
+      "title": "Connection",
+      "description": "SVG connection path between points.",
+      "props": [
+        {
+          "name": "sourceX",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "sourceY",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "targetX",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "targetY",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "validTarget",
+          "type": "boolean",
+          "default": "true"
+        }
+      ],
+      "slots": [
+        "default"
+      ],
+      "events": [],
+      "code": "<AiConnection :source-x=\"0\" :source-y=\"0\" :target-x=\"120\" :target-y=\"80\" :active=\"connecting\" :valid-target=\"valid\" />"
+    },
+    {
+      "category": "workflow",
+      "categoryLabel": "Workflow",
+      "name": "AiControls",
+      "slug": "controls",
+      "title": "Controls",
+      "description": "Zoom and pan controls overlay.",
+      "props": [
+        {
+          "name": "zoom",
+          "type": "number"
+        },
+        {
+          "name": "position",
+          "type": "'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'",
+          "default": "'bottom-left'"
+        }
+      ],
+      "slots": [
+        "default",
+        "zoom-in",
+        "zoom-display",
+        "zoom-out",
+        "reset",
+        "fit-view"
+      ],
+      "events": [
+        {
+          "name": "zoom-in"
+        },
+        {
+          "name": "zoom-out"
+        },
+        {
+          "name": "reset"
+        },
+        {
+          "name": "fit-view"
+        }
+      ],
+      "code": "<AiControls :zoom=\"zoom\" @zoom-in=\"zoomIn\" @zoom-out=\"zoomOut\" @reset=\"resetView\" @fit-view=\"fitView\" />"
+    },
+    {
+      "category": "workflow",
+      "categoryLabel": "Workflow",
+      "name": "AiEdge",
+      "slug": "edge",
+      "title": "Edge",
+      "description": "Workflow edge with label and animation.",
+      "props": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "sourceX",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "sourceY",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "targetX",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "targetY",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "label",
+          "type": "string"
+        },
+        {
+          "name": "animated",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "type",
+          "type": "'bezier' | 'straight' | 'step'",
+          "default": "'bezier'"
+        }
+      ],
+      "slots": [
+        "default",
+        "label"
+      ],
+      "events": [
+        {
+          "name": "select",
+          "payload": "id: string"
+        },
+        {
+          "name": "remove",
+          "payload": "id: string"
+        }
+      ],
+      "code": "<AiEdge id=\"e1\" :source-x=\"100\" :source-y=\"50\" :target-x=\"200\" :target-y=\"150\" animated>\n  <template #label=\"{ label, position }\">{{ label }}</template>\n</AiEdge>"
+    },
+    {
+      "category": "workflow",
+      "categoryLabel": "Workflow",
+      "name": "AiNode",
+      "slug": "node",
+      "title": "Node",
+      "description": "Workflow node with status.",
+      "props": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "x",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "default": "'default'"
+        },
+        {
+          "name": "status",
+          "type": "'idle' | 'running' | 'completed' | 'error'",
+          "default": "'idle'"
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "draggable",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "inputs",
+          "type": "string[]"
+        },
+        {
+          "name": "outputs",
+          "type": "string[]"
+        },
+        {
+          "name": "zoom",
+          "type": "number",
+          "description": "Canvas zoom for drag coordinate conversion"
+        },
+        {
+          "name": "panX",
+          "type": "number"
+        },
+        {
+          "name": "panY",
+          "type": "number"
+        }
+      ],
+      "slots": [
+        "default",
+        "header",
+        "ports",
+        "input-port",
+        "output-port"
+      ],
+      "events": [
+        {
+          "name": "select",
+          "payload": "id: string"
+        },
+        {
+          "name": "move",
+          "payload": "id: string, x: number, y: number"
+        },
+        {
+          "name": "connect-start",
+          "payload": "nodeId, port, type"
+        }
+      ],
+      "code": "<AiNode id=\"retrieve\" label=\"Retrieve\" :x=\"100\" :y=\"100\" status=\"running\" :outputs=\"['out']\" />"
+    },
+    {
+      "category": "workflow",
+      "categoryLabel": "Workflow",
+      "name": "AiPanel",
+      "slug": "panel",
+      "title": "Panel",
+      "description": "Side panel for workflow details.",
+      "props": [
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "position",
+          "type": "'left' | 'right'",
+          "default": "'right'"
+        },
+        {
+          "name": "collapsible",
+          "type": "boolean"
+        }
+      ],
+      "slots": [
+        "default",
+        "header"
+      ],
+      "events": [],
+      "code": "<AiPanel title=\"Details\" position=\"right\">...</AiPanel>"
+    },
+    {
+      "category": "workflow",
+      "categoryLabel": "Workflow",
+      "name": "AiToolbar",
+      "slug": "toolbar",
+      "title": "Toolbar",
+      "description": "Workflow toolbar actions.",
+      "props": [
+        {
+          "name": "position",
+          "type": "'top' | 'bottom'",
+          "default": "'top'"
+        },
+        {
+          "name": "orientation",
+          "type": "'horizontal' | 'vertical'",
+          "default": "'horizontal'"
+        }
+      ],
+      "slots": [
+        "default",
+        "actions"
+      ],
+      "events": [
+        {
+          "name": "action",
+          "payload": "action: string"
+        }
+      ],
+      "code": "<AiToolbar @action=\"onToolbarAction\">\n  <template #actions=\"{ emitAction }\">\n    <button type=\"button\" @click=\"emitAction('add-node')\">Add node</button>\n  </template>\n</AiToolbar>"
+    },
+    {
+      "category": "utilities",
+      "categoryLabel": "Utilities",
+      "name": "AiImage",
+      "slug": "image",
+      "title": "Image",
+      "description": "Image with optional lightbox zoom.",
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "alt",
+          "type": "string"
+        },
+        {
+          "name": "zoomable",
+          "type": "boolean"
+        }
+      ],
+      "slots": [
+        "caption"
+      ],
+      "events": [],
+      "code": "<AiImage src=\"/diagram.png\" alt=\"Architecture\" :zoomable=\"true\" />"
+    },
+    {
+      "category": "utilities",
+      "categoryLabel": "Utilities",
+      "name": "AiMarkdown",
+      "slug": "markdown",
+      "title": "Markdown",
+      "description": "Sanitized markdown to HTML renderer.",
+      "props": [
+        {
+          "name": "content",
+          "type": "string",
+          "default": "''"
+        },
+        {
+          "name": "parser",
+          "type": "'marked' | 'simple'",
+          "description": "Use simpleParse for lightweight regex parsing"
+        }
+      ],
+      "slots": [
+        "default"
+      ],
+      "events": [],
+      "code": "<AiMarkdown content=\"# Hello\\n\\nGFM **bold**, tables, and task lists.\" />"
+    },
+    {
+      "category": "utilities",
+      "categoryLabel": "Utilities",
+      "name": "AiJsxPreview",
+      "slug": "jsx-preview",
+      "title": "JSX Preview",
+      "description": "Render AI-generated markup live during streaming, auto-closing incomplete tags.",
+      "props": [
+        {
+          "name": "content",
+          "type": "string",
+          "default": "''",
+          "description": "Markup to render (may be incomplete while streaming)"
+        },
+        {
+          "name": "streaming",
+          "type": "boolean",
+          "default": "true",
+          "description": "Auto-close tags cut off mid-stream"
+        },
+        {
+          "name": "sanitize",
+          "type": "(html: string) => string",
+          "description": "Override the default markup sanitizer"
+        }
+      ],
+      "slots": [
+        "default"
+      ],
+      "events": [],
+      "code": "<AiJsxPreview :content=\"streamedMarkup\">\n  <template #default=\"{ html }\">\n    <div class=\"prose\" v-html=\"html\" />\n  </template>\n</AiJsxPreview>"
+    },
+    {
+      "category": "utilities",
+      "categoryLabel": "Utilities",
+      "name": "AiOpenInChat",
+      "slug": "open-in-chat",
+      "title": "Open In Chat",
+      "description": "Action to open content in chat.",
+      "props": [
+        {
+          "name": "content",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "label",
+          "type": "string"
+        }
+      ],
+      "slots": [
+        "default"
+      ],
+      "events": [],
+      "code": "<AiOpenInChat content=\"Explain this code\" @open=\"openChat\" />"
+    },
+    {
+      "category": "utilities",
+      "categoryLabel": "Utilities",
+      "name": "AiFileUpload",
+      "slug": "file-upload",
+      "title": "File Upload",
+      "description": "Drag-and-drop file upload with validation, progress, and file list.",
+      "props": [
+        {
+          "name": "accept",
+          "type": "string",
+          "description": "Accepted file types (e.g. \".pdf,image/*\")"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "maxSize",
+          "type": "number",
+          "description": "Max file size in bytes"
+        },
+        {
+          "name": "maxFiles",
+          "type": "number",
+          "default": "10"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "slots": [
+        "default",
+        "dropzone",
+        "dropzone-content",
+        "file-list",
+        "file",
+        "file-progress",
+        "file-actions"
+      ],
+      "events": [],
+      "code": "<AiFileUpload accept=\".pdf,.txt,image/*\" :max-size=\"5 * 1024 * 1024\" @upload=\"onUpload\" />"
+    },
+    {
+      "category": "utilities",
+      "categoryLabel": "Utilities",
+      "name": "AiVideoPlayer",
+      "slug": "video-player",
+      "title": "Video Player",
+      "description": "AI-generated video playback with loading states and duration display.",
+      "props": [
+        {
+          "name": "video",
+          "type": "AiVideoData",
+          "description": "Video data with url, dimensions, duration"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": "false",
+          "description": "Show loading state"
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "description": "Error message to display"
+        },
+        {
+          "name": "autoplay",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "controls",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "loop",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "muted",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "slots": [
+        "default",
+        "loading",
+        "error",
+        "empty",
+        "info"
+      ],
+      "events": [],
+      "code": "<AiVideoPlayer :video=\"{ url: '/video.mp4', duration: 30 }\" :controls=\"true\" />"
+    },
+    {
+      "category": "utilities",
+      "categoryLabel": "Utilities",
+      "name": "AiMcpApp",
+      "slug": "mcp-app",
+      "title": "MCP App",
+      "description": "Sandboxed MCP application rendering via iframe with HTML, text, and JSON content.",
+      "props": [
+        {
+          "name": "app",
+          "type": "AiMcpAppData",
+          "required": true,
+          "description": "MCP app data with content and status"
+        },
+        {
+          "name": "sandbox",
+          "type": "boolean",
+          "default": "true",
+          "description": "Enable iframe sandbox restrictions"
+        },
+        {
+          "name": "height",
+          "type": "string",
+          "default": "'400px'",
+          "description": "Height of the iframe"
+        }
+      ],
+      "slots": [
+        "default",
+        "header",
+        "loading",
+        "error",
+        "content"
+      ],
+      "events": [],
+      "code": "<AiMcpApp :app=\"{ id: '1', name: 'Widget', status: 'ready', content: html, contentType: 'html' }\" />"
+    },
+    {
+      "category": "utilities",
+      "categoryLabel": "Utilities",
+      "name": "AiRuntimeContext",
+      "slug": "runtime-context",
+      "title": "Runtime Context",
+      "description": "Dev tool for inspecting runtime, tool, and approval context entries.",
+      "props": [
+        {
+          "name": "entries",
+          "type": "AiRuntimeContextEntry[]",
+          "required": true,
+          "description": "Context entries to display"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "default": "'Runtime Context'"
+        },
+        {
+          "name": "collapsed",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "filterType",
+          "type": "'runtime' | 'tool' | 'approval'",
+          "description": "Filter entries by type"
+        }
+      ],
+      "slots": [
+        "default",
+        "header",
+        "group-header",
+        "entry"
+      ],
+      "events": [],
+      "code": "<AiRuntimeContext :entries=\"contextEntries\" title=\"Debug Context\" />"
+    }
+  ],
+  "composables": [
+    "useAiAgent",
+    "useAiChat",
+    "useAiChatLocal",
+    "useAiChatPersisted",
+    "useAiCompletion",
+    "useAiMarkdown",
+    "useAiRealtime",
+    "useAiTools",
+    "useAiWorkflow",
+    "useScreenshotCapture",
+    "useSpeechRecognition"
+  ]
+}

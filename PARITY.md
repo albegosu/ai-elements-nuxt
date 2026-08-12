@@ -111,9 +111,10 @@ Ninguno presente hoy en el código Nuxt:
 - [x] `AiBranch` — navegación de branches (componente headless dedicado).
 - [x] `PromptInput`: `submitShortcut` (teclado) + `AiSourceDocuments` (documentos-fuente).
 
-### v1.5.0 — Ecosistema
-- [ ] Publicar un **AI Elements Skill** para Nuxt (equivalente al de Vercel).
-- [ ] Evaluar un **MCP server** para el registro de componentes Nuxt.
+### v1.5.0 — Ecosistema ✅ (publicado)
+- [x] **AI Elements Skill** para Nuxt (`skills/ai-elements-nuxt/SKILL.md`) con lista autogenerada.
+- [x] **MCP server** (`ai-elements-nuxt-mcp`) sobre el registro `registry/components.json`.
+- [x] Registro como fuente única; `AGENTS.md` y `.cursor/rules` refrescados (66 / ai ^7).
 
 ## Cómo se generó este análisis
 
