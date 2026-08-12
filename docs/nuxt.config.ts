@@ -1,8 +1,18 @@
+import { readFileSync } from 'node:fs'
+
 const baseURL = process.env.NUXT_APP_BASE_URL || '/'
+
+// Read the published package version so the docs badge never drifts.
+const { version } = JSON.parse(
+  readFileSync(new URL('../package.json', import.meta.url), 'utf8'),
+)
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-06-04',
   modules: ['../src/module', '@nuxtjs/tailwindcss', '@nuxtjs/color-mode'],
+  runtimeConfig: {
+    public: { version },
+  },
   aiElements: {
     defaultStyles: true,
   },
