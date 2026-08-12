@@ -41,6 +41,20 @@ const items = [
     snippet: `const { completion, complete } = useAiCompletion({ api: '/api/completion' })`,
   },
   {
+    name: 'useScreenshotCapture()',
+    desc: 'Capture a screenshot via the Screen Capture API (getDisplayMedia). Returns { dataUrl, blob, file } for attaching to a prompt. Powers AiScreenshotButton. SSR-safe.',
+    snippet: `const { capture, capturing, error } = useScreenshotCapture()
+const shot = await capture() // { dataUrl, blob, file } | null`,
+  },
+  {
+    name: 'useSpeechRecognition(options?)',
+    desc: 'Web Speech API wrapper: start/stop/toggle, isListening, transcript, interimTranscript, isSupported. Powers AiSpeechInput and AiSpeechButton. SSR-safe.',
+    snippet: `const { toggle, isListening, transcript } = useSpeechRecognition({
+  lang: 'en-US',
+  onResult: (text, isFinal) => { if (isFinal) input.value += text },
+})`,
+  },
+  {
     name: 'useAiRealtime(options)',
     desc: 'Vue composable wrapping AI SDK v7 AbstractRealtimeSession. Manages connection lifecycle, audio capture/playback, and message state with Vue reactivity. Auto-cleanup on scope dispose.',
     snippet: `const { status, messages, isCapturing, isPlaying, connect, disconnect, toggleCapture } = useAiRealtime({
