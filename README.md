@@ -201,13 +201,13 @@ GFM (tables, task lists, strikethrough) is enabled by default via `marked`. Use 
 const { html } = useAiMarkdown(() => markdownSource, { parse: simpleParse })
 ```
 
-## Components (63)
+## Components (66)
 
 All components are auto-imported with the `Ai` prefix.
 
 | Category | Components |
 |----------|------------|
-| **Chatbot** | Message, PromptInput, Conversation (thread list / sidebar), Reasoning, ChainOfThought, Sources, Tool, ToolApproval, ApprovalPolicy, Suggestion, Attachments, Shimmer, StreamingCursor, Plan, Task, Checkpoint, Confirmation, Context, Queue, InlineCitation, ModelSelector, ErrorBoundary, ScreenshotButton, DownloadConversation |
+| **Chatbot** | Message, PromptInput, Conversation (thread list / sidebar), Reasoning, ChainOfThought, Sources, Tool, ToolApproval, ApprovalPolicy, Suggestion, Attachments, Shimmer, StreamingCursor, Plan, Task, Checkpoint, Confirmation, Context, Queue, InlineCitation, ModelSelector, ErrorBoundary, ScreenshotButton, DownloadConversation, Branch, SpeechButton, SourceDocuments |
 | **Code** | CodeBlock, Terminal, FileTree, StackTrace, Agent (also `AiAgentSteps`), AgentTimeline, Artifact, Commit, SchemaDisplay, PackageInfo, EnvVars, TestResults, Snippet, WebPreview, Sandbox, SandboxPreview, VuePreview |
 | **Voice** | SpeechInput, Transcription, AudioPlayer, MicSelector, VoiceSelector, Persona, RealtimeChat |
 | **Workflow** | Canvas, Node, Edge, Connection, Controls, Panel, Toolbar |
@@ -227,6 +227,7 @@ All components are auto-imported with the `Ai` prefix.
 | `useAiCompletion` | Wraps `@ai-sdk/vue` `useCompletion` |
 | `useAiMarkdown` | Markdown string → sanitized HTML (GFM via `marked`); pass `{ parse: simpleParse }` for lightweight fallback |
 | `useScreenshotCapture` | Capture a screenshot via `getDisplayMedia` → `{ dataUrl, blob, file }` for prompt attachments |
+| `useSpeechRecognition` | Web Speech API wrapper (start/stop/toggle, transcript, interim, supported) — powers `AiSpeechInput` / `AiSpeechButton` |
 | `mapMessageParts` / `toAiMessageProps` | Map AI SDK `UIMessage.parts` → `AiMessage` props |
 
 ## Server utilities
@@ -258,7 +259,7 @@ pnpm dev
 
 Opens the docs site at `http://localhost:3000` (or the [hosted docs](https://albegosu.github.io/ai-elements-nuxt/)) with:
 - **Guides**: getting started, building a chat, custom transport & RAG, building an agent, styling, composables
-- Component reference with Preview/Code tabs for all 63 components
+- Component reference with Preview/Code tabs for all 66 components
 - Playgrounds: chat, streaming, agent, code, voice & workflow
 
 ## Philosophy

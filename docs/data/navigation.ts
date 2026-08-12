@@ -44,6 +44,9 @@ export const categories: NavCategory[] = [
       { slug: 'approval-policy', name: 'Approval Policy', component: 'AiApprovalPolicy', description: 'Declarative tool approval policies with auto-approve, auto-deny, and user-approval modes.' },
       { slug: 'screenshot-button', name: 'Screenshot Button', component: 'AiScreenshotButton', description: 'Capture a screenshot via getDisplayMedia to attach to the prompt.' },
       { slug: 'download-conversation', name: 'Download Conversation', component: 'AiDownloadConversation', description: 'Export a conversation to a Markdown file.' },
+      { slug: 'branch', name: 'Branch', component: 'AiBranch', description: 'Navigate alternative message versions (regenerations / branches).' },
+      { slug: 'speech-button', name: 'Speech Button', component: 'AiSpeechButton', description: 'Speech-to-text button for dictating into the prompt.' },
+      { slug: 'source-documents', name: 'Source Documents', component: 'AiSourceDocuments', description: 'Source-document chips attached to the prompt, with remove actions.' },
     ],
   },
   {

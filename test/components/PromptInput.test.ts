@@ -19,4 +19,20 @@ describe('AiPromptInput', () => {
     await wrapper.find('textarea').trigger('keydown', { key: 'Enter' })
     expect(wrapper.emitted('submit')).toBeTruthy()
   })
+
+  it('does not submit on plain Enter when submitShortcut is mod+enter', async () => {
+    const wrapper = mount(AiPromptInput, {
+      props: { modelValue: 'hello', submitShortcut: 'mod+enter' },
+    })
+    await wrapper.find('textarea').trigger('keydown', { key: 'Enter' })
+    expect(wrapper.emitted('submit')).toBeFalsy()
+  })
+
+  it('submits on Cmd/Ctrl+Enter when submitShortcut is mod+enter', async () => {
+    const wrapper = mount(AiPromptInput, {
+      props: { modelValue: 'hello', submitShortcut: 'mod+enter' },
+    })
+    await wrapper.find('textarea').trigger('keydown', { key: 'Enter', metaKey: true })
+    expect(wrapper.emitted('submit')).toBeTruthy()
+  })
 })

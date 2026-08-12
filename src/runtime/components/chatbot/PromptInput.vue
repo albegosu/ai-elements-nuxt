@@ -8,6 +8,8 @@ const props = withDefaults(defineProps<{
   maxLength?: number
   rows?: number
   autoResize?: boolean
+  /** `'enter'`: Enter submits, Shift+Enter newline. `'mod+enter'`: ⌘/Ctrl+Enter submits, Enter newline. */
+  submitShortcut?: 'enter' | 'mod+enter'
 }>(), {
   modelValue: '',
   placeholder: 'Type a message...',
@@ -15,6 +17,7 @@ const props = withDefaults(defineProps<{
   loading: false,
   rows: 1,
   autoResize: true,
+  submitShortcut: 'enter',
 })
 
 const emit = defineEmits<{
@@ -36,11 +39,17 @@ function handleInput(event: Event) {
 }
 
 function handleKeydown(event: KeyboardEvent) {
-  if (event.key === 'Enter' && !event.shiftKey) {
-    event.preventDefault()
-    if (canSubmit.value && !props.loading) {
-      emit('submit', props.modelValue)
-    }
+  if (event.key !== 'Enter') return
+
+  const submits = props.submitShortcut === 'mod+enter'
+    ? event.metaKey || event.ctrlKey
+    : !event.shiftKey
+
+  if (!submits) return
+
+  event.preventDefault()
+  if (canSubmit.value && !props.loading) {
+    emit('submit', props.modelValue)
   }
 }
 

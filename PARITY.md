@@ -105,11 +105,11 @@ Ninguno presente hoy en el código Nuxt:
 - [x] `AiScreenshotButton` + `useScreenshotCapture` — captura de pantalla (`getDisplayMedia`) para el prompt.
 - [x] `AiDownloadConversation` + `messagesToMarkdown` — descarga de la conversación a Markdown.
 
-### v1.4.0 — Paridad completa
-- [ ] Integrar `SpeechInput` como acción de `PromptInput`.
-- [ ] `Reasoning`: prop `getThinkingMessage`.
-- [ ] `Message`: verificar/completar navegación de branches.
-- [ ] `PromptInput`: SourceDocument + config de tooltip/teclado.
+### v1.4.0 — Paridad completa ✅ (publicado)
+- [x] `AiSpeechButton` + `useSpeechRecognition` — voz como acción de `PromptInput`.
+- [x] `Reasoning`: `getThinkingMessage`, duración ("Thought for Ns") y `autoClose`.
+- [x] `AiBranch` — navegación de branches (componente headless dedicado).
+- [x] `PromptInput`: `submitShortcut` (teclado) + `AiSourceDocuments` (documentos-fuente).
 
 ### v1.5.0 — Ecosistema
 - [ ] Publicar un **AI Elements Skill** para Nuxt (equivalente al de Vercel).
