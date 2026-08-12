@@ -1,6 +1,6 @@
 # AGENTS.md — ai-elements-nuxt
 
-Generic instructions for AI coding agents implementing Nuxt 3 / Vue 3 apps with **ai-elements-nuxt**: a headless UI layer on top of the [Vercel AI SDK](https://ai-sdk.dev) (`ai` ^6, `@ai-sdk/vue` ^3).
+Generic instructions for AI coding agents implementing Nuxt 3 / Vue 3 apps with **ai-elements-nuxt**: a headless UI layer on top of the [Vercel AI SDK](https://ai-sdk.dev) (`ai` ^7, `@ai-sdk/vue` ^4).
 
 **Hosted docs:** https://albegosu.github.io/ai-elements-nuxt/
 
@@ -12,7 +12,7 @@ Copy this file into consumer repos or link agents to it when building chat, agen
 
 | Layer | Responsibility |
 |-------|----------------|
-| **Components** (`Ai*`) | Headless UI: slots + `data-ai-*` hooks (52 components) |
+| **Components** (`Ai*`) | Headless UI: slots + `data-ai-*` hooks (66 components) |
 | **Composables** | `useAiChat`, `useAiAgent`, persistence, workflow, markdown |
 | **Utils** | `toAiMessageProps` — map `UIMessage` → `AiMessageProps` |
 | **Server** | `createChatHandler`, `createAgentHandler`, `createMockChatHandler` |
@@ -59,7 +59,7 @@ export default defineNuxtConfig({
 })
 ```
 
-**Peer dependencies:** `nuxt` ^3, `ai` ^6, `@ai-sdk/vue` ^3 (required for streaming chat).
+**Peer dependencies:** `nuxt` ^3, `ai` ^7, `@ai-sdk/vue` ^4 (required for streaming chat).
 
 ---
 
@@ -84,6 +84,20 @@ import type { AiMessageProps, AiSource, AiToolCall } from 'ai-elements-nuxt/type
 - Prefix: **`Ai`** + PascalCase (`Message.vue` → `AiMessage`).
 - **Do not** manually import `Ai*` in Nuxt apps with the module enabled.
 - Categories: **chatbot**, **code**, **voice**, **workflow**, **utilities**.
+
+<!-- REGISTRY:START -->
+#### Components (66)
+
+- **Chatbot:** AiAttachments, AiChainOfThought, AiCheckpoint, AiConfirmation, AiContext, AiConversation, AiErrorBoundary, AiInlineCitation, AiMessage, AiModelSelector, AiPlan, AiPromptInput, AiQueue, AiReasoning, AiShimmer, AiSources, AiStreamingCursor, AiSuggestion, AiTask, AiTool, AiToolApproval, AiApprovalPolicy, AiScreenshotButton, AiDownloadConversation, AiBranch, AiSpeechButton, AiSourceDocuments
+- **Code:** AiAgent, AiAgentTimeline, AiArtifact, AiCodeBlock, AiCommit, AiEnvVars, AiFileTree, AiPackageInfo, AiSandbox, AiSandboxPreview, AiSchemaDisplay, AiSnippet, AiStackTrace, AiTerminal, AiTestResults, AiVuePreview, AiWebPreview
+- **Voice:** AiAudioPlayer, AiMicSelector, AiPersona, AiSpeechInput, AiTranscription, AiVoiceSelector, AiRealtimeChat
+- **Workflow:** AiCanvas, AiConnection, AiControls, AiEdge, AiNode, AiPanel, AiToolbar
+- **Utilities:** AiImage, AiMarkdown, AiJsxPreview, AiOpenInChat, AiFileUpload, AiVideoPlayer, AiMcpApp, AiRuntimeContext
+
+#### Composables (11)
+
+`useAiAgent`, `useAiChat`, `useAiChatLocal`, `useAiChatPersisted`, `useAiCompletion`, `useAiMarkdown`, `useAiRealtime`, `useAiTools`, `useAiWorkflow`, `useScreenshotCapture`, `useSpeechRecognition`
+<!-- REGISTRY:END -->
 
 ### `AiMessage` (central piece)
 

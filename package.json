@@ -1,6 +1,6 @@
 {
   "name": "ai-elements-nuxt",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Nuxt/Vue complement to Vercel AI Elements — headless AI UI components for the AI SDK ecosystem",
   "author": "Alberto González <albegosu@gmail.com>",
   "license": "MIT",
@@ -17,17 +17,26 @@
     "./types": {
       "types": "./dist/runtime/types/index.d.ts",
       "import": "./dist/runtime/types/index.js"
-    }
+    },
+    "./registry": "./registry/components.json"
   },
   "main": "./dist/module.mjs",
   "types": "./dist/types.d.mts",
+  "bin": {
+    "ai-elements-nuxt-mcp": "./src/mcp/server.mjs"
+  },
   "files": [
     "dist",
-    "src/runtime"
+    "src/runtime",
+    "src/mcp",
+    "registry",
+    "skills"
   ],
   "scripts": {
-    "prepack": "nuxt-module-build build && node scripts/verify-dist.mjs",
-    "prepublishOnly": "pnpm run build && node scripts/verify-dist.mjs",
+    "prepack": "pnpm run generate:registry && pnpm run generate:skill && nuxt-module-build build && node scripts/verify-dist.mjs",
+    "prepublishOnly": "pnpm run generate:registry && pnpm run generate:skill && pnpm run build && node scripts/verify-dist.mjs",
+    "generate:registry": "node scripts/generate-registry.mjs",
+    "generate:skill": "node scripts/generate-skill.mjs",
     "dev": "TMPDIR=/tmp nuxi dev docs",
     "dev:docs": "TMPDIR=/tmp nuxi dev docs",
     "dev:playground": "TMPDIR=/tmp nuxi dev playground",
@@ -56,6 +65,7 @@
     }
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
     "@nuxt/kit": "^3.15.0",
     "marked": "^15.0.0"
   },
@@ -71,6 +81,7 @@
     "eslint": "^9.0.0",
     "h3": "^1.13.0",
     "happy-dom": "^15.0.0",
+    "jiti": "2.7.0",
     "nuxt": "^3.15.0",
     "typescript": "^5.3.0",
     "vitest": "^2.1.0",

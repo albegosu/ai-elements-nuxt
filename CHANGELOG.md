@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.5.0
+
+### Added
+- **MCP server** (`ai-elements-nuxt-mcp` bin) — exposes the component registry to agents via the Model Context Protocol. Tools: `list_components`, `get_component`, `search_components`, `list_composables`; resource `ai-elements://registry`
+- **Agent skill** (`skills/ai-elements-nuxt/SKILL.md`) — installable skill with an auto-generated component/composable list
+- **Component registry** — `registry/components.json` (props/slots/events/usage for all 66 components), importable via `ai-elements-nuxt/registry`
+- Generators `scripts/generate-registry.mjs` + `scripts/generate-skill.mjs` (wired into `prepack` / `prepublishOnly`)
+
+### Changed
+- Refreshed `AGENTS.md` and `.cursor/rules` — now 66 components, `ai ^7`, `@ai-sdk/vue ^4`; component/composable list auto-generated from the registry (no more drift)
+- Added `@modelcontextprotocol/sdk` dependency
+
 ## 1.4.0
 
 ### Added

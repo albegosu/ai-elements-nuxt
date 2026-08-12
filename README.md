@@ -240,6 +240,24 @@ import {
 } from 'ai-elements-nuxt/server'
 ```
 
+## For AI agents (MCP + skill)
+
+The package ships tooling so coding agents can build with the library accurately:
+
+- **MCP server** — a Model Context Protocol stdio server exposing the component registry:
+
+  ```bash
+  npx ai-elements-nuxt-mcp
+  ```
+
+  Tools: `list_components`, `get_component`, `search_components`, `list_composables`; resource `ai-elements://registry`. Add it to your MCP client (Claude Code / Cursor) as a stdio server running that command.
+
+- **Skill** — `skills/ai-elements-nuxt/SKILL.md`, an installable agent skill with an auto-generated component list. Copy it into your agent's skills directory (e.g. `.claude/skills/`).
+- **Registry JSON** — import the raw metadata directly: `import registry from 'ai-elements-nuxt/registry'`.
+- **[AGENTS.md](AGENTS.md)** — full implementation guide (also drives `.cursor/rules`).
+
+The component/composable lists in the skill and AGENTS.md are generated from `registry/components.json`, so they never drift from the code.
+
 ## Development
 
 ```bash
