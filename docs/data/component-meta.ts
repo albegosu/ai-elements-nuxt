@@ -554,6 +554,19 @@ const nodes = reactive([
     slots: ['caption'],
     code: `<AiImage src="/diagram.png" alt="Architecture" :zoomable="true" />`,
   },
+  'utilities/jsx-preview': {
+    props: [
+      { name: 'content', type: 'string', default: "''", description: 'Markup to render (may be incomplete while streaming)' },
+      { name: 'streaming', type: 'boolean', default: 'true', description: 'Auto-close tags cut off mid-stream' },
+      { name: 'sanitize', type: '(html: string) => string', description: 'Override the default markup sanitizer' },
+    ],
+    slots: ['default'],
+    code: `<AiJsxPreview :content="streamedMarkup">
+  <template #default="{ html }">
+    <div class="prose" v-html="html" />
+  </template>
+</AiJsxPreview>`,
+  },
   'chatbot/approval-policy': {
     props: [
       { name: 'tools', type: 'AiApprovalPolicies', required: true, description: 'Map of tool names to approval policies (auto-approve, auto-deny, user-approval)' },
@@ -570,6 +583,36 @@ const nodes = reactive([
   @approve="handleApprove"
   @deny="handleDeny"
 />`,
+  },
+  'chatbot/screenshot-button': {
+    props: [
+      { name: 'disabled', type: 'boolean', default: 'false' },
+    ],
+    slots: ['default', 'icon'],
+    events: [
+      { name: 'capture', payload: 'AiScreenshotCapture' },
+      { name: 'error', payload: 'Error' },
+    ],
+    code: `<AiScreenshotButton @capture="attachScreenshot" @error="onError">
+  <template #default="{ capture, capturing }">
+    <button :disabled="capturing" @click="capture">📷</button>
+  </template>
+</AiScreenshotButton>`,
+  },
+  'chatbot/download-conversation': {
+    props: [
+      { name: 'messages', type: 'AiMessageLike[]', required: true, description: 'Messages to serialize ({ role, content } or UIMessage parts)' },
+      { name: 'filename', type: 'string', default: "'conversation.md'" },
+    ],
+    slots: ['default', 'label'],
+    events: [
+      { name: 'download', payload: 'string' },
+    ],
+    code: `<AiDownloadConversation :messages="messages" filename="chat.md">
+  <template #default="{ download, disabled }">
+    <button :disabled="disabled" @click="download">Download</button>
+  </template>
+</AiDownloadConversation>`,
   },
   'code/agent-timeline': {
     props: [
